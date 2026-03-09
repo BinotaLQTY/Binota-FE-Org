@@ -1,0 +1,122 @@
+specVersion: 1.2.0
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: UnoToken
+    source:
+      abi: UnoToken
+      address: "0xE3ce6e0bA2F6CE27aB0C121c3d0f9b9c30F590d7"
+      startBlock: 52808000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - Collateral
+        - CollateralAddresses
+      abis:
+        - name: BorrowerOperations
+          file: ../contracts/out/BorrowerOperations.sol/BorrowerOperations.json
+        - name: UnoToken
+          file: ../contracts/out/UnoToken.sol/UnoToken.json
+        - name: CollateralRegistry
+          file: ../contracts/out/CollateralRegistry.sol/CollateralRegistry.json
+        - name: ERC20
+          file: ../contracts/out/ERC20.sol/ERC20.json
+        - name: TroveManager
+          file: ../contracts/out/TroveManager.sol/TroveManager.json
+        - name: TroveNFT
+          file: ../contracts/out/TroveNFT.sol/TroveNFT.json
+      eventHandlers:
+        - event: CollateralRegistryAddressChanged(address)
+          handler: handleCollateralRegistryAddressChanged
+      file: ./src/UnoToken.mapping.ts
+    network: monad
+  - kind: ethereum/contract
+    name: Governance
+    source:
+      abi: Governance
+      address: "0x3682b85A63A6e8Ce05962907F177E28A36Fa801C"
+      startBlock: 52808000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - GovernanceAllocation
+        - GovernanceInitiative
+        - GovernanceUser
+      abis:
+        - name: Governance
+          file: ../contracts/out/Governance.sol/Governance.json
+      eventHandlers:
+        - event: DepositSTAToken(indexed address,uint256)
+          handler: handleDepositSTAToken
+        - event: WithdrawSTAToken(indexed address,uint256)
+          handler: handleWithdrawSTAToken
+        - event: AllocateSTAToken(indexed address,indexed
+            address,int256,int256,uint256,uint8)
+          handler: handleAllocateSTAToken
+        - event: RegisterInitiative(address,address,uint256,uint8)
+          handler: handleRegisterInitiative
+        - event: UnregisterInitiative(address,uint256,uint8)
+          handler: handleUnregisterInitiative
+      file: ./src/Governance.mapping.ts
+    network: monad
+templates:
+  - name: TroveManager
+    kind: ethereum/contract
+    network: monad
+    source:
+      abi: TroveManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      file: ./src/TroveManager.mapping.ts
+      entities:
+        - Trove
+        - InterestRateBracket
+        - InterestBatch
+        - BorrowerInfo
+        - Collateral
+      abis:
+        - name: TroveManager
+          file: ../contracts/out/TroveManager.sol/TroveManager.json
+        - name: TroveNFT
+          file: ../contracts/out/TroveNFT.sol/TroveNFT.json
+      eventHandlers:
+        - event: TroveOperation(indexed
+            uint256,uint8,uint256,uint256,uint256,int256,uint256,int256)
+          handler: handleTroveOperation
+          receipt: true
+        - event: TroveUpdated(indexed
+            uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleTroveUpdated
+        - event: BatchedTroveUpdated(indexed
+            uint256,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleBatchedTroveUpdated
+          receipt: true
+        - event: BatchUpdated(indexed
+            address,uint8,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleBatchUpdated
+  - name: TroveNFT
+    kind: ethereum/contract
+    network: monad
+    source:
+      abi: TroveNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      file: ./src/TroveNFT.mapping.ts
+      entities:
+        - BorrowerInfo
+        - Trove
+      abis:
+        - name: TroveNFT
+          file: ../contracts/out/TroveNFT.sol/TroveNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer

@@ -1,0 +1,40 @@
+{
+  "local": {
+    "UnoToken": {
+      "address": "0x0e18b884ec3095f7c27bbbeb0a266a5674bcaffd"
+    },
+    "Governance": {
+      "address": "0x79fdb65c20e75f8961d54f6714d2fcc4c30d1073"
+    }
+  },
+  "mainnet": {
+    "UnoToken": {
+      "address": "0x6440f144b7e50d6a8439336510312d2f54beb01d",
+      "startBlock": 22483043
+    },
+    "Governance": {
+      "address": "0x807def5e7d057df05c796f4bc75c3fe82bd6eee1",
+      "startBlock": 22496547
+    }
+  },
+  "sepolia": {
+    "UnoToken": {
+      "address": "0xb01d32c05f4aa066eef2bfd4d461833fddd56d0a",
+      "startBlock": 50846486
+    },
+    "Governance": {
+      "address": "0xe3f9ca5398cc3d0099c3ad37d3252e37431555b8",
+      "startBlock": 50846486
+    }
+  },
+  "monad": {
+    "UnoToken": {
+      "address": "0xE3ce6e0bA2F6CE27aB0C121c3d0f9b9c30F590d7",
+      "startBlock": 52808000
+    },
+    "Governance": {
+      "address": "0x3682b85A63A6e8Ce05962907F177E28A36Fa801C",
+      "startBlock": 52808000
+    }
+  }
+}

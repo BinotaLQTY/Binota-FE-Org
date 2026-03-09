@@ -1,0 +1,17 @@
+{
+  "name": "@binota/subgraph",
+  "author": "Binota",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "codegen": "pnpm graph codegen"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.97.1"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.38.2",
+    "tsx": "^4.20.6",
+    "zx": "^8.8.5"
+  }
+}
