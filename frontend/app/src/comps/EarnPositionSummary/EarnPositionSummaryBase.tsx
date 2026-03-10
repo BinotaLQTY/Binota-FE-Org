@@ -60,7 +60,7 @@ export function EarnPositionSummaryBase({
         "--border-inactive": "token(colors.infoSurfaceBorder)",
 
         "--bg-active": "token(colors.brandDarkPurple)",
-        "--bg-inactive": "token(colors.purple:50)",
+        "--bg-inactive": "token(colors.yellow:50)",
       })}
       style={{
         color: `var(--fg-primary-${active ? "active" : "inactive"})`,

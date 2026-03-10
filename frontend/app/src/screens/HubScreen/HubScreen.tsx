@@ -33,7 +33,7 @@ export function HubScreen() {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px 8px",
-              color: "token(colors.purple:800)",
+              color: "token(colors.yellow:800)",
               width: "100%",
               maxWidth: "540px",
               fontSize: "28px",

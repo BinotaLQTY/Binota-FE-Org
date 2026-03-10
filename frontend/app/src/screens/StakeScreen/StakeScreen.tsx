@@ -48,7 +48,7 @@ export function StakeScreen() {
               justifyContent: "left",
               gap: "8px 8px",
               // fontFamily: "Kaypro",
-              color: "token(colors.purple:800)",
+              color: "token(colors.yellow:800)",
               width: "100%",
               maxWidth: "540px",
               fontSize: "28px",
