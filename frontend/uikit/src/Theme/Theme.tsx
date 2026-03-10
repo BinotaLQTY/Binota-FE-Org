@@ -4,21 +4,21 @@ import type { ReactNode } from "react";
 
 import { createContext, useContext, useState } from "react";
 
-// The Liquity V2 base color palette, meant
+// The Binota base color palette, meant
 // to be used by themes rather than directly.
 export const colors = {
-  // Purple (based on #8a00c4)
-  "purple:50": "#f5f0ff",
-  "purple:100": "#ede0ff",
-  "purple:200": "#dbc2ff",
-  "purple:300": "#c299ff",
-  "purple:400": "#a366ff",
-  "purple:500": "#8a00c4",
-  "purple:600": "#7300a3",
-  "purple:700": "#5c0082",
-  "purple:800": "#450061",
-  "purple:900": "#2e0040",
-  "purple:950": "#1a0024",
+  // Gold (based on Binance/Pantone palette)
+  "purple:50": "#fffdf5",
+  "purple:100": "#fff9e6",
+  "purple:200": "#fff3d6",
+  "purple:300": "#ffe8b3",
+  "purple:400": "#ffb204",
+  "purple:500": "#f8bb00",
+  "purple:600": "#f0b90b",
+  "purple:700": "#e69f00",
+  "purple:800": "#c78500",
+  "purple:900": "#8b5e00",
+  "purple:950": "#0c0e12",
 
   // Gray
   "gray:50": "#F5F6F8",
@@ -84,9 +84,9 @@ export const colors = {
   "white": "#FFFFFF",
 
   // Brand colors
-  "brand:purple": "#8a00c4",
-  "brand:lightPurple": "#dbc2ff",
-  "brand:darkPurple": "#450061",
+  "brand:purple": "#f8bb00",
+  "brand:lightPurple": "#fff3d6",
+  "brand:darkPurple": "#e69f00",
   "brand:green": "#63D77D",
   "brand:golden": "#F5D93A",
   "brand:cyan": "#95CBF3",
@@ -108,7 +108,7 @@ export const lightTheme = {
   colors: {
     accent: "purple:500",
     accentActive: "purple:600",
-    accentContent: "white",
+    accentContent: "purple:950",
     accentHint: "purple:400",
     background: "white",
     backgroundActive: "gray:50",
@@ -133,7 +133,7 @@ export const lightTheme = {
     focusedSurface: "purple:100",
     focusedSurfaceActive: "purple:200",
     strongSurface: "purple:800",
-    strongSurfaceContent: "white",
+    strongSurfaceContent: "purple:950",
     strongSurfaceContentAlt: "gray:500",
     strongSurfaceContentAlt2: "gray:100",
     position: "#2E2E3D",
@@ -173,10 +173,10 @@ export const lightTheme = {
     disabledContent: "gray:500",
     disabledSurface: "gray:50",
     brandPurple: "brand:purple",
-    brandPurpleContent: "white",
-    brandPurpleContentAlt: "purple:50",
+    brandPurpleContent: "purple:950",
+    brandPurpleContentAlt: "purple:900",
     brandDarkPurple: "brand:darkPurple",
-    brandDarkPurpleContent: "white",
+    brandDarkPurpleContent: "purple:950",
     brandDarkPurpleContentAlt: "gray:50",
     brandLightPurple: "brand:lightPurple",
     brandGolden: "brand:golden",
