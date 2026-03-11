@@ -144,7 +144,7 @@ export function HomeTable<Cols extends readonly ReactNode[]>({
             },
             "& td": {
               padding: "12px 0",
-              borderTop: "1px solid token(colors.controlBorder)",
+              borderTop: "1px solid token(colors.tableBorder)",
             },
             "& th:first-of-type, & td:first-of-type": {
               textAlign: "left",

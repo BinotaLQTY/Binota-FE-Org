@@ -215,7 +215,7 @@ export const darkTheme = {
 
     // Misc
     separator: "gray:800",
-    tableBorder: "gray:700",
+    tableBorder: "yellow:900",
 
     // Warning states
     warning: "orange:500",
@@ -302,7 +302,7 @@ export function themeColor(theme: ThemeDescriptor, name: ThemeColorName) {
 
 const ThemeContext = createContext({
   theme: darkTheme,
-  setTheme: (_: ThemeDescriptor) => {},
+  setTheme: (_: ThemeDescriptor) => { },
 });
 
 export function useTheme() {
