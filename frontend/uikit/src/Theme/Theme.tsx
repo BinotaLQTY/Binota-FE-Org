@@ -149,7 +149,7 @@ export const darkTheme = {
     dimmed: "gray:500",
 
     // Controls (buttons, inputs)
-    controlBorder: "gray:700",
+    controlBorder: "yellow:500",
     controlBorderStrong: "yellow:500",
     controlSurface: "gray:800",
     controlSurfaceAlt: "gray:700",

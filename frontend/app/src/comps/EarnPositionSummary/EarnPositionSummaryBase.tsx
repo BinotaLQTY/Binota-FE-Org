@@ -76,7 +76,7 @@ export function EarnPositionSummaryBase({
           paddingBottom: 12,
         })}
         style={{
-          borderBottom: `1px solid #dbc2ff`,
+          borderBottom: "1px solid var(--colors-control-border)",
         }}
       >
         <div
