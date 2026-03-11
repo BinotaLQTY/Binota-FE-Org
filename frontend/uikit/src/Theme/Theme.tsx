@@ -139,7 +139,7 @@ export const darkTheme = {
     surfaceAlt: "gray:700", // Elevated surfaces
 
     // Borders
-    border: "gray:700",
+    border: "yellow:900",
     borderSoft: "gray:800",
 
     // Content/Text
@@ -157,11 +157,11 @@ export const darkTheme = {
     // Info surfaces
     hint: "gray:800",
     infoSurface: "gray:800",
-    infoSurfaceBorder: "gray:700",
+    infoSurfaceBorder: "yellow:900",
     infoSurfaceContent: "gray:100",
 
     // Fields (inputs)
-    fieldBorder: "gray:700",
+    fieldBorder: "yellow:900",
     fieldBorderFocused: "yellow:500",
     fieldSurface: "gray:800",
 
