@@ -254,8 +254,8 @@ export const darkTheme = {
     riskGradientDimmed3: "green:900",
 
     // Loading gradient
-    loadingGradient1: "yellow:800",
-    loadingGradient2: "yellow:400",
+    loadingGradient1: "yellow:700",
+    loadingGradient2: "yellow:500",
     loadingGradientContent: "yellow:500",
 
     // Additional brand colors
