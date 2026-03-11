@@ -182,7 +182,7 @@ export const darkTheme = {
     positionContentAlt: "gray:200",
 
     // Interactive elements
-    interactive: "yellow:500",
+    interactive: "gray:200",
     selected: "yellow:500",
 
     // Negative/Error states (Binance red)
