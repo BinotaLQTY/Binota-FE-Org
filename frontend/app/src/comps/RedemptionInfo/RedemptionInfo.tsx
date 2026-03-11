@@ -16,7 +16,7 @@ function RedemptionIcon() {
   return (
     <svg width="28" height="24" fill="none">
       <path
-        fill="#8a00c4"
+        fill="#f0b90b"
         d={
           "M16 0A12 12 0 0 0 4 12H0l5.334 5.333L10.667 12h-4" +
           "a9.327 9.327 0 0 1 9.334-9.333A9.327 9.327 0 0 1 25.334 12" +
@@ -33,7 +33,7 @@ function InterestIcon() {
   return (
     <svg width="20" height="24" fill="none">
       <path
-        fill="#8a00c4"
+        fill="#f0b90b"
         d={
           "M10 0 0 4.364v6.545C0 16.964 4.267 22.625 10 24" +
           "c5.733-1.375 10-7.036 10-13.09V4.363L10 0Z"
