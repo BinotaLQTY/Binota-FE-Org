@@ -63,7 +63,7 @@ function BridgeContent() {
         className={css({
           padding: "16px",
           background: "surfaceAlt",
-          borderRadius: 8,
+          borderRadius: 0,
           fontSize: 14,
           color: "contentAlt",
         })}
