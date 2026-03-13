@@ -87,7 +87,7 @@ export function AirdropViewer() {
               className={css({
                 height: 8,
                 background: "fieldBorder",
-                borderRadius: 4,
+                borderRadius: 0,
                 overflow: "hidden",
               })}
             >
@@ -95,7 +95,7 @@ export function AirdropViewer() {
                 className={css({
                   height: "100%",
                   background: "accent",
-                  borderRadius: 4,
+                  borderRadius: 0,
                   transition: "width 0.3s ease",
                 })}
                 style={{ width: `${milestoneData.progressPercent}%` }}
@@ -159,7 +159,7 @@ export function AirdropViewer() {
             className={css({
               padding: "24px",
               background: "fieldSurface",
-              borderRadius: 8,
+              borderRadius: 0,
               textAlign: "center",
             })}
           >
@@ -210,7 +210,7 @@ export function AirdropViewer() {
                       alignItems: "center",
                       padding: "12px 16px",
                       background: "fieldSurface",
-                      borderRadius: 8,
+                      borderRadius: 0,
                       border: "1px solid token(colors.fieldBorder)",
                     })}
                   >
@@ -259,7 +259,7 @@ export function AirdropViewer() {
                 className={css({
                   padding: "12px 16px",
                   background: "fieldSurface",
-                  borderRadius: 8,
+                  borderRadius: 0,
                 })}
               >
                 <div className={css({ fontSize: 11, color: "contentAlt", marginBottom: 2 })}>

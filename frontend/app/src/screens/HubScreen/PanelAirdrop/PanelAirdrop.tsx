@@ -21,7 +21,7 @@ export function PanelAirdrop() {
             className={css({
               padding: "24px",
               background: "surface",
-              borderRadius: 8,
+              borderRadius: 0,
               border: "1px solid token(colors.separator)",
             })}
           >
@@ -32,7 +32,7 @@ export function PanelAirdrop() {
             className={css({
               padding: "24px",
               background: "surface",
-              borderRadius: 8,
+              borderRadius: 0,
               border: "1px solid token(colors.separator)",
             })}
           >

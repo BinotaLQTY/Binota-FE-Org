@@ -92,7 +92,7 @@ export function UnoVaultPanel() {
           className={css({
             padding: "16px",
             background: "fieldSurface",
-            borderRadius: 8,
+            borderRadius: 0,
           })}
         >
           <div className={css({ fontSize: 12, color: "contentAlt", marginBottom: 4 })}>
@@ -106,7 +106,7 @@ export function UnoVaultPanel() {
           className={css({
             padding: "16px",
             background: "fieldSurface",
-            borderRadius: 8,
+            borderRadius: 0,
           })}
         >
           <div className={css({ fontSize: 12, color: "contentAlt", marginBottom: 4 })}>

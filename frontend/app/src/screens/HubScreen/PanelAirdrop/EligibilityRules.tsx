@@ -65,7 +65,7 @@ function CriteriaCard({
       className={css({
         padding: "20px",
         background: "fieldSurface",
-        borderRadius: 8,
+        borderRadius: 0,
         border: "1px solid token(colors.fieldBorder)",
         transition: "border-color 0.2s",
         _hover: {
