@@ -1,4 +1,4 @@
-import { HFlex, InfoTooltip, TokenIcon } from "@binota/uikit";
+import { InfoTooltip, TokenIcon } from "@binota/uikit";
 import * as dn from "dnum";
 import type { ReactNode } from "react";
 import { Amount } from "@/src/comps/Amount/Amount";
@@ -179,26 +179,47 @@ export function EarnPositionSummary({
               label: "Rewards",
               content: active ? (
                 <>
-                  <HFlex
-                    gap={4}
+                  <div
                     title={`${fmtnum(earnPosition?.rewards.bold, "full")} BOLD`}
                     className={css({
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      gap: 4,
+                      height: 24,
                       fontVariantNumeric: "tabular-nums",
                     })}
                   >
                     {fmtnum(earnPosition?.rewards.bold)}
                     <TokenIcon symbol="UNO" size="mini" title={null} />
-                  </HFlex>
-                  <HFlex gap={4}>
+                  </div>
+                  <div
+                    className={css({
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      gap: 4,
+                      height: 24,
+                    })}
+                  >
                     <Amount value={earnPosition?.rewards.coll} />
                     <TokenIcon symbol={collToken.symbol} size="mini" />
-                  </HFlex>
+                  </div>
                 </>
               ) : (
-                <TokenIcon.Group size="mini">
-                  <TokenIcon symbol="UNO" />
-                  <TokenIcon symbol={collToken.symbol} />
-                </TokenIcon.Group>
+                <div
+                  className={css({
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    height: 24,
+                  })}
+                >
+                  <TokenIcon.Group size="mini">
+                    <TokenIcon symbol="UNO" />
+                    <TokenIcon symbol={collToken.symbol} />
+                  </TokenIcon.Group>
+                </div>
               ),
             },
         !active
