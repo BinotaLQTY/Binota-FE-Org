@@ -46,6 +46,7 @@ import { updateBorrowPosition, type UpdateBorrowPositionRequest } from "@/src/tx
 import { updateLeveragePosition, type UpdateLeveragePositionRequest } from "@/src/tx-flows/updateLeveragePosition";
 import { updateLoanInterestRate, type UpdateLoanInterestRateRequest } from "@/src/tx-flows/updateLoanInterestRate";
 import { bridgeSend, type BridgeSendRequest } from "@/src/tx-flows/bridgeSend";
+import { redeemLzBnt, type RedeemLzBntRequest } from "@/src/tx-flows/redeemLzBnt";
 
 export type FlowRequestMap = {
   "allocateVotingPower": AllocateVotingPowerRequest;
@@ -64,6 +65,7 @@ export type FlowRequestMap = {
   "openBorrowPosition": OpenBorrowPositionRequest;
   "openLeveragePosition": OpenLeveragePositionRequest;
   "redeemCollateral": RedeemCollateralRequest;
+  "redeemLzBnt": RedeemLzBntRequest;
   "stakeClaimRewards": StakeClaimRewardsRequest;
   "stakeDeposit": StakeDepositRequest;
   "unstakeDeposit": UnstakeDepositRequest;
@@ -89,6 +91,7 @@ const FlowIdSchema = v.union([
   v.literal("openBorrowPosition"),
   v.literal("openLeveragePosition"),
   v.literal("redeemCollateral"),
+  v.literal("redeemLzBnt"),
   v.literal("stakeClaimRewards"),
   v.literal("stakeDeposit"),
   v.literal("unstakeDeposit"),
@@ -114,6 +117,7 @@ export const flows: FlowsMap = {
   openBorrowPosition,
   openLeveragePosition,
   redeemCollateral,
+  redeemLzBnt,
   stakeClaimRewards,
   stakeDeposit,
   unstakeDeposit,

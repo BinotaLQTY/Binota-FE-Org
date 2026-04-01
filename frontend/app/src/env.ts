@@ -232,6 +232,9 @@ export const EnvSchema = v.pipe(
     CONTRACT_SP_ADAPTER_SMON: v.optional(vAddress()),
     CONTRACT_SP_ADAPTER_GMON: v.optional(vAddress()),
 
+    // lzBNT redemption contract (optional - when not set, redeem feature is disabled)
+    CONTRACT_LZBNT_TOKEN: v.optional(vAddress()),
+
     ...vBranchEnvVars(0).entries,
     ...vBranchEnvVars(1).entries,
     ...vBranchEnvVars(2).entries,
@@ -406,6 +409,9 @@ const parsedEnv = v.safeParse(EnvSchema, {
   CONTRACT_SP_ADAPTER_SMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_SMON,
   CONTRACT_SP_ADAPTER_GMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_GMON,
 
+  // lzBNT redemption
+  CONTRACT_LZBNT_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_LZBNT_TOKEN,
+
   COLL_0_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_0_TOKEN_ID,
   COLL_1_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_1_TOKEN_ID,
   COLL_2_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_2_TOKEN_ID,
@@ -570,6 +576,8 @@ export const {
   CONTRACT_SP_ADAPTER_SHMON,
   CONTRACT_SP_ADAPTER_SMON,
   CONTRACT_SP_ADAPTER_GMON,
+  // lzBNT redemption
+  CONTRACT_LZBNT_TOKEN,
 } = parsedEnv.output;
 
 // Explicit export to satisfy Next.js static analysis
