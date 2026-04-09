@@ -56,21 +56,21 @@ Add an lzBNT redemption tab to the Hub section, allowing users to convert LayerZ
 
 ### New Files
 
-| File | Purpose |
-|------|---------|
-| `src/abi/LzBNT.ts` | Contract ABI (ERC20 + redeem function) |
-| `src/services/Hub/RedeemProvider.tsx` | State management context |
-| `src/screens/HubScreen/PanelRedeem.tsx` | UI panel component |
-| `src/tx-flows/redeemLzBnt.tsx` | Transaction flow declaration |
-| `src/redeem-contracts.ts` | Contract configuration helpers |
+| File                                    | Purpose                                |
+| --------------------------------------- | -------------------------------------- |
+| `src/abi/LzBNT.ts`                      | Contract ABI (ERC20 + redeem function) |
+| `src/services/Hub/RedeemProvider.tsx`   | State management context               |
+| `src/screens/HubScreen/PanelRedeem.tsx` | UI panel component                     |
+| `src/tx-flows/redeemLzBnt.tsx`          | Transaction flow declaration           |
+| `src/redeem-contracts.ts`               | Contract configuration helpers         |
 
 ### Modified Files
 
-| File | Changes |
-|------|---------|
-| `src/env.ts` | Add CONTRACT_LZBNT_TOKEN env var |
-| `src/services/TransactionFlow.tsx` | Register redeemLzBnt flow |
-| `src/screens/HubScreen/HubScreen.tsx` | Add lzBNT tab + mobile dropdown |
+| File                                  | Changes                          |
+| ------------------------------------- | -------------------------------- |
+| `src/env.ts`                          | Add CONTRACT_LZBNT_TOKEN env var |
+| `src/services/TransactionFlow.tsx`    | Register redeemLzBnt flow        |
+| `src/screens/HubScreen/HubScreen.tsx` | Add lzBNT tab + mobile dropdown  |
 
 ## Component Specifications
 
@@ -90,26 +90,31 @@ Add an lzBNT redemption tab to the Hub section, allowing users to convert LayerZ
 ### RedeemProvider.tsx
 
 **State:**
+
 - `redeemAmount: Dnum` - Amount to redeem
 - `lzBntBalance: Dnum | null` - User's lzBNT balance
 - `isLoadingBalance: boolean` - Loading state
 - `isConfigured: boolean` - Whether contract is configured
 
 **Validation:**
+
 - Wallet must be connected
 - Amount must be > 0
 - Amount must be <= balance
 
 **Actions:**
+
 - `setRedeemAmount(amount: Dnum)` - Update amount
 - `setMaxAmount()` - Set to full balance
 
 **Hooks:**
+
 - Uses `useReadContract` to fetch lzBNT balance via `balanceOf(address)`
 
 ### redeemLzBnt.tsx
 
 **Request Schema:**
+
 ```typescript
 {
   flowId: "redeemLzBnt",
@@ -121,22 +126,28 @@ Add an lzBNT redemption tab to the Hub section, allowing users to convert LayerZ
 ```
 
 **Flow Steps:**
+
 1. `redeemLzBnt` - Calls `redeem(amount)` on lzBNT contract
 
 **Components:**
+
 - `Summary` - Shows redemption amount and expected BNT
 - `Details` - Transaction details for review
 
 ### redeem-contracts.ts
 
 ```typescript
-export function getLzBntContract(): { abi: typeof LzBNT; address: Address } | null
-export function isLzBntConfigured(): boolean
+export function getLzBntContract(): {
+  abi: typeof LzBNT;
+  address: Address;
+} | null;
+export function isLzBntConfigured(): boolean;
 ```
 
 ### LzBNT.ts (ABI)
 
 ERC20 standard functions:
+
 - `balanceOf(address)`
 - `decimals()`
 - `name()`
@@ -148,11 +159,13 @@ ERC20 standard functions:
 - `transferFrom(from, to, amount)`
 
 Plus lzBNT-specific:
+
 - `redeem(amount)` - Converts lzBNT to BNT
 
 ### HubScreen.tsx Changes
 
 **Tabs:**
+
 ```typescript
 const TABS = [
   { label: "Bridge", id: "bridge" },
@@ -163,11 +176,13 @@ const TABS = [
 ```
 
 **Mobile Support:**
+
 - Use `useBreakpointName()` to detect mobile
 - Render `<Dropdown>` on mobile, `<Tabs>` on desktop
 - Same pattern as Moneta's HubScreen
 
 **Subtitle Update:**
+
 ```
 "Bridge UNO across chains, track your points, check your airdrop and redeem lzBNT."
 ```
@@ -175,12 +190,14 @@ const TABS = [
 ## Environment Configuration
 
 ### env.ts Schema Addition
+
 ```typescript
 // lzBNT redemption contract (optional - when not set, redeem feature is disabled)
 CONTRACT_LZBNT_TOKEN: v.optional(vAddress()),
 ```
 
 ### .env.local
+
 ```
 NEXT_PUBLIC_CONTRACT_LZBNT_TOKEN=0x3f3a338b0213f3a5ee39a046d452ff3f875117c7
 ```
@@ -190,10 +207,15 @@ NEXT_PUBLIC_CONTRACT_LZBNT_TOKEN=0x3f3a338b0213f3a5ee39a046d452ff3f875117c7
 ## TransactionFlow Registration
 
 Add to `src/services/TransactionFlow.tsx`:
+
 - Import `redeemLzBnt` and `RedeemLzBntRequest`
 - Add to `FlowRequestMap` type
 - Add to `FlowIdSchema` union
 - Add to `flows` object
+
+## Updating the Chain Config
+
+The chain setup should be updated to focus on BSC. Monad was for the previous app, this app focuses only on BSC and a different plan may need to be put together to make all these Chain related changes that affect the whole app.
 
 ## Data Flow
 

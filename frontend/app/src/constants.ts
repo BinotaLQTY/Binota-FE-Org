@@ -71,10 +71,7 @@ export const TROVE_STATUS_ZOMBIE = 4;
 
 // XXX what is the point of this?
 export const MAX_COLLATERAL_DEPOSITS: Record<CollateralSymbol, dn.Dnum> = {
-  MON: dn.from(100_000_000n, 18),
-  shMON: dn.from(100_000_000n, 18),
-  sMON: dn.from(100_000_000n, 18),
-  gMON: dn.from(100_000_000n, 18),
+  BNB: dn.from(100_000_000n, 18),
 };
 
 // DEBT suggestions, as ratios of the max LTV

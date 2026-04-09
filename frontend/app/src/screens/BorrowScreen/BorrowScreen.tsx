@@ -154,7 +154,7 @@ export function BorrowScreen() {
       maxCollDeposit,
       dnumMax(
         // Only keep a reserve for ETH, not LSTs
-        dn.sub(collBalance.data, collSymbol === "MON" ? ETH_MAX_RESERVE : 0),
+        dn.sub(collBalance.data, collSymbol === "BNB" ? ETH_MAX_RESERVE : 0),
         dnum18(0),
       ),
     );

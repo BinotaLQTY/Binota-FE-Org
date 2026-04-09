@@ -8,10 +8,7 @@ export const SOURCE_IDS = {
   SOURCE_NTA: "0x0000000000000000000000000000000000000000000000000000000000000001",
   SOURCE_LP_DEX_A: "0x0000000000000000000000000000000000000000000000000000000000000002",
   SOURCE_LP_DEX_B: "0x0000000000000000000000000000000000000000000000000000000000000003",
-  SOURCE_SP_MON: "0x0000000000000000000000000000000000000000000000000000000000000004",
-  SOURCE_SP_SHMON: "0x0000000000000000000000000000000000000000000000000000000000000005",
-  SOURCE_SP_SMON: "0x0000000000000000000000000000000000000000000000000000000000000006",
-  SOURCE_SP_GMON: "0x0000000000000000000000000000000000000000000000000000000000000007",
+  SOURCE_SP_BNB: "0x0000000000000000000000000000000000000000000000000000000000000004",
 } as const;
 
 /**
@@ -28,10 +25,7 @@ export enum EAdapterType {
  */
 export enum EAdapters {
   // Stability Pool Adapters
-  MON_SP = "MON_SP",
-  SHMON_SP = "SHMON_SP",
-  SMON_SP = "SMON_SP",
-  GMON_SP = "GMON_SP",
+  BNB_SP = "BNB_SP",
   // Liquidity Pool Adapters
   DEX_A_LP = "DEX_A_LP",
   DEX_B_LP = "DEX_B_LP",
@@ -64,41 +58,14 @@ export type TAdapterConfig = {
  */
 export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
   // Stability Pool Adapters - wrap StabilityPool contracts
-  [EAdapters.MON_SP]: {
-    name: "MON Stability Pool",
+  [EAdapters.BNB_SP]: {
+    name: "BNB Stability Pool",
     type: EAdapterType.STABILITY_POOL,
-    collateralSymbol: "MON",
+    collateralSymbol: "BNB",
     branchId: 0,
     depositToken: "UNO",
-    sourceId: SOURCE_IDS.SOURCE_SP_MON,
-    description: "Deposit UNO in the MON stability pool to earn NTA rewards",
-  },
-  [EAdapters.SHMON_SP]: {
-    name: "shMON Stability Pool",
-    type: EAdapterType.STABILITY_POOL,
-    collateralSymbol: "shMON",
-    branchId: 1,
-    depositToken: "UNO",
-    sourceId: SOURCE_IDS.SOURCE_SP_SHMON,
-    description: "Deposit UNO in the shMON stability pool to earn NTA rewards",
-  },
-  [EAdapters.SMON_SP]: {
-    name: "sMON Stability Pool",
-    type: EAdapterType.STABILITY_POOL,
-    collateralSymbol: "sMON",
-    branchId: 2,
-    depositToken: "UNO",
-    sourceId: SOURCE_IDS.SOURCE_SP_SMON,
-    description: "Deposit UNO in the sMON stability pool to earn NTA rewards",
-  },
-  [EAdapters.GMON_SP]: {
-    name: "gMON Stability Pool",
-    type: EAdapterType.STABILITY_POOL,
-    collateralSymbol: "gMON",
-    branchId: 3,
-    depositToken: "UNO",
-    sourceId: SOURCE_IDS.SOURCE_SP_GMON,
-    description: "Deposit UNO in the gMON stability pool to earn NTA rewards",
+    sourceId: SOURCE_IDS.SOURCE_SP_BNB,
+    description: "Deposit UNO in the BNB stability pool to earn NTA rewards",
   },
   // Liquidity Pool Adapters - wrap LP gauge/staking contracts
   [EAdapters.DEX_A_LP]: {
@@ -109,11 +76,11 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
     description: "Stake UNO-USDC LP tokens to earn NTA rewards",
   },
   [EAdapters.DEX_B_LP]: {
-    name: "DEX B UNO-MON LP",
+    name: "DEX B UNO-BNB LP",
     type: EAdapterType.LIQUIDITY_POOL,
     depositToken: "LP",
     sourceId: SOURCE_IDS.SOURCE_LP_DEX_B,
-    description: "Stake UNO-MON LP tokens to earn NTA rewards",
+    description: "Stake UNO-BNB LP tokens to earn NTA rewards",
   },
   // UNO Vault Adapter - for staking UNO tokens
   [EAdapters.UNO_VAULT]: {
@@ -129,10 +96,7 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
  * List of all Stability Pool adapters
  */
 export const SP_ADAPTERS: EAdapters[] = [
-  EAdapters.MON_SP,
-  EAdapters.SHMON_SP,
-  EAdapters.SMON_SP,
-  EAdapters.GMON_SP,
+  EAdapters.BNB_SP,
 ];
 
 /**
@@ -153,15 +117,12 @@ export const ALL_ADAPTERS: EAdapters[] = [
  * Map from collateral symbol to SP adapter
  */
 const COLLATERAL_TO_SP_ADAPTER: Partial<Record<CollateralSymbol, EAdapters>> = {
-  MON: EAdapters.MON_SP,
-  shMON: EAdapters.SHMON_SP,
-  sMON: EAdapters.SMON_SP,
-  gMON: EAdapters.GMON_SP,
+  BNB: EAdapters.BNB_SP,
 };
 
 /**
  * Get the SP adapter for a given collateral symbol
- * @param symbol The collateral symbol (MON, shMON, sMON, gMON)
+ * @param symbol The collateral symbol (BNB)
  * @returns The adapter enum, or undefined if no adapter exists for this symbol
  */
 export function getSpAdapterByCollateral(

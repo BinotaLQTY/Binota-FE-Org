@@ -403,8 +403,8 @@ export const FooterInfoSlippageRefundClose = memo(
 
 export const FooterInfoSlippageRefundLeverUp = memo(
   function FooterInfoSlippageRefundLeverUp(props: { collateralName: string; slippageProtection: Dnum | null }) {
-    // When leveraging on the ETH branch, the wallet receives WETH instead of raw ETH
-    const collateralName = props.collateralName === "MON" ? "WMON" : props.collateralName;
+    // When leveraging on the BNB branch, the wallet receives WBNB instead of raw BNB
+    const collateralName = props.collateralName === "BNB" ? "WBNB" : props.collateralName;
 
     return (
       <Field.FooterInfo

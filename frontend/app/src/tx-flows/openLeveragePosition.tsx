@@ -185,7 +185,7 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
         };
 
         // ETH collateral case
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...LeverageWETHZapper,
             functionName: "openLeveragedTroveWithRawETH",
@@ -256,7 +256,7 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
     }
 
     // ETH doesn't need approval
-    if (collToken.symbol === "MON") {
+    if (collToken.symbol === "BNB") {
       return ["openLeveragedTrove"];
     }
 

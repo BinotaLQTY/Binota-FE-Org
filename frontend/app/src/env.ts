@@ -38,10 +38,7 @@ function isIcStrategyList(value: unknown): value is IcStrategy[] {
 }
 
 export const CollateralSymbolSchema = v.union([
-  v.literal("MON"),
-  v.literal("shMON"),
-  v.literal("sMON"),
-  v.literal("gMON"),
+  v.literal("BNB"),
 ]);
 
 function isCollateralSymbol(value: unknown) {
@@ -227,10 +224,7 @@ export const EnvSchema = v.pipe(
     CONTRACT_UNO_VAULT_ADAPTER: v.optional(vAddress()),
     CONTRACT_LP_ADAPTER_DEX_A: v.optional(vAddress()),
     CONTRACT_LP_ADAPTER_DEX_B: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_MON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_SHMON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_SMON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_GMON: v.optional(vAddress()),
+    CONTRACT_SP_ADAPTER_BNB: v.optional(vAddress()),
 
     // lzBNT redemption contract (optional - when not set, redeem feature is disabled)
     CONTRACT_LZBNT_TOKEN: v.optional(vAddress()),
@@ -404,10 +398,7 @@ const parsedEnv = v.safeParse(EnvSchema, {
   CONTRACT_UNO_VAULT_ADAPTER: process.env.NEXT_PUBLIC_CONTRACT_UNO_VAULT_ADAPTER,
   CONTRACT_LP_ADAPTER_DEX_A: process.env.NEXT_PUBLIC_CONTRACT_LP_ADAPTER_DEX_A,
   CONTRACT_LP_ADAPTER_DEX_B: process.env.NEXT_PUBLIC_CONTRACT_LP_ADAPTER_DEX_B,
-  CONTRACT_SP_ADAPTER_MON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_MON,
-  CONTRACT_SP_ADAPTER_SHMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_SHMON,
-  CONTRACT_SP_ADAPTER_SMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_SMON,
-  CONTRACT_SP_ADAPTER_GMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_GMON,
+  CONTRACT_SP_ADAPTER_BNB: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_BNB,
 
   // lzBNT redemption
   CONTRACT_LZBNT_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_LZBNT_TOKEN,
@@ -572,10 +563,7 @@ export const {
   CONTRACT_UNO_VAULT_ADAPTER,
   CONTRACT_LP_ADAPTER_DEX_A,
   CONTRACT_LP_ADAPTER_DEX_B,
-  CONTRACT_SP_ADAPTER_MON,
-  CONTRACT_SP_ADAPTER_SHMON,
-  CONTRACT_SP_ADAPTER_SMON,
-  CONTRACT_SP_ADAPTER_GMON,
+  CONTRACT_SP_ADAPTER_BNB,
   // lzBNT redemption
   CONTRACT_LZBNT_TOKEN,
 } = parsedEnv.output;

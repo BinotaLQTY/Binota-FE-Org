@@ -90,7 +90,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
         });
 
         const Zapper =
-          branch.symbol === "MON" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
+          branch.symbol === "BNB" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
 
         return ctx.writeContract({
           ...ctx.contracts.BoldToken,
@@ -119,7 +119,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
         const branch = getBranch(loan.branchId);
 
         // repay with BOLD => get ETH
-        if (!repayWithCollateral && branch.symbol === "MON") {
+        if (!repayWithCollateral && branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "closeTroveToRawETH",
@@ -141,7 +141,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
         const closeFlashLoanAmount = dn.from(repayWithCollateral.flashLoanAmount, 18)[0];
 
         // repay with collateral => get ETH
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "closeTroveFromCollateral",
@@ -176,7 +176,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
     const { loan } = ctx.request;
     const branch = getBranch(loan.branchId);
 
-    const Zapper = branch.symbol === "MON" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
+    const Zapper = branch.symbol === "BNB" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
 
     const [{ entireDebt }, boldAllowance] = await readContracts(ctx.wagmiConfig, {
       contracts: [

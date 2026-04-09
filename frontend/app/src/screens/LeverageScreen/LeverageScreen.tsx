@@ -99,7 +99,7 @@ export function LeverageScreen() {
   const maxAmount =
     collBalance &&
     dnumMax(
-      dn.sub(collBalance, collSymbol === "MON" ? ETH_MAX_RESERVE : 0), // Only keep a reserve for ETH, not LSTs
+      dn.sub(collBalance, collSymbol === "BNB" ? ETH_MAX_RESERVE : 0), // Only keep a reserve for BNB, not LSTs
       dnum18(0),
     );
 

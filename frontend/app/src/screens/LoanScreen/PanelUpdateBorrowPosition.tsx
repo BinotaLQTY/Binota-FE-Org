@@ -82,7 +82,7 @@ export function PanelUpdateBorrowPosition({ loan }: { loan: PositionLoanCommitte
         dnumMax(
           dn.sub(
             collBalance.data,
-            collToken.symbol === "MON" ? ETH_MAX_RESERVE : 0, // Only keep a reserve for ETH, not LSTs
+            collToken.symbol === "BNB" ? ETH_MAX_RESERVE : 0, // Only keep a reserve for BNB, not LSTs
           ),
           dnum18(0),
         );

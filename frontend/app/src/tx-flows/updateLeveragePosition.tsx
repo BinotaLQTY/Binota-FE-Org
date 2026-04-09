@@ -246,7 +246,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
         const branch = getBranch(ctx.request.loan.branchId);
 
         // add ETH
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "addCollWithRawETH",
@@ -285,7 +285,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
         ] as const;
 
         // withdraw ETH
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "withdrawCollToRawETH",
@@ -325,7 +325,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
         }] as const;
 
         // leverage up ETH trove
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "leverUpTrove",
@@ -363,7 +363,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
           minBoldAmount: dn.from(ctx.request.leverage.minBoldAmount)[0],
         }] as const;
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "leverDownTrove",
@@ -391,7 +391,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
     const branch = getBranch(loan.branchId);
 
     // only check approval for non-ETH collaterals
-    if (branch.symbol !== "MON" && depositChange && dn.gt(depositChange, 0)) {
+    if (branch.symbol !== "BNB" && depositChange && dn.gt(depositChange, 0)) {
       const { LeverageLSTZapper, CollToken } = branch.contracts;
       const allowance = dnum18(
         await ctx.readContract({

@@ -5,6 +5,7 @@ import tokenBinota from "./token-icons/Hand.svg";
 import tokenMon from "./token-icons/monad.svg";
 import tokenSMon from "./token-icons/sMON.svg";
 import tokenGMon from "./token-icons/gMON.svg";
+import tokenBnb from "./token-icons/default.svg"; // TODO: Replace with BNB icon
 
 // any external token, without a known symbol
 export type ExternalToken = {
@@ -26,12 +27,13 @@ export type TokenSymbol =
   | "shMON"
   | "sMON"
   | "gMON"
+  | "BNB"
   | "BINOTA"
   | "LUSD";
 
 export type CollateralSymbol =
   & TokenSymbol
-  & ("MON" | "shMON" | "sMON" | "gMON");
+  & "BNB";
 
 export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
   return (
@@ -40,18 +42,14 @@ export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
     || symbolOrUrl === "shMON"
     || symbolOrUrl === "sMON"
     || symbolOrUrl === "gMON"
+    || symbolOrUrl === "BNB"
     || symbolOrUrl === "BINOTA"
     || symbolOrUrl === "LUSD"
   );
 }
 
 export function isCollateralSymbol(symbol: string): symbol is CollateralSymbol {
-  return (
-    symbol === "MON"
-    || symbol === "shMON"
-    || symbol === "sMON"
-    || symbol === "gMON"
-  );
+  return symbol === "BNB";
 }
 
 export type CollateralToken = Token & {
@@ -77,39 +75,39 @@ export const BINOTA: Token = {
   symbol: "BINOTA" as const,
 } as const;
 
-export const MON: CollateralToken = {
-  collateralRatio: 1.1,
+export const MON: Token = {
   icon: tokenMon,
   name: "MON",
   symbol: "MON" as const,
 } as const;
 
-export const shMON: CollateralToken = {
-  collateralRatio: 1.2,
+export const shMON: Token = {
   icon: tokenShMon,
   name: "shMON",
   symbol: "shMON" as const,
 } as const;
 
-export const sMON: CollateralToken = {
-  collateralRatio: 1.2,
+export const sMON: Token = {
   icon: tokenSMon,
   name: "sMON",
   symbol: "sMON" as const,
 } as const;
 
-export const gMON: CollateralToken = {
-  collateralRatio: 1.2,
+export const gMON: Token = {
   icon: tokenGMon,
   name: "gMON",
   symbol: "gMON" as const,
 } as const;
 
+export const BNB: CollateralToken = {
+  collateralRatio: 1.1,
+  icon: tokenBnb,
+  name: "BNB",
+  symbol: "BNB" as const,
+} as const;
+
 export const COLLATERALS: CollateralToken[] = [
-  MON,
-  shMON,
-  sMON,
-  gMON,
+  BNB,
 ];
 
 export const TOKENS_BY_SYMBOL = {
@@ -118,6 +116,7 @@ export const TOKENS_BY_SYMBOL = {
   shMON,
   sMON,
   gMON,
+  BNB,
   BINOTA,
   LUSD,
 } as const;

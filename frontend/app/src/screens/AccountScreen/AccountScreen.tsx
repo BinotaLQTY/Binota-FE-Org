@@ -124,7 +124,7 @@ export function AccountScreen({ address }: { address: Address }) {
                   tokenSymbol={symbol}
                   tapButton={
                     tapEnabled &&
-                    symbol !== "MON" &&
+                    symbol !== "BNB" &&
                     account.address &&
                     addressesEqual(address, account.address)
                   }
