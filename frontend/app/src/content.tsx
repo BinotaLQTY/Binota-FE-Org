@@ -212,9 +212,9 @@ export default {
           "Deposit UNO to earn protocol revenues and liquidation proceeds",
       },
       stake: {
-        title: "Stake NTA",
+        title: "Stake BNT",
         description:
-          "Direct protocol incentives with NTA while earning from Liquity V1",
+          "Direct protocol incentives with BNT while earning from Liquity V1",
       },
     },
     earnTable: {
@@ -435,10 +435,10 @@ export default {
 
   // Airdrop screen
   airdropScreen: {
-    headline: "Earn NTA Rewards",
+    headline: "Earn BNT Rewards",
     subheading: (
       <>
-        Participate in stability pools, provide liquidity, and stake NTA to earn
+        Participate in stability pools, provide liquidity, and stake BNT to earn
         airdrop rewards. Global milestones unlock higher multipliers for everyone.
       </>
     ),
@@ -449,11 +449,11 @@ export default {
       },
       stabilityPool: {
         title: "Stability Pools",
-        description: "Deposit UNO in stability pools (MON, shMON, sMON, gMON) to earn NTA",
+        description: "Deposit UNO in stability pools (MON, shMON, sMON, gMON) to earn BNT",
       },
       liquidityPool: {
         title: "Liquidity Pools",
-        description: "Provide liquidity in partner DEX pools to earn additional NTA",
+        description: "Provide liquidity in partner DEX pools to earn additional BNT",
       },
       unoVault: {
         title: "UNO Vault",
@@ -478,7 +478,7 @@ export default {
       unstakeInfo: "Unstaking UNO will reduce your airdrop allocation boost.",
     },
     claim: {
-      title: "Claim NTA Rewards",
+      title: "Claim BNT Rewards",
       pendingLabel: "Pending Rewards",
       claimButton: "Claim All",
     },
@@ -489,13 +489,13 @@ export default {
     headline: (
       <>
         <span>Stake</span>
-        <span>NTA & Get</span>
+        <span>BNT & Get</span>
         <span>Voting Power</span>
       </>
     ),
     subheading: (
       <>
-        By staking NTA you can vote on incentives for Binota, while still
+        By staking BNT you can vote on incentives for Binota, while still
         earning Liquity V1 fees.
       </>
     ),
@@ -505,7 +505,7 @@ export default {
       votingPower: "Voting power",
       votingPowerHelp: (
         <>
-          Voting power is the percentage of the total staked NTA that you own.
+          Voting power is the percentage of the total staked BNT that you own.
         </>
       ),
       unclaimed: "Unclaimed rewards",
@@ -549,15 +549,15 @@ export default {
       ],
       votingShare: (
         <>
-          Your voting share is the amount of NTA you have staked and that is
-          available to vote, divided by the total amount of NTA staked via the
+          Your voting share is the amount of BNT you have staked and that is
+          available to vote, divided by the total amount of BNT staked via the
           governance contract.
         </>
       ),
       votingPower: (
         <>
           Your relative voting power changes over time, depending on your and
-          others allocations of NTA.
+          others allocations of BNT.
         </>
       ),
     },
