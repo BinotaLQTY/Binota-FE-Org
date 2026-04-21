@@ -18,9 +18,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import * as v from "valibot";
-import { encodeFunctionData } from "viem";
+import { BaseError, ContractFunctionRevertedError, encodeFunctionData } from "viem";
 import { useConfig as useWagmiConfig } from "wagmi";
-import { estimateGas, readContract, writeContract } from "wagmi/actions";
+import { estimateGas, readContract, simulateContract, writeContract } from "wagmi/actions";
 
 /* flows registration */
 
@@ -234,6 +234,28 @@ function getWriteContract(config: WagmiConfig, account: Address) {
     },
     gasMinHeadroom: number = GAS_MIN_HEADROOM,
   ) => {
+    // Simulate the contract call first to decode potential errors
+    try {
+      await simulateContract(config, {
+        account,
+        abi: params.abi,
+        functionName: params.functionName,
+        args: params.args,
+        address: params.address,
+        value: params.value,
+      } as any);
+    } catch (error) {
+      // Extract decoded error name from contract revert
+      if (error instanceof BaseError) {
+        const revertError = error.walk((err) => err instanceof ContractFunctionRevertedError);
+        if (revertError instanceof ContractFunctionRevertedError) {
+          const errorName = revertError.data?.errorName ?? "Unknown contract error";
+          throw new Error(`Contract error: ${errorName}`);
+        }
+      }
+      throw error;
+    }
+
     const gasEstimate = Number(
       await estimateGas(config, {
         account,

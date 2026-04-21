@@ -57,7 +57,7 @@ export const earnUpdate: FlowDeclaration<EarnUpdateRequest> = {
 
     const collateral = getCollToken(earnPosition.branchId);
 
-    const boldPrice = usePrice("UNO");
+    const boldPrice = usePrice("B1");
     const collPrice = usePrice(collateral.symbol);
 
     const depositChange = dn.sub(earnPosition.deposit, prevEarnPosition.deposit);
@@ -70,15 +70,15 @@ export const earnUpdate: FlowDeclaration<EarnUpdateRequest> = {
         <TransactionDetailsRow
           label={dn.gt(depositChange, 0) ? "You deposit" : "You withdraw"}
           value={[
-            <Amount key="start" suffix=" UNO" value={dn.abs(depositChange)} />,
+            <Amount key="start" suffix=" B1" value={dn.abs(depositChange)} />,
             <Amount key="end" prefix="$" value={usdAmount} />,
           ]}
         />
         {dn.gt(rewards.bold, 0) && (
           <TransactionDetailsRow
-            label={claimRewards ? "Claim UNO rewards" : "Compound UNO rewards"}
+            label={claimRewards ? "Claim B1 rewards" : "Compound B1 rewards"}
             value={[
-              <Amount key="start" value={rewards.bold} suffix=" UNO" />,
+              <Amount key="start" value={rewards.bold} suffix=" B1" />,
               <Amount key="end" value={boldPrice.data && dn.mul(rewards.bold, boldPrice.data)} prefix="$" />,
             ]}
           />

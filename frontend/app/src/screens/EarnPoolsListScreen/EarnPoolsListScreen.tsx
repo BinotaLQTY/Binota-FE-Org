@@ -46,11 +46,11 @@ export function EarnPoolsListScreen() {
           >
             {content.earnHome.headline(
               <TokenIcon.Group>
-                {["UNO" as const, ...collSymbols].map((symbol) => (
+                {["B1" as const, ...collSymbols].map((symbol) => (
                   <TokenIcon key={symbol} symbol={symbol} />
                 ))}
               </TokenIcon.Group>,
-              <TokenIcon symbol="UNO" />
+              <TokenIcon symbol="B1" />
             )}
           </div>
         ),

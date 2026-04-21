@@ -155,8 +155,8 @@ export function BridgeForm() {
                   borderRadius: 0,
                 })}
               >
-                <TokenIcon symbol="UNO" size={20} />
-                <span className={css({ fontWeight: 500 })}>UNO</span>
+                <TokenIcon symbol="B1" size={20} />
+                <span className={css({ fontWeight: 500 })}>B1</span>
               </div>
             </div>
           </div>
@@ -226,7 +226,7 @@ export function BridgeForm() {
           >
             <span className={css({ color: "contentAlt" })}>You will receive</span>
             <span className={css({ marginLeft: "auto", fontWeight: 500 })}>
-              <Amount value={amount} format="2z" /> UNO
+              <Amount value={amount} format="2z" /> B1
             </span>
           </div>
         </VFlex>

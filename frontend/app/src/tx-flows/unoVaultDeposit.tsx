@@ -26,7 +26,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
   title: "Review & Send Transaction",
 
   Summary({ request }) {
-    const unoPrice = usePrice("UNO");
+    const unoPrice = usePrice("B1");
     const amountInUsd = unoPrice.data && dn.mul(request.amount, unoPrice.data);
     const isDeposit = request.mode === "deposit";
 
@@ -40,10 +40,10 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
         }}
       >
         <div style={{ fontSize: 14, color: "var(--colors-content-alt)" }}>
-          {isDeposit ? "Staking UNO" : "Unstaking UNO"}
+          {isDeposit ? "Staking B1" : "Unstaking B1"}
         </div>
         <div style={{ fontSize: 24, fontWeight: 600 }}>
-          <Amount value={request.amount} suffix=" UNO" />
+          <Amount value={request.amount} suffix=" B1" />
         </div>
         {amountInUsd && (
           <div style={{ fontSize: 14, color: "var(--colors-content-alt)" }}>
@@ -55,19 +55,19 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
   },
 
   Details({ request }) {
-    const unoPrice = usePrice("UNO");
+    const unoPrice = usePrice("B1");
     const amountInUsd = unoPrice.data && dn.mul(request.amount, unoPrice.data);
     const isDeposit = request.mode === "deposit";
 
     return (
       <>
         <TransactionDetailsRow
-          label={isDeposit ? "Staking UNO" : "Unstaking UNO"}
+          label={isDeposit ? "Staking B1" : "Unstaking B1"}
           value={[
             <Amount
               key="start"
               value={request.amount}
-              suffix=" UNO"
+              suffix=" B1"
             />,
             <Amount
               key="end"
@@ -82,8 +82,8 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
           value={[
             <span key="action">
               {isDeposit
-                ? "Deposit UNO to boost airdrop allocation"
-                : "Withdraw UNO from vault"}
+                ? "Deposit B1 to boost airdrop allocation"
+                : "Withdraw B1 from vault"}
             </span>,
           ]}
         />
@@ -94,7 +94,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
   steps: {
     // Approval step (only for deposit)
     approveUno: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
@@ -103,7 +103,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
 
         if (!unoToken || !vaultAdapter) {
           // Mock fallback for development/testing
-          console.log("Mock: Approving UNO for vault", {
+          console.log("Mock: Approving B1 for vault", {
             account: ctx.account,
             amount: ctx.request.amount,
           });
@@ -123,7 +123,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
         if (!unoToken) {
           // Mock fallback
           await new Promise((resolve) => setTimeout(resolve, 1500));
-          console.log("Mock: UNO approval verified", hash);
+          console.log("Mock: B1 approval verified", hash);
           return;
         }
 
@@ -134,7 +134,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
     // Deposit or withdraw step
     executeVaultAction: {
       name: (ctx) =>
-        ctx.request.mode === "deposit" ? "Stake UNO" : "Unstake UNO",
+        ctx.request.mode === "deposit" ? "Stake B1" : "Unstake B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
@@ -143,7 +143,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
 
         if (!vaultAdapter) {
           // Mock fallback for development/testing
-          console.log(`Mock: ${isDeposit ? "Depositing" : "Withdrawing"} UNO`, {
+          console.log(`Mock: ${isDeposit ? "Depositing" : "Withdrawing"} B1`, {
             account: ctx.account,
             amount: ctx.request.amount,
             mode: ctx.request.mode,

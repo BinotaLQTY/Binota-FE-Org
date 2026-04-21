@@ -515,7 +515,7 @@
 //                     id="input-redeem-amount"
 //                     contextual={
 //                       <InputField.Badge
-//                         icon={<TokenIcon symbol="UNO" />}
+//                         icon={<TokenIcon symbol="B1" />}
 //                         label="Legacy BOLD"
 //                       />
 //                     }

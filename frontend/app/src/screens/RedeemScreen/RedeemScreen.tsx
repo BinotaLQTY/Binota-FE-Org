@@ -30,7 +30,7 @@ export function RedeemScreen() {
   const account = useAccount();
   const txFlow = useTransactionFlow();
 
-  const boldBalance = useBalance(account.address, "UNO");
+  const boldBalance = useBalance(account.address, "B1");
 
   const CollateralRegistry = getProtocolContract("CollateralRegistry");
   const redemptionRate = useReadContract({
@@ -67,7 +67,7 @@ export function RedeemScreen() {
       heading={{
         title: (
           <HFlex>
-            Redeem <TokenIcon symbol="UNO" /> UNO for
+            Redeem <TokenIcon symbol="B1" /> B1 for
             <TokenIcon.Group>
               {branches
                 .map((b) => getCollToken(b.branchId))
@@ -94,8 +94,8 @@ export function RedeemScreen() {
               id="input-redeem-amount"
               contextual={
                 <InputField.Badge
-                  icon={<TokenIcon symbol="UNO" />}
-                  label="UNO"
+                  icon={<TokenIcon symbol="B1" />}
+                  label="B1"
                 />
               }
               drawer={
@@ -106,7 +106,7 @@ export function RedeemScreen() {
                       dn.gt(amount.parsed, boldBalance.data)
                     ? {
                         mode: "error",
-                        message: `Insufficient UNO balance. You have ${fmtnum(boldBalance.data)} UNO.`,
+                        message: `Insufficient B1 balance. You have ${fmtnum(boldBalance.data)} B1.`,
                       }
                     : null
               }
@@ -116,7 +116,7 @@ export function RedeemScreen() {
                 start: `$${amount.parsed ? fmtnum(amount.parsed) : "0.00"}`,
                 end: boldBalance.data && dn.gt(boldBalance.data, 0) && (
                   <TextButton
-                    label={`Max ${fmtnum(boldBalance.data)} UNO`}
+                    label={`Max ${fmtnum(boldBalance.data)} B1`}
                     onClick={() => {
                       if (boldBalance.data) {
                         amount.setValue(dn.toString(boldBalance.data));
@@ -231,7 +231,7 @@ export function RedeemScreen() {
             })}
           >
             You will be charged a dynamic redemption fee (the more redemptions,
-            the higher the fee). Trading UNO on an exchange could be more
+            the higher the fee). Trading B1 on an exchange could be more
             favorable.{" "}
             <Link
               href="https://docs.liquity.org/v2-faq/redemptions-and-delegation"

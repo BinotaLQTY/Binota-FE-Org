@@ -221,7 +221,7 @@ function BribesInfoBox({
                 })}
               >
                 <div
-                  title={`${fmtnum(data.boldAmount)} UNO`}
+                  title={`${fmtnum(data.boldAmount)} B1`}
                   className={css({
                     display: "flex",
                     alignItems: "center",
@@ -229,7 +229,7 @@ function BribesInfoBox({
                   })}
                 >
                   <Amount format={2} title={null} value={data.boldAmount} />
-                  <TokenIcon size={16} symbol="UNO" title={null} />
+                  <TokenIcon size={16} symbol="B1" title={null} />
                 </div>
                 {dn.gt(data.bribeTokenAmount, 0) && (
                   <div

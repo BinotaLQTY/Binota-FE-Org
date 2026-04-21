@@ -24,7 +24,7 @@ export function PanelClaimRewards({ branchId, position }: { branchId: null | Bra
   }
 
   const ethPrice = usePrice("MON");
-  const boldPriceUsd = usePrice("UNO");
+  const boldPriceUsd = usePrice("B1");
   const collPriceUsd = usePrice(collateral.symbol);
 
   const isActive = isEarnPositionActive(position ?? null);
@@ -75,7 +75,7 @@ export function PanelClaimRewards({ branchId, position }: { branchId: null | Bra
         <Rewards
           amount={position?.rewards?.bold ?? DNUM_0}
           label={content.earnScreen.rewardsPanel.boldRewardsLabel}
-          symbol="UNO"
+          symbol="B1"
         />
         <Rewards
           amount={position?.rewards?.coll ?? DNUM_0}
@@ -150,14 +150,14 @@ export function PanelClaimRewards({ branchId, position }: { branchId: null | Bra
                 })}
               >
                 <Checkbox id="checkbox-compound-rewards" checked={compound} onChange={setCompound} />
-                Compound UNO rewards
+                Compound B1 rewards
               </label>
               <InfoTooltip
                 content={{
-                  heading: "Compound UNO rewards",
+                  heading: "Compound B1 rewards",
                   body: (
                     <>
-                      When enabled, your UNO rewards will be automatically added back to your stability pool deposit,
+                      When enabled, your B1 rewards will be automatically added back to your stability pool deposit,
                       earning you more rewards over time. Collateral rewards will still be claimed normally.
                     </>
                   ),

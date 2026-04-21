@@ -100,8 +100,8 @@ export function AccountScreen({ address }: { address: Address }) {
               gridTemplateColumns: `repeat(3, 1fr)`,
             }}
           >
-            <GridItem label="UNO balance">
-              <Balance address={address} tokenSymbol="UNO" />
+            <GridItem label="B1 balance">
+              <Balance address={address} tokenSymbol="B1" />
             </GridItem>
             <GridItem label="NTA balance">
               <Balance

@@ -17,7 +17,7 @@ interface BribeInfoProps {
 export const BribeInfo: FC<BribeInfoProps> = ({ initiativeAddress }) => {
   const { currentBribesData } = useVotingStateContext();
   const bribe = currentBribesData?.[initiativeAddress];
-  const boldPrice = usePrice(bribe ? "UNO" : null);
+  const boldPrice = usePrice(bribe ? "B1" : null);
   const bribeTokenPrice = usePrice(bribe ? bribe.tokenSymbol : null);
 
   if (!bribe || (dn.eq(bribe.boldAmount, 0) && dn.eq(bribe.tokenAmount, 0))) {
@@ -45,14 +45,14 @@ export const BribeInfo: FC<BribeInfoProps> = ({ initiativeAddress }) => {
       >
         {dn.gt(bribe.boldAmount, 0) && (
           <div
-            title={`${fmtnum(bribe.boldAmount)} UNO`}
+            title={`${fmtnum(bribe.boldAmount)} B1`}
             className={css({
               display: "flex",
               alignItems: "center",
               gap: 4,
             })}
           >
-            <TokenIcon symbol="UNO" size={12} title={null} />
+            <TokenIcon symbol="B1" size={12} title={null} />
             <Amount format="compact" title={null} value={bribe.boldAmount} />
             {boldPrice.data && (
               <Amount

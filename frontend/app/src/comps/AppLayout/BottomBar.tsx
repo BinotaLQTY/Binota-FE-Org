@@ -13,7 +13,7 @@ import { css } from "@/styled-system/css";
 
 // import { AboutButton } from "./AboutButton";
 
-const DISPLAYED_PRICES = ["UNO", "MON"] as const;
+const DISPLAYED_PRICES = ["B1", "MON"] as const;
 const ENABLE_REDEEM = false;
 
 export function BottomBar() {
@@ -92,7 +92,7 @@ export function BottomBar() {
             </div>
             <div
               title={`Total supply: ${fmtnum(boldSupply, {
-                suffix: " UNO",
+                suffix: " B1",
                 preset: "2z",
               })}`}
               className={css({
@@ -107,10 +107,10 @@ export function BottomBar() {
                   flexShrink: 0,
                 })}
               >
-                <TokenIcon title={null} symbol="UNO" size={16} />
+                <TokenIcon title={null} symbol="B1" size={16} />
               </div>
               <span>
-                {boldSupply && <Amount title={null} fallback="…" format="compact" value={boldSupply} suffix=" UNO" />}
+                {boldSupply && <Amount title={null} fallback="…" format="compact" value={boldSupply} suffix=" B1" />}
               </span>
             </div>
             {ENABLE_REDEEM && (
@@ -126,7 +126,7 @@ export function BottomBar() {
                       whiteSpace: "nowrap",
                     })}
                   >
-                    Redeem UNO
+                    Redeem B1
                   </div>
                 }
                 className={css({
@@ -187,7 +187,7 @@ export function BottomBar() {
 }
 
 function getTokenAddress(symbol: TokenSymbol) {
-  if (symbol === "UNO") {
+  if (symbol === "B1") {
     return CONTRACT_BOLD_TOKEN;
   }
   return null;

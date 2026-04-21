@@ -56,7 +56,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
           <TransactionDetailsRow
             label={repayWithCollateral ? "You repay from your loan" : "You repay"}
             value={[
-              <Amount key="start" value={amountToRepay} suffix={` ${repayWithCollateral ? collateral.name : "UNO"}`} />,
+              <Amount key="start" value={amountToRepay} suffix={` ${repayWithCollateral ? collateral.name : "B1"}`} />,
             ]}
           />
         )}
@@ -78,7 +78,7 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
 
   steps: {
     approveBold: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: (props) => <TransactionStatus {...props} approval="approve-only" />,
       async commit(ctx) {
         const { loan } = ctx.request;

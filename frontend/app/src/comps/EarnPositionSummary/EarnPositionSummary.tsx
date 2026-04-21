@@ -131,7 +131,7 @@ export function EarnPositionSummary({
             <Amount fallback="-" format="compact" prefix="$" value={poolDeposit} />
           </div>
           <InfoTooltip heading="Total Value Locked (TVL)">
-            Total amount of UNO deposited in this stability pool.
+            Total amount of B1 deposited in this stability pool.
           </InfoTooltip>
         </>
       }
@@ -141,7 +141,7 @@ export function EarnPositionSummary({
           content: (
             <>
               <div
-                title={active ? `${fmtnum(earnPosition?.deposit, "full")} UNO` : undefined}
+                title={active ? `${fmtnum(earnPosition?.deposit, "full")} B1` : undefined}
                 className={css({
                   display: "flex",
                   justifyContent: "flex-start",
@@ -151,11 +151,11 @@ export function EarnPositionSummary({
                 })}
               >
                 {active && fmtnum(earnPosition?.deposit)}
-                <TokenIcon symbol="UNO" size="mini" title={null} />
+                <TokenIcon symbol="B1" size="mini" title={null} />
               </div>
               {prevEarnPosition && (
                 <div
-                  title={`${fmtnum(prevEarnPosition.deposit, "full")} UNO`}
+                  title={`${fmtnum(prevEarnPosition.deposit, "full")} B1`}
                   className={css({
                     display: "flex",
                     justifyContent: "flex-start",
@@ -167,7 +167,7 @@ export function EarnPositionSummary({
                   })}
                 >
                   {fmtnum(prevEarnPosition.deposit)}
-                  <TokenIcon symbol="UNO" size="mini" title={null} />
+                  <TokenIcon symbol="B1" size="mini" title={null} />
                 </div>
               )}
             </>
@@ -191,7 +191,7 @@ export function EarnPositionSummary({
                     })}
                   >
                     {fmtnum(earnPosition?.rewards.bold)}
-                    <TokenIcon symbol="UNO" size="mini" title={null} />
+                    <TokenIcon symbol="B1" size="mini" title={null} />
                   </div>
                   <div
                     className={css({
@@ -216,7 +216,7 @@ export function EarnPositionSummary({
                   })}
                 >
                   <TokenIcon.Group size="mini">
-                    <TokenIcon symbol="UNO" />
+                    <TokenIcon symbol="B1" />
                     <TokenIcon symbol={collToken.symbol} />
                   </TokenIcon.Group>
                 </div>

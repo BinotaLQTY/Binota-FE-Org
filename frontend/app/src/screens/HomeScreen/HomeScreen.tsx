@@ -98,7 +98,7 @@ function BorrowTable({ compact }: { compact: boolean }) {
   return (
     <div className={css({ gridArea: "borrow" })}>
       <HomeTable
-        title="Borrow UNO against MON and staked MON"
+        title="Borrow B1 against MON and staked MON"
         subtitle="You can adjust your loans, including your interest rate, at any time"
         icon={<IconBorrow />}
         columns={columns}
@@ -313,7 +313,7 @@ function BorrowingRow({ compact, symbol }: { compact: boolean; symbol: Collatera
                   })}
                 >
                   Borrow
-                  <TokenIcon symbol="UNO" size="mini" />
+                  <TokenIcon symbol="B1" size="mini" />
                 </div>
               }
               title={`Borrow ${collateral?.name} from ${symbol}`}
@@ -372,12 +372,12 @@ function EarnRewardsRow({ compact, symbol }: { compact: boolean; symbol: Collate
               >
                 Earn
                 <TokenIcon.Group size="mini">
-                  <TokenIcon symbol="UNO" />
+                  <TokenIcon symbol="B1" />
                   <TokenIcon symbol={symbol} />
                 </TokenIcon.Group>
               </div>
             }
-            title={`Earn UNO with ${token?.name}`}
+            title={`Earn B1 with ${token?.name}`}
           />
         </td>
       )}

@@ -663,7 +663,8 @@ export async function getTroveOperationHints({
       BigInt(branchId),
       interestRate,
       // (10 * sqrt(troves)) gives a hint close to the right position
-      10n * BigInt(Math.ceil(Math.sqrt(Number(numTroves)))),
+      // Use Math.max(1, ...) to handle empty protocol where numTroves=0
+      10n * BigInt(Math.max(1, Math.ceil(Math.sqrt(Number(numTroves))))),
       42n, // random seed
     ],
   });
@@ -1362,7 +1363,7 @@ export function useDebtInFrontOfLoan(loan: UseDebtInFrontOfLoanParams) {
       dn.add(ownBracket, INTEREST_RATE_INCREMENT_PRECISE, 18)[0], // _interestRateHi
       BigInt(loan.troveId), // _troveIdToStopAt
       0n, // _hintId
-      BigInt(Math.round(Math.sqrt(Number(numTroves.data ?? 0)))), // _numTrials
+      BigInt(Math.max(1, Math.round(Math.sqrt(Number(numTroves.data ?? 0))))), // _numTrials
     ],
   });
 
@@ -1422,7 +1423,7 @@ export function useDebtInFrontOfInterestRate(
       dn.from(interestRate, 18)[0], // _interestRateHi
       BigInt(excludedLoan?.troveId ?? 0), // _excludedTroveId
       0n, // _hintId
-      BigInt(Math.round(Math.sqrt(Number(numTroves.data ?? 0)))), // _numTrials
+      BigInt(Math.max(1, Math.round(Math.sqrt(Number(numTroves.data ?? 0))))), // _numTrials
     ],
   });
 

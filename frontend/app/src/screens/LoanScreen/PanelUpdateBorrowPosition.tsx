@@ -46,11 +46,11 @@ export function PanelUpdateBorrowPosition({ loan }: { loan: PositionLoanCommitte
 
   // balances
   const collBalance = useBalance(account.address, collToken.symbol);
-  const boldBalance = useBalance(account.address, "UNO");
+  const boldBalance = useBalance(account.address, "B1");
 
   // prices
   const collPrice = usePrice(collToken.symbol ?? null);
-  // const boldPriceUsd = usePrice("UNO") ?? { data: dnum18(1000000000000000000) };
+  // const boldPriceUsd = usePrice("B1") ?? { data: dnum18(1000000000000000000) };
   const boldPriceUsd = { data: dnum18(1000000000000000000) };
 
   // deposit change
@@ -240,17 +240,17 @@ export function PanelUpdateBorrowPosition({ loan }: { loan: PositionLoanCommitte
             <InputField
               {...debtChange.inputFieldProps}
               id="input-debt-change"
-              contextual={<InputTokenBadge background={false} icon={<TokenIcon symbol="UNO" />} label="UNO" />}
+              contextual={<InputTokenBadge background={false} icon={<TokenIcon symbol="B1" />} label="B1" />}
               drawer={
                 !debtChange.isFocused && isBelowMinDebt
-                  ? { mode: "error", message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} UNO.` }
+                  ? { mode: "error", message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} B1.` }
                   : isAboveMaxLtv
                     ? {
                         mode: "error",
                         message: `Your LTV must be lower than ${fmtnum(dn.toNumber(loanDetails.maxLtv), "pct2z")}%`,
                       }
                     : insufficientBold
-                      ? { mode: "error", message: "Insufficient UNO balance." }
+                      ? { mode: "error", message: "Insufficient B1 balance." }
                       : null
               }
               label={{
@@ -280,7 +280,7 @@ export function PanelUpdateBorrowPosition({ loan }: { loan: PositionLoanCommitte
                 start: <Amount value={debtChangeUsd ?? 0} suffix="$" />,
                 end: boldMax && (
                   <TextButton
-                    label={`Max ${fmtnum(boldMax)} UNO`}
+                    label={`Max ${fmtnum(boldMax)} B1`}
                     onClick={() => {
                       debtChange.setValue(dn.toString(boldMax));
                     }}
@@ -308,14 +308,14 @@ export function PanelUpdateBorrowPosition({ loan }: { loan: PositionLoanCommitte
                         color: isBelowMinDebt ? "var(--color-error)" : "inherit",
                       }}
                     >
-                      <Amount value={newLoanDetails.debt} suffix=" UNO" />
+                      <Amount value={newLoanDetails.debt} suffix=" B1" />
                     </div>
                     <InfoTooltip heading="Debt update">
                       <div>
-                        Before: <Amount value={loanDetails.debt} suffix=" UNO" />
+                        Before: <Amount value={loanDetails.debt} suffix=" B1" />
                       </div>
                       <div>
-                        After: <Amount value={newLoanDetails.debt} suffix=" UNO" />
+                        After: <Amount value={newLoanDetails.debt} suffix=" B1" />
                       </div>
                     </InfoTooltip>
                   </HFlex>

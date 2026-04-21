@@ -1,4 +1,4 @@
-import { addressesEqual, Dropdown, TokenIcon, UNO, VFlex } from "@binota/uikit";
+import { addressesEqual, Dropdown, TokenIcon, B1, VFlex } from "@binota/uikit";
 import * as dn from "dnum";
 import { useState } from "react";
 import { Amount } from "@/src/comps/Amount/Amount";
@@ -29,24 +29,24 @@ export function PanelClosePosition({
   const collateral = getCollToken(branch.id);
 
   const collPriceUsd = usePrice(collateral.symbol);
-  const boldPriceUsd = usePrice("UNO");
-  const boldBalance = useBalance(account.address, "UNO");
+  const boldPriceUsd = usePrice("B1");
+  const boldBalance = useBalance(account.address, "B1");
 
   // close from collateral by default for leveraged positions
   const [repayDropdownIndex, setRepayDropdownIndex] = useState(loanMode === "multiply" ? 1 : 0);
 
   const claimOnly = dn.eq(loan.borrowed, DNUM_0); // happens in case the loan got redeemed
   const repayWithCollateral = !claimOnly && repayDropdownIndex === 1;
-  const repayToken = repayWithCollateral ? collateral : UNO;
+  const repayToken = repayWithCollateral ? collateral : B1;
   const slippageProtection = dn.mul(loan.borrowed, LEVERAGE_SLIPPAGE_TOLERANCE);
 
   const collToRepay = useQuoteExactOutput({
     inputToken: collateral.symbol,
-    outputToken: "UNO",
+    outputToken: "B1",
     outputAmount: dn.add(loan.borrowed, slippageProtection),
   });
 
-  // either in UNO or in collateral
+  // either in B1 or in collateral
   const amountToRepay = repayWithCollateral ? collToRepay.data?.inputAmount : loan.borrowed;
 
   const amountToRepayUsd =
@@ -81,10 +81,10 @@ export function PanelClosePosition({
     } else {
       if (boldBalance.data && dn.lt(boldBalance.data, loan.borrowed)) {
         return {
-          name: "Insufficient UNO balance",
+          name: "Insufficient B1 balance",
           message: `The balance held by the account (${fmtnum(
             boldBalance.data,
-          )} UNO) is insufficient to repay the loan.`,
+          )} B1) is insufficient to repay the loan.`,
         };
       }
     }
@@ -136,8 +136,8 @@ export function PanelClosePosition({
                   })}
                   items={[
                     {
-                      icon: <TokenIcon symbol="UNO" />,
-                      label: <div className={css({ whiteSpace: "nowrap" })}>UNO (account)</div>,
+                      icon: <TokenIcon symbol="B1" />,
+                      label: <div className={css({ whiteSpace: "nowrap" })}>B1 (account)</div>,
                       value: fmtnum(boldBalance.data),
                     },
                     {
@@ -157,7 +157,7 @@ export function PanelClosePosition({
               end: repayWithCollateral && (
                 <Field.FooterInfoPriceImpact
                   inputTokenName={collateral.name}
-                  outputTokenName="UNO"
+                  outputTokenName="B1"
                   priceImpact={collToRepay.data?.priceImpact}
                 />
               ),

@@ -1,6 +1,6 @@
 import tokenLusd from "./token-icons/lusd.svg";
 import tokenShMon from "./token-icons/shMON.svg";
-import tokenUno from "./token-icons/Pinky.svg";
+import tokenB1 from "./token-icons/Pinky.svg";
 import tokenBinota from "./token-icons/Hand.svg";
 import tokenMon from "./token-icons/monad.svg";
 import tokenSMon from "./token-icons/sMON.svg";
@@ -22,7 +22,7 @@ export type Token = ExternalToken & {
 };
 
 export type TokenSymbol =
-  | "UNO"
+  | "B1"
   | "MON"
   | "shMON"
   | "sMON"
@@ -37,7 +37,7 @@ export type CollateralSymbol =
 
 export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
   return (
-    symbolOrUrl === "UNO"
+    symbolOrUrl === "B1"
     || symbolOrUrl === "MON"
     || symbolOrUrl === "shMON"
     || symbolOrUrl === "sMON"
@@ -63,10 +63,10 @@ export const LUSD: Token = {
   symbol: "LUSD" as const,
 } as const;
 
-export const UNO: Token = {
-  icon: tokenUno,
-  name: "UNO",
-  symbol: "UNO" as const,
+export const B1: Token = {
+  icon: tokenB1,
+  name: "B1",
+  symbol: "B1" as const,
 } as const;
 
 export const BINOTA: Token = {
@@ -111,7 +111,7 @@ export const COLLATERALS: CollateralToken[] = [
 ];
 
 export const TOKENS_BY_SYMBOL = {
-  UNO,
+  B1,
   MON,
   shMON,
   sMON,

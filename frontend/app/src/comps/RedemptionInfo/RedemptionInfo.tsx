@@ -1,14 +1,14 @@
 import content from "@/src/content";
 import { css } from "@/styled-system/css";
-import { UNO } from "@binota/uikit";
+import { B1 } from "@binota/uikit";
 import { a, useInView, useTransition } from "@react-spring/web";
 import { memo } from "react";
 
 const { title, subtitle, infoItems, learnMore } = content.redemptionInfo;
 
-function UnoIcon() {
+function B1Icon() {
   return (
-    <img src={UNO.icon} alt="UNO" width={18} height={18} />
+    <img src={B1.icon} alt="B1" width={18} height={18} />
   );
 }
 
@@ -50,7 +50,7 @@ function InterestIcon() {
 }
 
 const iconComponents = {
-  UNO: UnoIcon,
+  B1: B1Icon,
   redemption: RedemptionIcon,
   interest: InterestIcon,
 } as const;

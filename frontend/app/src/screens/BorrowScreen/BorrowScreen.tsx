@@ -210,8 +210,8 @@ export function BorrowScreen() {
                   alignItems: "center",
                 })}
               >
-                <TokenIcon symbol="UNO" />
-                {NBSP}UNO
+                <TokenIcon symbol="B1" />
+                {NBSP}B1
               </div>,
             )}
           </div>
@@ -277,14 +277,14 @@ export function BorrowScreen() {
         field={
           <InputField
             id="input-debt"
-            contextual={<InputField.Badge icon={<TokenIcon symbol="UNO" />} label="UNO" />}
+            contextual={<InputField.Badge icon={<TokenIcon symbol="B1" />} label="B1" />}
             drawer={
               debt.isFocused
                 ? null
                 : isBelowMinDebt
                   ? {
                       mode: "error",
-                      message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} UNO.`,
+                      message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} B1.`,
                     }
                   : isAboveMaxLtv
                     ? {
@@ -602,7 +602,7 @@ export function BorrowScreen() {
         disabled={!allowSubmit}
         label={content.borrowScreen.action}
         request={
-          interestRate && deposit.parsed && debt.parsed && account.address && typeof nextOwnerIndex.data === "number"
+          interestRate && deposit.parsed && debt.parsed && account.address
             ? {
                 flowId: "openBorrowPosition",
                 backLink: [`/borrow/${collSymbol.toLowerCase()}`, "Back to editing"],
@@ -611,7 +611,7 @@ export function BorrowScreen() {
 
                 branchId: branch.id,
                 owner: account.address,
-                ownerIndex: nextOwnerIndex.data,
+                ownerIndex: nextOwnerIndex.data ?? 0,
                 collAmount: deposit.parsed,
                 boldAmount: debt.parsed,
                 annualInterestRate: interestRate,

@@ -61,7 +61,7 @@ export const DATA_STALE_TIME = 5_000;
 export const LEVERAGE_SLIPPAGE_TOLERANCE = 0.0005; // 0.05%
 export const LEVERAGE_PRICE_IMPACT_HIGH = 0.01; // 1%
 export const MAX_UPFRONT_FEE = maxUint256;
-export const MIN_DEBT = dn.from(200, 18);
+export const MIN_DEBT = dn.from(250, 18);
 
 export const TROVE_STATUS_NONEXISTENT = 0;
 export const TROVE_STATUS_ACTIVE = 1;

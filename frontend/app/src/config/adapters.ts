@@ -46,7 +46,7 @@ export type TAdapterConfig = {
   /** Branch ID for stability pool adapters */
   branchId?: BranchId;
   /** The token users deposit into the adapter */
-  depositToken: "UNO" | "NTA" | "LP";
+  depositToken: "B1" | "NTA" | "LP";
   /** Source ID for NtaRewardsController (bytes32 identifier) */
   sourceId: `0x${string}`;
   /** Description for UI */
@@ -63,32 +63,32 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
     type: EAdapterType.STABILITY_POOL,
     collateralSymbol: "BNB",
     branchId: 0,
-    depositToken: "UNO",
+    depositToken: "B1",
     sourceId: SOURCE_IDS.SOURCE_SP_BNB,
-    description: "Deposit UNO in the BNB stability pool to earn NTA rewards",
+    description: "Deposit B1 in the BNB stability pool to earn NTA rewards",
   },
   // Liquidity Pool Adapters - wrap LP gauge/staking contracts
   [EAdapters.DEX_A_LP]: {
-    name: "DEX A UNO-USDC LP",
+    name: "DEX A B1-USDC LP",
     type: EAdapterType.LIQUIDITY_POOL,
     depositToken: "LP",
     sourceId: SOURCE_IDS.SOURCE_LP_DEX_A,
-    description: "Stake UNO-USDC LP tokens to earn NTA rewards",
+    description: "Stake B1-USDC LP tokens to earn NTA rewards",
   },
   [EAdapters.DEX_B_LP]: {
-    name: "DEX B UNO-BNB LP",
+    name: "DEX B B1-BNB LP",
     type: EAdapterType.LIQUIDITY_POOL,
     depositToken: "LP",
     sourceId: SOURCE_IDS.SOURCE_LP_DEX_B,
-    description: "Stake UNO-BNB LP tokens to earn NTA rewards",
+    description: "Stake B1-BNB LP tokens to earn NTA rewards",
   },
-  // UNO Vault Adapter - for staking UNO tokens
+  // B1 Vault Adapter - for staking B1 tokens
   [EAdapters.UNO_VAULT]: {
-    name: "UNO Staking Vault",
+    name: "B1 Staking Vault",
     type: EAdapterType.UNO_VAULT,
-    depositToken: "UNO",
+    depositToken: "B1",
     sourceId: SOURCE_IDS.SOURCE_NTA,
-    description: "Stake UNO tokens to boost your airdrop allocation",
+    description: "Stake B1 tokens to boost your airdrop allocation",
   },
 };
 

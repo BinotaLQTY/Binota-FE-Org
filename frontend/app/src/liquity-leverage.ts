@@ -9,8 +9,8 @@ import { useDebounced } from "./react-utils";
 const MARGINAL_AMOUNT_DIVIDER = 1_000n;
 
 export type SwapDirection =
-  | { inputToken: "UNO"; outputToken: CollateralSymbol }
-  | { inputToken: CollateralSymbol; outputToken: "UNO" };
+  | { inputToken: "B1"; outputToken: CollateralSymbol }
+  | { inputToken: CollateralSymbol; outputToken: "B1" };
 
 export type QuoteExactInputParams = SwapDirection & {
   inputAmount: Dnum;
@@ -38,7 +38,7 @@ function calcPriceImpact(
 export function useQuoteExactInput(params: QuoteExactInputParams) {
   const inputAmount = dn.from(params.inputAmount, 18)[0];
   const inputAmountMarginal = inputAmount / MARGINAL_AMOUNT_DIVIDER;
-  const collToBold = params.outputToken === "UNO";
+  const collToBold = params.outputToken === "B1";
   const collToken = getBranchContract(collToBold ? params.inputToken : params.outputToken, "CollToken").address;
 
   const values = useMemo(
@@ -92,7 +92,7 @@ export function useQuoteExactInput(params: QuoteExactInputParams) {
 export function useQuoteExactOutput(params: QuoteExactOutputParams) {
   const outputAmount = dn.from(params.outputAmount, 18)[0];
   const outputAmountMarginal = outputAmount / MARGINAL_AMOUNT_DIVIDER;
-  const collToBold = params.outputToken === "UNO";
+  const collToBold = params.outputToken === "B1";
   const collToken = getBranchContract(collToBold ? params.inputToken : params.outputToken, "CollToken").address;
 
   const values = useMemo(

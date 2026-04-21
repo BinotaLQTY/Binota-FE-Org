@@ -44,7 +44,7 @@ export function useBalances(
         },
       )
       .with("LUSD", () => CONTRACT_LUSD_TOKEN)
-      .with("UNO", () => CONTRACT_BOLD_TOKEN)
+      .with("B1", () => CONTRACT_BOLD_TOKEN)
       .with("BINOTA", () => CONTRACT_LQTY_TOKEN)
       .otherwise(() => null);
 

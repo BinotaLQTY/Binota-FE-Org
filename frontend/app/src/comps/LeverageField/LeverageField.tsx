@@ -81,7 +81,7 @@ export function LeverageField({
                 >
                   {fmtnum(debt)}
                 </span>
-                {" UNO"}
+                {" B1"}
               </>
             )}
           </div>
@@ -167,14 +167,14 @@ export function useLeverageField({
   const deposit = depositChange && dn.add(positionDeposit, depositChange);
 
   const quoteLeverUp = useQuoteExactOutput({
-    inputToken: "UNO",
+    inputToken: "B1",
     outputToken: collToken.symbol,
     outputAmount: leverageFactorChange > 0 && slippageProtection ? dn.add(depositChange, slippageProtection) : DNUM_0,
   });
 
   const quoteLeverDown = useQuoteExactInput({
     inputToken: collToken.symbol,
-    outputToken: "UNO",
+    outputToken: "B1",
     inputAmount: leverageFactorChange < 0 && depositChange ? dn.abs(depositChange) : DNUM_0,
   });
 
@@ -271,7 +271,7 @@ export function useLeverageField({
 
   const drawer: Drawer | null =
     deposit && dn.gt(deposit, DNUM_0) && debt && dn.lt(debt, MIN_DEBT)
-      ? { mode: "error", message: `Debt must be at least ${fmtnum(MIN_DEBT, 2)} UNO.` }
+      ? { mode: "error", message: `Debt must be at least ${fmtnum(MIN_DEBT, 2)} B1.` }
       : quoteAmount === null
         ? { mode: "error", message: `Not enough ${collToken.name} liquidity to reach your chosen exposure.` }
         : null;
