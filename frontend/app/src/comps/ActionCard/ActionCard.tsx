@@ -33,7 +33,7 @@ export function ActionCard({
   const { description, path, title, colors } = match(type)
     .with("borrow", () => ({
       colors: {
-        background: token("colors.brandDarkPurple"),
+        background: token("colors.yellow:700"),
         foreground: token("colors.brandDarkPurpleContent"),
         foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
       },
@@ -43,9 +43,9 @@ export function ActionCard({
     }))
     .with("multiply", () => ({
       colors: {
-        background: token("colors.brandPurple"),
-        foreground: token("colors.brandPurpleContent"),
-        foregroundAlt: token("colors.brandPurpleContentAlt"),
+        background: token("colors.yellow:700"),
+        foreground: token("colors.brandDarkPurpleContent"),
+        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
       },
       description: ac.multiply.description,
       path: "/multiply",
@@ -53,9 +53,9 @@ export function ActionCard({
     }))
     .with("earn", () => ({
       colors: {
-        background: token("colors.brandPurple"),
-        foreground: token("colors.brandPurpleContent"),
-        foregroundAlt: token("colors.brandPurpleContentAlt"),
+        background: token("colors.yellow:700"),
+        foreground: token("colors.brandDarkPurpleContent"),
+        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
       },
       description: ac.earn.description,
       path: "/earn",
@@ -63,7 +63,7 @@ export function ActionCard({
     }))
     .with("stake", () => ({
       colors: {
-        background: token("colors.brandDarkPurple"),
+        background: token("colors.yellow:700"),
         foreground: token("colors.brandDarkPurpleContent"),
         foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
       },
