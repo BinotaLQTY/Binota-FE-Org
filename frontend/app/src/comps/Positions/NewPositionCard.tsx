@@ -12,7 +12,7 @@ const contentActions = content.home.actions;
 const actions = {
   borrow: {
     colors: {
-      background: token("colors.yellow:500"),
+      background: token("colors.yellow:700"),
       foreground: token("colors.brandDarkPurpleContent"),
       foregroundAlt: token("colors.strongSurfaceContentAlt"),
     },
@@ -32,7 +32,7 @@ const actions = {
   },
   stake: {
     colors: {
-      background: token("colors.yellow:800"),
+      background: token("colors.yellow:700"),
       foreground: token("colors.brandPurpleContent"),
       foregroundAlt: token("colors.brandPurpleContentAlt"),
     },
