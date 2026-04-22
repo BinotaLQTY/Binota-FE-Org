@@ -10,6 +10,11 @@ const ELIGIBILITY_CRITERIA = [
     description: "Reach community B1 deposit milestones to unlock higher reward multipliers",
   },
   {
+    id: "sp",
+    title: "Stability Pool",
+    description: "Deposit B1 in the BNB stability pool to earn BNT",
+  },
+  {
     id: "lp",
     title: "Liquidity Pools",
     description: "Provide liquidity in partner DEX pools to earn additional BNT",
