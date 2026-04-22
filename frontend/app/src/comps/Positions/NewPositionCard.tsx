@@ -14,7 +14,7 @@ const actions = {
     colors: {
       background: token("colors.yellow:500"),
       foreground: token("colors.brandDarkPurpleContent"),
-      foregroundAlt: token("colors.strongSurfaceContentAlt"),
+      foregroundAlt: token("colors.brandDarkPurpleContent"),
     },
     description: contentActions.borrow.description,
     path: "/borrow",
@@ -24,7 +24,7 @@ const actions = {
     colors: {
       background: token("colors.yellow:500"),
       foreground: token("colors.brandDarkPurpleContent"),
-      foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
+      foregroundAlt: token("colors.brandDarkPurpleContent"),
     },
     description: contentActions.earn.description,
     path: "/earn",
@@ -34,7 +34,7 @@ const actions = {
     colors: {
       background: token("colors.yellow:500"),
       foreground: token("colors.brandPurpleContent"),
-      foregroundAlt: token("colors.brandPurpleContentAlt"),
+      foregroundAlt: token("colors.brandDarkPurpleContent"),
     },
     description: contentActions.stake.description,
     path: "/stake",

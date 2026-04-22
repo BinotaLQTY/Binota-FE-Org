@@ -35,7 +35,7 @@ export function ActionCard({
       colors: {
         background: token("colors.yellow:500"),
         foreground: token("colors.brandDarkPurpleContent"),
-        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
+        foregroundAlt: token("colors.brandDarkPurpleContent"),
       },
       description: ac.borrow.description,
       path: "/borrow",
@@ -45,7 +45,7 @@ export function ActionCard({
       colors: {
         background: token("colors.yellow:500"),
         foreground: token("colors.brandDarkPurpleContent"),
-        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
+        foregroundAlt: token("colors.brandDarkPurpleContent"),
       },
       description: ac.multiply.description,
       path: "/multiply",
@@ -55,7 +55,7 @@ export function ActionCard({
       colors: {
         background: token("colors.yellow:500"),
         foreground: token("colors.brandDarkPurpleContent"),
-        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
+        foregroundAlt: token("colors.brandDarkPurpleContent"),
       },
       description: ac.earn.description,
       path: "/earn",
@@ -65,7 +65,7 @@ export function ActionCard({
       colors: {
         background: token("colors.yellow:500"),
         foreground: token("colors.brandDarkPurpleContent"),
-        foregroundAlt: token("colors.brandDarkPurpleContentAlt"),
+        foregroundAlt: token("colors.brandDarkPurpleContent"),
       },
       description: ac.stake.description,
       path: "/stake",
