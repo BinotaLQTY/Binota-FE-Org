@@ -1,5 +1,5 @@
 export function generateStaticParams() {
-  const pools = ["mon", "shmon", "smon", "gmon"];
+  const pools = ["bnb", "mon", "shmon", "smon", "gmon"];
   const actions = ["deposit", "claim"];
 
   return pools.flatMap((pool) =>
