@@ -51,8 +51,6 @@ export function HubScreen() {
           >
             <div
               className={css({
-                marginRight: "16px",
-                marginLeft: "16px",
                 marginTop: "-16px",
               })}
             >
