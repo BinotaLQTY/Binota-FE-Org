@@ -19,18 +19,8 @@ import { blo } from "blo";
 import { ConnectKitProvider, getDefaultConfig as getDefaultConfigFromConnectKit } from "connectkit";
 import Image from "next/image";
 import type { Chain } from "viem";
-import { arbitrum, base, mainnet } from "viem/chains";
+import { arbitrum, base, bsc, mainnet } from "viem/chains";
 import { createConfig, http, WagmiProvider } from "wagmi";
-
-// Monad chain definition (not in viem/chains yet)
-const monad: Chain = {
-  id: 143,
-  name: "Monad",
-  nativeCurrency: { name: "MON", symbol: "MON", decimals: 18 },
-  rpcUrls: {
-    default: { http: [CHAIN_RPC_URLS[143]] },
-  },
-};
 
 // Primary chain from environment config
 const primaryChain: Chain = {
@@ -49,7 +39,7 @@ const primaryChain: Chain = {
 };
 
 // Hub chains for cross-chain bridge functionality
-const hubChains: Chain[] = [mainnet, arbitrum, base, monad];
+const hubChains: Chain[] = [mainnet, arbitrum, base, bsc];
 
 // All chains: primary chain + hub chains (excluding duplicates)
 const allChains: [Chain, ...Chain[]] = [
@@ -71,7 +61,7 @@ export const wagmiConfig = createConfig(
       [mainnet.id]: http(CHAIN_RPC_URLS[1]),
       [arbitrum.id]: http(CHAIN_RPC_URLS[42161]),
       [base.id]: http(CHAIN_RPC_URLS[8453]),
-      [monad.id]: http(CHAIN_RPC_URLS[143]),
+      [bsc.id]: http(CHAIN_RPC_URLS[56]),
     },
     walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
   }),

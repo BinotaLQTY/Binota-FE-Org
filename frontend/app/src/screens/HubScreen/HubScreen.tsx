@@ -38,7 +38,7 @@ export function HubScreen() {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px 8px",
-              color: "token(colors.yellow:500)",
+              color: "white",
               width: "100%",
               maxWidth: "540px",
               fontSize: "28px",
@@ -57,7 +57,7 @@ export function HubScreen() {
               })}
             >
               {/* biome-ignore lint/performance/noImgElement: keeping pattern from StakeScreen */}
-              <img src="/assets/Hand.png" alt="Binota" width={24} height={24} />
+              <img src="/assets/BinotaIcon.svg" alt="Binota" width={24} height={24} />
             </div>
             Hub
           </div>
@@ -76,7 +76,7 @@ export function HubScreen() {
               },
             })}
           >
-            Bridge UNO across chains, track your points, check your airdrop and redeem lzBNT.
+            Bridge B1 across chains, track your points, check your airdrop and redeem lzBNT.
           </div>
         ),
       }}

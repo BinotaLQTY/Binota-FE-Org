@@ -66,7 +66,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
   // Source chain state - initialized from wallet's current chain
   const [sourceChainId, setSourceChainIdState] = useState<HubChainId>(() => {
-    return isHubChainId(currentChainId) ? currentChainId : 143;
+    return isHubChainId(currentChainId) ? currentChainId : 56;
   });
 
   // Sync sourceChainId with wallet chain changes

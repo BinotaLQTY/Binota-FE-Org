@@ -12,27 +12,27 @@ import { useReadContract } from "wagmi";
 // Chain Configuration
 // =============================================================================
 
-export type HubChainId = 1 | 42161 | 8453 | 143;
+export type HubChainId = 1 | 42161 | 8453 | 56;
 
 export const HUB_CHAINS = {
   ETHEREUM: 1,
   ARBITRUM: 42161,
   BASE: 8453,
-  MONAD: 143,
+  BNB: 56,
 } as const;
 
 export const HUB_CHAIN_NAMES: Record<HubChainId, string> = {
   1: "Ethereum",
   42161: "Arbitrum",
   8453: "Base",
-  143: "Monad",
+  56: "BNB Chain",
 };
 
 export const HUB_CHAIN_ICONS: Record<HubChainId, string> = {
   1: "/assets/chains/ethereum.svg",
   42161: "/assets/chains/arbitrum.svg",
   8453: "/assets/chains/base.svg",
-  143: "/assets/chains/monad.svg",
+  56: "/assets/chains/bnb.svg",
 };
 
 // LayerZero Endpoint IDs
@@ -40,7 +40,7 @@ export const LZ_EID_ENDPOINTS: Record<HubChainId, number> = {
   1: 30101,      // Ethereum
   42161: 30110,  // Arbitrum
   8453: 30184,   // Base
-  143: 40204,    // Monad
+  56: 30102,     // BNB Chain
 };
 
 // Native fee asset per chain
@@ -48,7 +48,7 @@ export const FEE_ASSET: Record<HubChainId, string> = {
   1: "ETH",
   42161: "ETH",
   8453: "ETH",
-  143: "MON",
+  56: "BNB",
 };
 
 // RPC URLs for cross-chain reads (for NFT balance checks)
@@ -56,7 +56,7 @@ export const CHAIN_RPC_URLS: Record<HubChainId, string> = {
   1: "https://eth.llamarpc.com",
   42161: "https://arb1.arbitrum.io/rpc",
   8453: "https://mainnet.base.org",
-  143: "https://rpc.monad.xyz", // Placeholder - update with actual Monad RPC
+  56: "https://bsc-dataseed.binance.org",
 };
 
 // =============================================================================
@@ -71,7 +71,7 @@ export const UNO_TOKEN_ADDRESSES: Record<HubChainId, Address> = {
   1: "0x0000000000000000000000000000000000000000" as Address,      // Placeholder - Ethereum UNO
   42161: "0x0000000000000000000000000000000000000000" as Address,  // Placeholder - Arbitrum UNO
   8453: "0x0000000000000000000000000000000000000000" as Address,   // Placeholder - Base UNO
-  143: "0x0000000000000000000000000000000000000000" as Address,    // Monad UNO - same as CONTRACT_BOLD_TOKEN
+  56: "0x0000000000000000000000000000000000000000" as Address,     // BNB Chain B1 - same as CONTRACT_BOLD_TOKEN
 };
 
 export const BridgeContract = {
@@ -106,7 +106,7 @@ export const POINTS_PER_DEBT_UNIT = 1; // per 1 UNO of debt
 // =============================================================================
 
 export function isHubChainId(chainId: number): chainId is HubChainId {
-  return chainId === 1 || chainId === 42161 || chainId === 8453 || chainId === 143;
+  return chainId === 1 || chainId === 42161 || chainId === 8453 || chainId === 56;
 }
 
 export function getAvailableDestinationChains(sourceChainId: HubChainId): HubChainId[] {
