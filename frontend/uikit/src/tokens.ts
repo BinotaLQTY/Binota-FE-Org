@@ -1,6 +1,6 @@
 import tokenLusd from "./token-icons/lusd.svg";
 import tokenShMon from "./token-icons/shMON.svg";
-import tokenB1 from "./token-icons/Pinky.svg";
+import tokenB1 from "./token-icons/b1.svg";
 import tokenBinota from "./token-icons/Hand.svg";
 import tokenMon from "./token-icons/monad.svg";
 import tokenSMon from "./token-icons/sMON.svg";
