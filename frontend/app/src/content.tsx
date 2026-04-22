@@ -495,8 +495,7 @@ export default {
     ),
     subheading: (
       <>
-        By staking BNT you can vote on incentives for Binota, while still
-        earning Liquity V1 fees.
+        By staking BNT you can vote on incentives for Binota.
       </>
     ),
     learnMore: ["https://docs.liquity.org/v2-faq/BINOTA-staking", "Learn more"],

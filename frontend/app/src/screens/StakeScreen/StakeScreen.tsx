@@ -6,7 +6,6 @@ import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { Amount } from "@/src/comps/Amount/Amount";
 import { FlowButton } from "@/src/comps/FlowButton/FlowButton";
-import { LinkTextButton } from "@/src/comps/LinkTextButton/LinkTextButton";
 import { Screen } from "@/src/comps/Screen/Screen";
 import { StakePositionSummary } from "@/src/comps/StakePositionSummary/StakePositionSummary";
 import content from "@/src/content";
@@ -44,11 +43,11 @@ export function StakeScreen() {
             className={css({
               display: "flex",
               flexFlow: "wrap",
-              alignItems: "left",
-              justifyContent: "left",
+              alignItems: "center",
+              justifyContent: "center",
               gap: "8px 8px",
               // fontFamily: "Kaypro",
-              color: "yellow:500",
+              color: "white",
               width: "100%",
               maxWidth: "540px",
               fontSize: "28px",
@@ -67,27 +66,19 @@ export function StakeScreen() {
             className={css({
               display: "flex",
               flexFlow: "wrap",
-              alignItems: "left",
-              justifyContent: "left",
+              alignItems: "center",
+              justifyContent: "center",
               gap: "8px 8px",
               // fontFamily: "Kaypro",
               marginBottom: "16px",
+              color: "white",
+              textAlign: "center",
               small: {
                 paddingLeft: "8px",
               },
             })}
           >
-            {content.stakeScreen.subheading}{" "}
-            <LinkTextButton
-              className={css({
-                marginTop: "16px",
-                fontSize: "12px",
-                textTransform: "uppercase",
-              })}
-              label={content.stakeScreen.learnMore[1]}
-              href={content.stakeScreen.learnMore[0]}
-              external
-            />
+            {content.stakeScreen.subheading}
           </div>
         ),
       }}
