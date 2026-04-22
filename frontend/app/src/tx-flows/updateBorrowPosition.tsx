@@ -98,7 +98,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
           <TransactionDetailsRow
             label={isBorrowing ? "Loan increase" : "Loan decrease"}
             value={[
-              <Amount key="start" fallback="…" value={debtChangeWithFee && dn.abs(debtChangeWithFee)} suffix=" UNO" />,
+              <Amount key="start" fallback="…" value={debtChangeWithFee && dn.abs(debtChangeWithFee)} suffix=" B1" />,
               upfrontFeeData.data?.upfrontFee && dn.gt(upfrontFeeData.data.upfrontFee, 0n) && (
                 <div
                   key="end"
@@ -129,7 +129,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
   steps: {
     approveBold: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: (props) => <TransactionStatus {...props} approval="approve-only" />,
       async commit(ctx) {
         const debtChange = getDebtChange(ctx.request.loan, ctx.request.prevLoan);
@@ -240,8 +240,8 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
         if (!dn.eq(collChange, 0) && !dn.eq(debtChange, 0)) return "Update Position";
         if (dn.gt(collChange, 0)) return "Deposit Collateral";
         if (dn.lt(collChange, 0)) return "Withdraw Collateral";
-        if (dn.gt(debtChange, 0)) return "Borrow UNO";
-        if (dn.lt(debtChange, 0)) return "Repay UNO";
+        if (dn.gt(debtChange, 0)) return "Borrow B1";
+        if (dn.lt(debtChange, 0)) return "Repay B1";
 
         throw new Error("Invalid request");
       },
@@ -302,7 +302,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
     },
 
     depositBold: {
-      name: () => "Repay UNO",
+      name: () => "Repay B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
@@ -363,7 +363,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
     },
 
     withdrawBold: {
-      name: () => "Borrow UNO",
+      name: () => "Borrow B1",
       Status: TransactionStatus,
 
       async commit(ctx) {

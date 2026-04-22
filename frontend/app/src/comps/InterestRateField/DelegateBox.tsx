@@ -109,7 +109,7 @@ export function DelegateBox({
                 alignItems: "center",
               })}
             >
-              <Amount value={delegate.boldAmount} format="compact" suffix=" UNO" />
+              <Amount value={delegate.boldAmount} format="compact" suffix=" B1" />
             </div>
             <div
               className={css({

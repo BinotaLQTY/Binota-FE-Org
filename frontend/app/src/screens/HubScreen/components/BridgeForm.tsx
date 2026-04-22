@@ -18,7 +18,7 @@ export function BridgeForm() {
     amount,
     sourceChainId,
     destinationChainId,
-    unoBalance,
+    b1Balance,
     isLoadingBalance,
     fee,
     isLoadingFee,
@@ -109,8 +109,8 @@ export function BridgeForm() {
                 Balance:{" "}
                 {isLoadingBalance ? (
                   "..."
-                ) : unoBalance ? (
-                  <Amount value={unoBalance} format="2z" />
+                ) : b1Balance ? (
+                  <Amount value={b1Balance} format="2z" />
                 ) : (
                   "0"
                 )}

@@ -167,7 +167,7 @@ export const updateLeveragePosition: FlowDeclaration<UpdateLeveragePositionReque
               fallback="…"
               value={debtChangeWithFee}
               format="2diff"
-              suffix=" UNO"
+              suffix=" B1"
             />,
             upfrontFeeData.data?.upfrontFee
             && dn.gt(upfrontFeeData.data.upfrontFee, 0)

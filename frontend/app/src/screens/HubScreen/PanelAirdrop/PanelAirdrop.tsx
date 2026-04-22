@@ -1,17 +1,17 @@
 "use client";
 
 import { AirdropProvider } from "@/src/services/Airdrop";
-import { UnoVaultProvider } from "@/src/services/Airdrop";
+import { B1VaultProvider } from "@/src/services/Airdrop";
 import { css } from "@/styled-system/css";
 import { VFlex } from "@binota/uikit";
 import { AirdropViewer } from "./AirdropViewer";
 import { EligibilityRules } from "./EligibilityRules";
-import { UnoVaultPanel } from "./UnoVaultPanel";
+import { B1VaultPanel } from "./B1VaultPanel";
 
 export function PanelAirdrop() {
   return (
     <AirdropProvider>
-      <UnoVaultProvider>
+      <B1VaultProvider>
         <VFlex gap={32}>
           <section>
             <EligibilityRules />
@@ -36,10 +36,10 @@ export function PanelAirdrop() {
               border: "1px solid token(colors.separator)",
             })}
           >
-            <UnoVaultPanel />
+            <B1VaultPanel />
           </section>
         </VFlex>
-      </UnoVaultProvider>
+      </B1VaultProvider>
     </AirdropProvider>
   );
 }

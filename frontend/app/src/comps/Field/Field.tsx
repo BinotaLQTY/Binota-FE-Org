@@ -387,10 +387,10 @@ export const FooterInfoSlippageRefundClose = memo(
         label="Slippage refund"
         value={
           <HFlex gap={4}>
-            <Amount prefix="~" value={props.slippageProtection} suffix=" UNO" />
+            <Amount prefix="~" value={props.slippageProtection} suffix=" B1" />
             <InfoTooltip heading="Slippage refund">
-              To allow for slippage, slightly more of your {props.collateralName} will be converted to UNO than needed
-              for the repayment. The remaining UNO will be refunded to your wallet. The actual amount may be higher or
+              To allow for slippage, slightly more of your {props.collateralName} will be converted to B1 than needed
+              for the repayment. The remaining B1 will be refunded to your wallet. The actual amount may be higher or
               lower than indicated here, according to the execution price of your trade.
             </InfoTooltip>
           </HFlex>

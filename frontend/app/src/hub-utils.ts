@@ -66,11 +66,11 @@ export const CHAIN_RPC_URLS: Record<HubChainId, string> = {
 // Bridge contract address (same on all chains - LayerZero OFT)
 export const BRIDGE_ADDRESS = "0xE3ce6e0bA2F6CE27aB0C121c3d0f9b9c30F590d7" as Address;
 
-// UNO token addresses per chain
-export const UNO_TOKEN_ADDRESSES: Record<HubChainId, Address> = {
-  1: "0x0000000000000000000000000000000000000000" as Address,      // Placeholder - Ethereum UNO
-  42161: "0x0000000000000000000000000000000000000000" as Address,  // Placeholder - Arbitrum UNO
-  8453: "0x0000000000000000000000000000000000000000" as Address,   // Placeholder - Base UNO
+// B1 token addresses per chain
+export const B1_TOKEN_ADDRESSES: Record<HubChainId, Address> = {
+  1: "0x0000000000000000000000000000000000000000" as Address,      // Placeholder - Ethereum B1
+  42161: "0x0000000000000000000000000000000000000000" as Address,  // Placeholder - Arbitrum B1
+  8453: "0x0000000000000000000000000000000000000000" as Address,   // Placeholder - Base B1
   56: "0x0000000000000000000000000000000000000000" as Address,     // BNB Chain B1 - same as CONTRACT_BOLD_TOKEN
 };
 
@@ -99,7 +99,7 @@ export const KAMISAMA_NFT = {
 // Points calculation constants
 export const POINTS_PER_NFT = 500;
 export const POINTS_PER_TROVE = 100;
-export const POINTS_PER_DEBT_UNIT = 1; // per 1 UNO of debt
+export const POINTS_PER_DEBT_UNIT = 1; // per 1 B1 of debt
 
 // =============================================================================
 // Bridge Utilities
@@ -239,8 +239,8 @@ export function useBridgeFeeQuote(params: {
   });
 }
 
-export function useUnoBalance(chainId: HubChainId | null, address: Address | null) {
-  const tokenAddress = chainId ? UNO_TOKEN_ADDRESSES[chainId] : null;
+export function useB1Balance(chainId: HubChainId | null, address: Address | null) {
+  const tokenAddress = chainId ? B1_TOKEN_ADDRESSES[chainId] : null;
 
   return useReadContract({
     address: tokenAddress ?? undefined,
@@ -261,12 +261,12 @@ export function useUnoBalance(chainId: HubChainId | null, address: Address | nul
   });
 }
 
-export function useUnoAllowance(
+export function useB1Allowance(
   chainId: HubChainId | null,
   owner: Address | null,
   spender: Address | null,
 ) {
-  const tokenAddress = chainId ? UNO_TOKEN_ADDRESSES[chainId] : null;
+  const tokenAddress = chainId ? B1_TOKEN_ADDRESSES[chainId] : null;
 
   return useReadContract({
     address: tokenAddress ?? undefined,

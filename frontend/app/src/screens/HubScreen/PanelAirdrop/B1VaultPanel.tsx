@@ -2,13 +2,13 @@
 
 import { Amount } from "@/src/comps/Amount/Amount";
 import { Spinner } from "@/src/comps/Spinner/Spinner";
-import { useUnoVault } from "@/src/services/Airdrop";
+import { useB1Vault } from "@/src/services/Airdrop";
 import { useTransactionFlow } from "@/src/services/TransactionFlow";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
 import { Button, HFlex, Tabs, TextInput, VFlex } from "@binota/uikit";
 
-export function UnoVaultPanel() {
+export function B1VaultPanel() {
   const { isConnected, address } = useAccount();
   const txFlow = useTransactionFlow();
   const {
@@ -19,22 +19,22 @@ export function UnoVaultPanel() {
     parsedAmount,
     isValidAmount,
     validationError,
-    unoBalance,
-    stakedUno,
+    b1Balance,
+    stakedB1,
     isLoading,
     setMaxAmount,
-  } = useUnoVault();
+  } = useB1Vault();
 
   const handleSubmit = () => {
     if (!isValidAmount || !parsedAmount || !address) return;
 
     txFlow.start({
-      flowId: "unoVaultDeposit",
+      flowId: "b1VaultDeposit",
       backLink: ["/hub/airdrop", "Back to Airdrop"],
       successLink: ["/hub/airdrop", "Back to Airdrop"],
       successMessage: mode === "deposit"
-        ? "Successfully staked UNO!"
-        : "Successfully unstaked UNO!",
+        ? "Successfully staked B1!"
+        : "Successfully unstaked B1!",
       amount: parsedAmount,
       mode,
     });
@@ -49,7 +49,7 @@ export function UnoVaultPanel() {
           color: "contentAlt",
         })}
       >
-        Connect your wallet to stake UNO
+        Connect your wallet to stake B1
       </div>
     );
   }
@@ -77,7 +77,7 @@ export function UnoVaultPanel() {
           fontWeight: 600,
         })}
       >
-        UNO Staking Vault
+        B1 Staking Vault
       </div>
 
       {/* Balance display */}
@@ -96,10 +96,10 @@ export function UnoVaultPanel() {
           })}
         >
           <div className={css({ fontSize: 12, color: "contentAlt", marginBottom: 4 })}>
-            Available UNO
+            Available B1
           </div>
           <div className={css({ fontSize: 20, fontWeight: 500 })}>
-            {unoBalance ? <Amount value={unoBalance} format="compact" /> : "0"}
+            {b1Balance ? <Amount value={b1Balance} format="compact" /> : "0"}
           </div>
         </div>
         <div
@@ -110,10 +110,10 @@ export function UnoVaultPanel() {
           })}
         >
           <div className={css({ fontSize: 12, color: "contentAlt", marginBottom: 4 })}>
-            Staked UNO
+            Staked B1
           </div>
           <div className={css({ fontSize: 20, fontWeight: 500, color: "accent" })}>
-            {stakedUno ? <Amount value={stakedUno} format="compact" /> : "0"}
+            {stakedB1 ? <Amount value={stakedB1} format="compact" /> : "0"}
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@ export function UnoVaultPanel() {
         wide
         disabled={!isValidAmount}
         onClick={handleSubmit}
-        label={mode === "deposit" ? "Stake UNO" : "Unstake UNO"}
+        label={mode === "deposit" ? "Stake B1" : "Unstake B1"}
       />
 
       {/* Info text */}
@@ -198,8 +198,8 @@ export function UnoVaultPanel() {
         })}
       >
         {mode === "deposit"
-          ? "Staking UNO boosts your airdrop allocation. Your staked tokens remain locked until you unstake."
-          : "Unstaking UNO will reduce your airdrop allocation boost."}
+          ? "Staking B1 boosts your airdrop allocation. Your staked tokens remain locked until you unstake."
+          : "Unstaking B1 will reduce your airdrop allocation boost."}
       </div>
     </VFlex>
   );

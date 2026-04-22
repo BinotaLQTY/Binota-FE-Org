@@ -1,13 +1,13 @@
 export { AirdropProvider, useAirdrop } from "./AirdropProvider";
-export { UnoVaultProvider, useUnoVault } from "./UnoVaultProvider";
+export { B1VaultProvider, useB1Vault } from "./B1VaultProvider";
 export type {
   AdapterShare,
   AdapterTotal,
   AirdropContextValue,
   ClaimAirdropRequest,
   MilestoneData,
-  UnoVaultContextValue,
-  UnoVaultData,
-  UnoVaultDepositRequest,
+  B1VaultContextValue,
+  B1VaultData,
+  B1VaultDepositRequest,
   UserAllocation,
 } from "./types";

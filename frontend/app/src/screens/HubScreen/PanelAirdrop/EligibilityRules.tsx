@@ -7,12 +7,12 @@ const ELIGIBILITY_CRITERIA = [
   {
     id: "milestone",
     title: "Global Milestones",
-    description: "Reach community UNO deposit milestones to unlock higher reward multipliers",
+    description: "Reach community B1 deposit milestones to unlock higher reward multipliers",
   },
   {
     id: "sp",
     title: "Stability Pools",
-    description: "Deposit UNO in stability pools (MON, shMON, sMON, gMON) to earn NTA",
+    description: "Deposit B1 in stability pools (MON, shMON, sMON, gMON) to earn NTA",
   },
   {
     id: "lp",
@@ -20,9 +20,9 @@ const ELIGIBILITY_CRITERIA = [
     description: "Provide liquidity in partner DEX pools to earn additional NTA",
   },
   {
-    id: "uno",
-    title: "UNO Vault",
-    description: "Stake UNO tokens to boost your airdrop allocation",
+    id: "b1",
+    title: "B1 Vault",
+    description: "Stake B1 tokens to boost your airdrop allocation",
   },
 ];
 

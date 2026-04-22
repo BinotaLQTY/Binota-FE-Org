@@ -8,7 +8,7 @@ import type { EMilestone } from "@/src/config/milestones";
 export type AdapterShare = {
   /** The adapter type */
   adapter: EAdapters;
-  /** User's deposited amount in the adapter (UNO for SP, LP tokens for LP, NTA for vault) */
+  /** User's deposited amount in the adapter (B1 for SP, LP tokens for LP, NTA for vault) */
   userDeposit: Dnum;
   /** User's share of the adapter's total deposits (0-1) */
   sharePercent: Dnum;
@@ -24,8 +24,8 @@ export type AdapterTotal = {
   adapter: EAdapters;
   /** Total deposits in the adapter (in deposit token) */
   totalDeposits: Dnum;
-  /** Total deposits converted to UNO equivalent (for milestone calculation) */
-  totalUnoEquivalent: Dnum;
+  /** Total deposits converted to B1 equivalent (for milestone calculation) */
+  totalB1Equivalent: Dnum;
 };
 
 /**
@@ -38,13 +38,13 @@ export type MilestoneData = {
   nextMilestone: EMilestone | undefined;
   /** Progress percentage towards next milestone (0-100) */
   progressPercent: number;
-  /** Amount of UNO needed to reach next milestone */
+  /** Amount of B1 needed to reach next milestone */
   amountToNext: Dnum;
   /** Current reward multiplier */
   rewardMultiplier: number;
   /** All achieved milestones */
   achievedMilestones: EMilestone[];
-  /** Total UNO deposited globally across all adapters */
+  /** Total B1 deposited globally across all adapters */
   totalGlobalDeposits: Dnum;
 };
 
@@ -65,15 +65,15 @@ export type UserAllocation = {
 };
 
 /**
- * UNO Vault specific data
+ * B1 Vault specific data
  */
-export type UnoVaultData = {
-  /** User's UNO balance (not staked) */
-  unoBalance: Dnum;
-  /** User's staked UNO in vault */
-  stakedUno: Dnum;
-  /** Total UNO staked in vault globally */
-  totalStakedUno: Dnum;
+export type B1VaultData = {
+  /** User's B1 balance (not staked) */
+  b1Balance: Dnum;
+  /** User's staked B1 in vault */
+  stakedB1: Dnum;
+  /** Total B1 staked in vault globally */
+  totalStakedB1: Dnum;
   /** User's share of vault (0-1) */
   vaultSharePercent: Dnum;
   /** Pending NTA rewards from vault staking */
@@ -96,9 +96,9 @@ export type AirdropContextValue = {
   adapterTotals: AdapterTotal[];
   isLoadingAdapterTotals: boolean;
 
-  // UNO Vault data
-  unoVaultData: UnoVaultData | null;
-  isLoadingUnoVaultData: boolean;
+  // B1 Vault data
+  b1VaultData: B1VaultData | null;
+  isLoadingB1VaultData: boolean;
 
   // Status
   isConnected: boolean;
@@ -111,9 +111,9 @@ export type AirdropContextValue = {
 };
 
 /**
- * UNO Vault context value
+ * B1 Vault context value
  */
-export type UnoVaultContextValue = {
+export type B1VaultContextValue = {
   // Current mode
   mode: "deposit" | "withdraw";
   setMode: (mode: "deposit" | "withdraw") => void;
@@ -128,8 +128,8 @@ export type UnoVaultContextValue = {
   validationError: string | null;
 
   // Balances
-  unoBalance: Dnum | null;
-  stakedUno: Dnum | null;
+  b1Balance: Dnum | null;
+  stakedB1: Dnum | null;
 
   // Max amounts
   maxDeposit: Dnum | null;
@@ -155,10 +155,10 @@ export type ClaimAirdropRequest = {
 };
 
 /**
- * UNO vault deposit request type (for transaction flow)
+ * B1 vault deposit request type (for transaction flow)
  */
-export type UnoVaultDepositRequest = {
-  flowId: "unoVaultDeposit";
+export type B1VaultDepositRequest = {
+  flowId: "b1VaultDeposit";
   backLink: [string, string];
   userAddress: Address;
   amount: Dnum;

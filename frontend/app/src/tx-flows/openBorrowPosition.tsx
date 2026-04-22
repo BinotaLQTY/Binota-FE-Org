@@ -108,7 +108,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           <TransactionDetailsRow
             label="Loan"
             value={[
-              <Amount key="start" fallback="…" value={boldAmountWithFee} suffix=" UNO" />,
+              <Amount key="start" fallback="…" value={boldAmountWithFee} suffix=" B1" />,
               <div
                 key="end"
                 className={css({

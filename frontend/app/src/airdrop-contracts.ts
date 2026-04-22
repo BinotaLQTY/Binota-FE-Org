@@ -24,13 +24,13 @@ import {
 
 /**
  * Core airdrop contract ABIs
- * Note: NtaToken and UnoToken use standard ERC20 ABI
+ * Note: NtaToken and B1Token use standard ERC20 ABI
  */
 const AIRDROP_ABIS = {
   NtaRewardsController: StaRewardsControllerV2,
   NtaMilestoneController: StaMilestoneControllerV2,
   NtaToken: erc20Abi,
-  UnoToken: erc20Abi,
+  B1Token: erc20Abi,
 } as const;
 
 type AirdropContractName = keyof typeof AIRDROP_ABIS;
@@ -42,7 +42,7 @@ const AIRDROP_ADDRESSES: Record<AirdropContractName, Address | undefined> = {
   NtaRewardsController: CONTRACT_NTA_REWARDS_CONTROLLER,
   NtaMilestoneController: CONTRACT_NTA_MILESTONE_CONTROLLER,
   NtaToken: CONTRACT_NTA_TOKEN,
-  UnoToken: CONTRACT_BOLD_TOKEN,
+  B1Token: CONTRACT_BOLD_TOKEN,
 };
 
 /**
@@ -52,7 +52,7 @@ const ADAPTER_ADDRESSES: Record<EAdapters, Address | undefined> = {
   [EAdapters.BNB_SP]: CONTRACT_SP_ADAPTER_BNB,
   [EAdapters.DEX_A_LP]: CONTRACT_LP_ADAPTER_DEX_A,
   [EAdapters.DEX_B_LP]: CONTRACT_LP_ADAPTER_DEX_B,
-  [EAdapters.UNO_VAULT]: CONTRACT_UNO_VAULT_ADAPTER,
+  [EAdapters.B1_VAULT]: CONTRACT_UNO_VAULT_ADAPTER,
 };
 
 /**
@@ -77,7 +77,7 @@ export function getAirdropContract<CN extends AirdropContractName>(
  * Get an adapter contract with the correct ABI based on adapter type
  * - Stability Pool adapters use SonetaSpAdapterV2
  * - Liquidity Pool adapters use LpAdapterV2
- * - UNO Vault adapter uses OneVaultAdapterV2
+ * - B1 Vault adapter uses OneVaultAdapterV2
  *
  * Returns null if the adapter address is not configured
  */

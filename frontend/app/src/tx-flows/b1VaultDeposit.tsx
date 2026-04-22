@@ -13,21 +13,21 @@ import { maxUint256 } from "viem";
 import { createRequestSchema, verifyTransaction } from "./shared";
 
 const RequestSchema = createRequestSchema(
-  "unoVaultDeposit",
+  "b1VaultDeposit",
   {
     amount: vDnum(),
     mode: v.union([v.literal("deposit"), v.literal("withdraw")]),
   },
 );
 
-export type UnoVaultDepositRequest = v.InferOutput<typeof RequestSchema>;
+export type B1VaultDepositRequest = v.InferOutput<typeof RequestSchema>;
 
-export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
+export const b1VaultDeposit: FlowDeclaration<B1VaultDepositRequest> = {
   title: "Review & Send Transaction",
 
   Summary({ request }) {
-    const unoPrice = usePrice("B1");
-    const amountInUsd = unoPrice.data && dn.mul(request.amount, unoPrice.data);
+    const b1Price = usePrice("B1");
+    const amountInUsd = b1Price.data && dn.mul(request.amount, b1Price.data);
     const isDeposit = request.mode === "deposit";
 
     return (
@@ -55,8 +55,8 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
   },
 
   Details({ request }) {
-    const unoPrice = usePrice("B1");
-    const amountInUsd = unoPrice.data && dn.mul(request.amount, unoPrice.data);
+    const b1Price = usePrice("B1");
+    const amountInUsd = b1Price.data && dn.mul(request.amount, b1Price.data);
     const isDeposit = request.mode === "deposit";
 
     return (
@@ -93,15 +93,15 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
 
   steps: {
     // Approval step (only for deposit)
-    approveUno: {
+    approveB1: {
       name: () => "Approve B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
-        const unoToken = getAirdropContract("UnoToken");
-        const vaultAdapter = getAdapterContract(EAdapters.UNO_VAULT);
+        const b1Token = getAirdropContract("B1Token");
+        const vaultAdapter = getAdapterContract(EAdapters.B1_VAULT);
 
-        if (!unoToken || !vaultAdapter) {
+        if (!b1Token || !vaultAdapter) {
           // Mock fallback for development/testing
           console.log("Mock: Approving B1 for vault", {
             account: ctx.account,
@@ -111,16 +111,16 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
         }
 
         return ctx.writeContract({
-          ...unoToken,
+          ...b1Token,
           functionName: "approve",
           args: [vaultAdapter.address, maxUint256],
         });
       },
 
       async verify(ctx, hash) {
-        const unoToken = getAirdropContract("UnoToken");
+        const b1Token = getAirdropContract("B1Token");
 
-        if (!unoToken) {
+        if (!b1Token) {
           // Mock fallback
           await new Promise((resolve) => setTimeout(resolve, 1500));
           console.log("Mock: B1 approval verified", hash);
@@ -139,7 +139,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
 
       async commit(ctx) {
         const isDeposit = ctx.request.mode === "deposit";
-        const vaultAdapter = getAdapterContract(EAdapters.UNO_VAULT);
+        const vaultAdapter = getAdapterContract(EAdapters.B1_VAULT);
 
         if (!vaultAdapter) {
           // Mock fallback for development/testing
@@ -159,7 +159,7 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
       },
 
       async verify(ctx, hash) {
-        const vaultAdapter = getAdapterContract(EAdapters.UNO_VAULT);
+        const vaultAdapter = getAdapterContract(EAdapters.B1_VAULT);
 
         if (!vaultAdapter) {
           // Mock fallback
@@ -175,26 +175,26 @@ export const unoVaultDeposit: FlowDeclaration<UnoVaultDepositRequest> = {
 
   async getSteps(ctx) {
     if (ctx.request.mode === "deposit") {
-      const unoToken = getAirdropContract("UnoToken");
-      const vaultAdapter = getAdapterContract(EAdapters.UNO_VAULT);
+      const b1Token = getAirdropContract("B1Token");
+      const vaultAdapter = getAdapterContract(EAdapters.B1_VAULT);
 
-      if (unoToken && vaultAdapter) {
+      if (b1Token && vaultAdapter) {
         // Check if approval is needed
         const allowance = await ctx.readContract({
-          ...unoToken,
+          ...b1Token,
           functionName: "allowance",
           args: [ctx.account, vaultAdapter.address],
         });
 
         if ((allowance as bigint) < ctx.request.amount[0]) {
-          return ["approveUno", "executeVaultAction"];
+          return ["approveB1", "executeVaultAction"];
         }
 
         return ["executeVaultAction"];
       }
 
       // Mock mode: always require approval for deposits
-      return ["approveUno", "executeVaultAction"];
+      return ["approveB1", "executeVaultAction"];
     }
 
     // Withdraw doesn't need approval

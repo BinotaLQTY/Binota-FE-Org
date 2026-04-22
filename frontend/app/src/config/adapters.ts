@@ -17,7 +17,7 @@ export const SOURCE_IDS = {
 export enum EAdapterType {
   STABILITY_POOL = "STABILITY_POOL",
   LIQUIDITY_POOL = "LIQUIDITY_POOL",
-  UNO_VAULT = "UNO_VAULT",
+  B1_VAULT = "B1_VAULT",
 }
 
 /**
@@ -29,8 +29,8 @@ export enum EAdapters {
   // Liquidity Pool Adapters
   DEX_A_LP = "DEX_A_LP",
   DEX_B_LP = "DEX_B_LP",
-  // UNO Vault Adapter
-  UNO_VAULT = "UNO_VAULT",
+  // B1 Vault Adapter
+  B1_VAULT = "B1_VAULT",
 }
 
 /**
@@ -83,9 +83,9 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
     description: "Stake B1-BNB LP tokens to earn NTA rewards",
   },
   // B1 Vault Adapter - for staking B1 tokens
-  [EAdapters.UNO_VAULT]: {
+  [EAdapters.B1_VAULT]: {
     name: "B1 Staking Vault",
-    type: EAdapterType.UNO_VAULT,
+    type: EAdapterType.B1_VAULT,
     depositToken: "B1",
     sourceId: SOURCE_IDS.SOURCE_NTA,
     description: "Stake B1 tokens to boost your airdrop allocation",
@@ -110,7 +110,7 @@ export const LP_ADAPTERS: EAdapters[] = [EAdapters.DEX_A_LP, EAdapters.DEX_B_LP]
 export const ALL_ADAPTERS: EAdapters[] = [
   ...SP_ADAPTERS,
   ...LP_ADAPTERS,
-  EAdapters.UNO_VAULT,
+  EAdapters.B1_VAULT,
 ];
 
 /**
@@ -155,10 +155,10 @@ export function isLpAdapter(adapter: EAdapters): boolean {
 }
 
 /**
- * Check if an adapter is the UNO Vault adapter
+ * Check if an adapter is the B1 Vault adapter
  */
-export function isUnoVaultAdapter(adapter: EAdapters): boolean {
-  return ADAPTER_CONFIGS[adapter].type === EAdapterType.UNO_VAULT;
+export function isB1VaultAdapter(adapter: EAdapters): boolean {
+  return ADAPTER_CONFIGS[adapter].type === EAdapterType.B1_VAULT;
 }
 
 /**

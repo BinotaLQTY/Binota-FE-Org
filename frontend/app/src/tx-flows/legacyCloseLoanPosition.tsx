@@ -51,7 +51,7 @@ export const legacyCloseLoanPosition: FlowDeclaration<LegacyCloseLoanPositionReq
         {dn.gt(trove.borrowed, 0) && (
           <TransactionDetailsRow
             label="You repay"
-            value={[<Amount key="start" value={trove.borrowed} suffix=" UNO" />]}
+            value={[<Amount key="start" value={trove.borrowed} suffix=" B1" />]}
           />
         )}
         <TransactionDetailsRow
@@ -72,13 +72,13 @@ export const legacyCloseLoanPosition: FlowDeclaration<LegacyCloseLoanPositionReq
 
   steps: {
     approveBold: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: (props) => <TransactionStatus {...props} approval="approve-only" />,
       async commit(ctx) {
         const { trove } = ctx.request;
         const { LEVERAGE_ZAPPER } = getLegacyBranch(trove.branchId);
         if (!LEGACY_CHECK?.BOLD_TOKEN) {
-          throw new Error("UNO token address not available");
+          throw new Error("B1 token address not available");
         }
         return ctx.writeContract({
           abi: erc20Abi,
@@ -137,7 +137,7 @@ export const legacyCloseLoanPosition: FlowDeclaration<LegacyCloseLoanPositionReq
     const branch = getLegacyBranch(trove.branchId);
 
     if (!LEGACY_CHECK?.BOLD_TOKEN) {
-      throw new Error("UNO token address not available");
+      throw new Error("B1 token address not available");
     }
     const isBoldApproved = !dn.gt(trove.borrowed, [
       (await ctx.readContract({

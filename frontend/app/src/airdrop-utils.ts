@@ -3,7 +3,7 @@ import type {
   AdapterShare,
   AdapterTotal,
   MilestoneData,
-  UnoVaultData,
+  B1VaultData,
   UserAllocation,
 } from "@/src/services/Airdrop/types";
 
@@ -37,7 +37,7 @@ import * as dn from "dnum";
 const USE_MOCK_DATA = !isAirdropContractsConfigured();
 
 // Mock data constants
-const MOCK_TOTAL_GLOBAL_DEPOSITS: Dnum = [BigInt("8500000000000000000000000"), 18]; // 8.5M UNO
+const MOCK_TOTAL_GLOBAL_DEPOSITS: Dnum = [BigInt("8500000000000000000000000"), 18]; // 8.5M B1
 
 /**
  * Generate mock adapter shares for a user
@@ -59,7 +59,7 @@ function generateMockAdapterShares(address: Address): AdapterShare[] {
     let pendingRewards: Dnum;
 
     if (config.type === EAdapterType.STABILITY_POOL) {
-      // SP adapters: UNO deposits
+      // SP adapters: B1 deposits
       userDeposit = [BigInt(seed * 1e18), 18] as Dnum;
       sharePercent = [BigInt(Math.floor(seed / 100) * 1e14), 18] as Dnum; // 0-1%
       pendingRewards = [BigInt(Math.floor(seed / 10) * 1e17), 18] as Dnum;
@@ -69,7 +69,7 @@ function generateMockAdapterShares(address: Address): AdapterShare[] {
       sharePercent = [BigInt(Math.floor(seed / 200) * 1e14), 18] as Dnum;
       pendingRewards = [BigInt(Math.floor(seed / 20) * 1e17), 18] as Dnum;
     } else {
-      // UNO Vault
+      // B1 Vault
       userDeposit = [BigInt(Math.floor(seed / 5) * 1e18), 18] as Dnum;
       sharePercent = [BigInt(Math.floor(seed / 500) * 1e14), 18] as Dnum;
       pendingRewards = [BigInt(Math.floor(seed / 50) * 1e17), 18] as Dnum;
@@ -95,25 +95,25 @@ function generateMockAdapterTotals(): AdapterTotal[] {
     const baseAmount = (index + 1) * 500000; // 500K to 3.5M
 
     let totalDeposits: Dnum;
-    let totalUnoEquivalent: Dnum;
+    let totalB1Equivalent: Dnum;
 
     if (config.type === EAdapterType.STABILITY_POOL) {
       totalDeposits = [BigInt(baseAmount * 1e18), 18] as Dnum;
-      totalUnoEquivalent = totalDeposits; // 1:1 for SP
+      totalB1Equivalent = totalDeposits; // 1:1 for SP
     } else if (config.type === EAdapterType.LIQUIDITY_POOL) {
       totalDeposits = [BigInt(Math.floor(baseAmount / 2) * 1e18), 18] as Dnum;
-      // LP tokens worth ~2x in UNO equivalent
-      totalUnoEquivalent = [BigInt(baseAmount * 1e18), 18] as Dnum;
+      // LP tokens worth ~2x in B1 equivalent
+      totalB1Equivalent = [BigInt(baseAmount * 1e18), 18] as Dnum;
     } else {
       totalDeposits = [BigInt(Math.floor(baseAmount / 3) * 1e18), 18] as Dnum;
-      // UNO vault doesn't contribute to UNO total for milestone calculation
-      totalUnoEquivalent = [BigInt(0), 18] as Dnum;
+      // B1 vault doesn't contribute to B1 total for milestone calculation
+      totalB1Equivalent = [BigInt(0), 18] as Dnum;
     }
 
     return {
       adapter,
       totalDeposits,
-      totalUnoEquivalent,
+      totalB1Equivalent,
     };
   });
 }
@@ -161,16 +161,16 @@ function generateMockMilestoneData(): MilestoneData {
 }
 
 /**
- * Generate mock UNO vault data
+ * Generate mock B1 vault data
  */
-function generateMockUnoVaultData(address: Address): UnoVaultData {
+function generateMockB1VaultData(address: Address): B1VaultData {
   const addressNum = parseInt(address.slice(2, 10), 16);
   const seed = addressNum % 10000;
 
   return {
-    unoBalance: [BigInt(seed * 100 * 1e18), 18] as Dnum,
-    stakedUno: [BigInt(Math.floor(seed / 2) * 100 * 1e18), 18] as Dnum,
-    totalStakedUno: [BigInt("5000000000000000000000000"), 18] as Dnum, // 5M UNO
+    b1Balance: [BigInt(seed * 100 * 1e18), 18] as Dnum,
+    stakedB1: [BigInt(Math.floor(seed / 2) * 100 * 1e18), 18] as Dnum,
+    totalStakedB1: [BigInt("5000000000000000000000000"), 18] as Dnum, // 5M B1
     vaultSharePercent: [BigInt(seed * 1e12), 18] as Dnum,
     pendingVaultRewards: [BigInt(Math.floor(seed / 10) * 1e17), 18] as Dnum,
   };
@@ -496,22 +496,22 @@ export function useAdapterTotals() {
 
           const totalDeposits: Dnum = [totalShares, 18];
 
-          // Calculate UNO equivalent based on adapter type
-          let totalUnoEquivalent: Dnum;
+          // Calculate B1 equivalent based on adapter type
+          let totalB1Equivalent: Dnum;
           if (config.type === EAdapterType.STABILITY_POOL) {
-            totalUnoEquivalent = totalDeposits; // 1:1 for SP
+            totalB1Equivalent = totalDeposits; // 1:1 for SP
           } else if (config.type === EAdapterType.LIQUIDITY_POOL) {
-            // LP tokens worth ~2x in UNO equivalent (simplified)
-            totalUnoEquivalent = dn.mul(totalDeposits, 2);
+            // LP tokens worth ~2x in B1 equivalent (simplified)
+            totalB1Equivalent = dn.mul(totalDeposits, 2);
           } else {
-            // UNO vault doesn't contribute to UNO total for milestone calculation
-            totalUnoEquivalent = [BigInt(0), 18] as Dnum;
+            // B1 vault doesn't contribute to B1 total for milestone calculation
+            totalB1Equivalent = [BigInt(0), 18] as Dnum;
           }
 
           return {
             adapter,
             totalDeposits,
-            totalUnoEquivalent,
+            totalB1Equivalent,
           };
         });
       },
@@ -529,20 +529,20 @@ export function useAdapterTotals() {
 }
 
 /**
- * Hook to get UNO vault data for a user
+ * Hook to get B1 vault data for a user
  * Uses real contract calls when configured, falls back to mock data
  */
-export function useUnoVaultData(address: Address | null) {
-  const unoToken = getAirdropContract("UnoToken");
-  const vaultAdapter = getAdapterContract(EAdapters.UNO_VAULT);
+export function useB1VaultData(address: Address | null) {
+  const b1Token = getAirdropContract("B1Token");
+  const vaultAdapter = getAdapterContract(EAdapters.B1_VAULT);
 
   // Mock data fallback
   const mockQuery = useQuery({
-    queryKey: ["unoVaultData", "mock", address],
-    queryFn: async (): Promise<UnoVaultData | null> => {
+    queryKey: ["b1VaultData", "mock", address],
+    queryFn: async (): Promise<B1VaultData | null> => {
       if (!address) return null;
       await new Promise((resolve) => setTimeout(resolve, 400));
-      return generateMockUnoVaultData(address);
+      return generateMockB1VaultData(address);
     },
     enabled: USE_MOCK_DATA && !!address,
     staleTime: 30_000,
@@ -551,10 +551,10 @@ export function useUnoVaultData(address: Address | null) {
   // Real contract calls
   const contractQuery = useReadContracts({
     contracts:
-      unoToken && vaultAdapter && address
+      b1Token && vaultAdapter && address
         ? [
             {
-              ...unoToken,
+              ...b1Token,
               functionName: "balanceOf" as const,
               args: [address] as const,
             },
@@ -570,33 +570,33 @@ export function useUnoVaultData(address: Address | null) {
           ]
         : [],
     query: {
-      enabled: !USE_MOCK_DATA && !!address && !!unoToken && !!vaultAdapter,
+      enabled: !USE_MOCK_DATA && !!address && !!b1Token && !!vaultAdapter,
       staleTime: 30_000,
-      select: (results): UnoVaultData | null => {
+      select: (results): B1VaultData | null => {
         if (!results || results.length < 3) return null;
 
-        const unoBalance =
+        const b1Balance =
           results[0]?.status === "success"
             ? (results[0].result as bigint)
             : BigInt(0);
-        const stakedUno =
+        const stakedB1 =
           results[1]?.status === "success"
             ? (results[1].result as bigint)
             : BigInt(0);
-        const totalStakedUno =
+        const totalStakedB1 =
           results[2]?.status === "success"
             ? (results[2].result as bigint)
             : BigInt(0);
 
         const vaultSharePercent: Dnum =
-          totalStakedUno > BigInt(0)
-            ? dn.div([stakedUno, 18], [totalStakedUno, 18])
+          totalStakedB1 > BigInt(0)
+            ? dn.div([stakedB1, 18], [totalStakedB1, 18])
             : [BigInt(0), 18];
 
         return {
-          unoBalance: [unoBalance, 18] as Dnum,
-          stakedUno: [stakedUno, 18] as Dnum,
-          totalStakedUno: [totalStakedUno, 18] as Dnum,
+          b1Balance: [b1Balance, 18] as Dnum,
+          stakedB1: [stakedB1, 18] as Dnum,
+          totalStakedB1: [totalStakedB1, 18] as Dnum,
           vaultSharePercent,
           pendingVaultRewards: [BigInt(0), 18] as Dnum, // Vault rewards are included in pending rewards
         };
