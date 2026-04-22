@@ -5,7 +5,7 @@ import tokenBinota from "./token-icons/Hand.svg";
 import tokenMon from "./token-icons/monad.svg";
 import tokenSMon from "./token-icons/sMON.svg";
 import tokenGMon from "./token-icons/gMON.svg";
-import tokenBnb from "./token-icons/default.svg"; // TODO: Replace with BNB icon
+import tokenBnb from "./token-icons/bnb.svg";
 
 // any external token, without a known symbol
 export type ExternalToken = {
