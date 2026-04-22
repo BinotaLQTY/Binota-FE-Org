@@ -98,7 +98,7 @@ function BorrowTable({ compact }: { compact: boolean }) {
   return (
     <div className={css({ gridArea: "borrow" })}>
       <HomeTable
-        title="Borrow B1 against MON and staked MON"
+        title="Borrow B1 against BNB and staked BNB"
         subtitle="You can adjust your loans, including your interest rate, at any time"
         icon={<IconBorrow />}
         columns={columns}

@@ -186,7 +186,7 @@ export function BorrowScreen() {
               justifyContent: "center",
               flexFlow: "wrap",
               gap: "0 8px",
-              color: "token(colors.yellow:500)",
+              color: "white",
             })}
           >
             {content.borrowScreen.headline(

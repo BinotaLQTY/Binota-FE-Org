@@ -9,7 +9,7 @@ export default {
   appName: "Binota",
   appDescription: `
     Binota is a new borrowing protocol that lets users
-    deposit MON or LSTs as collateral and mint the stablecoin B1.
+    deposit BNB or LSTs as collateral and mint the stablecoin B1.
   `,
   appUrl:
     typeof window === "undefined"
@@ -72,9 +72,9 @@ export default {
       <>The collateral price at which a loan can be liquidated.</>,
     ],
     ethPrice: [
-      "MON Price",
+      "BNB Price",
       <>
-        The current price of MON, as reported by the oracle. The MON price is
+        The current price of BNB, as reported by the oracle. The BNB price is
         used to calculate the Loan-To-Value (LTV) ratio of a loan.
       </>,
     ],
@@ -204,7 +204,7 @@ export default {
       multiply: {
         title: "Multiply",
         description:
-          "Increase your exposure to MON and its staking yield with a single click",
+          "Increase your exposure to BNB and its staking yield with a single click",
       },
       earn: {
         title: "Earn with B1",
@@ -220,7 +220,7 @@ export default {
     earnTable: {
       title: "Earn rewards with B1",
       subtitle:
-        "Earn B1 & (staked) MON rewards by depositing your B1 in a stability pool",
+        "Earn B1 & (staked) BNB rewards by depositing your B1 in a stability pool",
       forksInfo: {
         text: (
           <>
@@ -250,7 +250,7 @@ export default {
     },
     infoTooltips: {
       avgInterestRate: [
-        "The current average interest rate being paid by MON-backed positions.",
+        "The current average interest rate being paid by BNB-backed positions.",
       ],
       spApr: [
         "Annual Percentage Rate",
@@ -423,7 +423,7 @@ export default {
         "Average annualized return for B1 deposits over the past 7 days.",
       ],
       rewardsEth: [
-        "MON rewards",
+        "BNB rewards",
         "Your proceeds from liquidations conducted by this stability pool.",
       ],
       rewardsBold: [
@@ -449,7 +449,7 @@ export default {
       },
       stabilityPool: {
         title: "Stability Pools",
-        description: "Deposit B1 in stability pools (MON, shMON, sMON, gMON) to earn BNT",
+        description: "Deposit B1 in the BNB stability pool to earn BNT",
       },
       liquidityPool: {
         title: "Liquidity Pools",

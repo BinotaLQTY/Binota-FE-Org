@@ -13,7 +13,7 @@ import { css } from "@/styled-system/css";
 
 // import { AboutButton } from "./AboutButton";
 
-const DISPLAYED_PRICES = ["B1", "MON"] as const;
+const DISPLAYED_PRICES = ["B1", "BNB"] as const;
 const ENABLE_REDEEM = false;
 
 export function BottomBar() {
