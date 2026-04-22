@@ -41,7 +41,8 @@ export function EarnPoolsListScreen() {
               justifyContent: "center",
               flexFlow: "wrap",
               gap: "0 8px",
-              color: "yellow:500",
+              width: "100%",
+              color: "white",
             })}
           >
             {content.earnHome.headline(
