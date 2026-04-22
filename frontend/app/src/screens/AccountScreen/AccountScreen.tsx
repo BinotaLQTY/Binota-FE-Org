@@ -103,7 +103,7 @@ export function AccountScreen({ address }: { address: Address }) {
             <GridItem label="B1 balance">
               <Balance address={address} tokenSymbol="B1" />
             </GridItem>
-            <GridItem label="NTA balance">
+            <GridItem label="BNT balance">
               <Balance
                 address={address}
                 tokenSymbol="BINOTA"

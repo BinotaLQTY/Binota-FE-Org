@@ -24,7 +24,7 @@ export type TMilestoneConfig = {
   threshold: bigint;
   /** Display threshold for UI (in B1 tokens) */
   thresholdDisplay: number;
-  /** NTA reward multiplier for this tier */
+  /** BNT reward multiplier for this tier */
   rewardMultiplier: number;
   /** Color for UI display */
   color: string;
@@ -37,7 +37,7 @@ export type TMilestoneConfig = {
 export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   [EMilestone.BRONZE]: {
     name: "Bronze",
-    description: "First milestone achieved! 1x NTA rewards",
+    description: "First milestone achieved! 1x BNT rewards",
     threshold: parseEther("1000000"),
     thresholdDisplay: 1_000_000,
     rewardMultiplier: 1.0,
@@ -45,7 +45,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.SILVER]: {
     name: "Silver",
-    description: "Silver tier! 1.25x NTA rewards",
+    description: "Silver tier! 1.25x BNT rewards",
     threshold: parseEther("5000000"),
     thresholdDisplay: 5_000_000,
     rewardMultiplier: 1.25,
@@ -53,7 +53,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.GOLD]: {
     name: "Gold",
-    description: "Gold tier! 1.5x NTA rewards",
+    description: "Gold tier! 1.5x BNT rewards",
     threshold: parseEther("10000000"),
     thresholdDisplay: 10_000_000,
     rewardMultiplier: 1.5,
@@ -61,7 +61,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.PLATINUM]: {
     name: "Platinum",
-    description: "Platinum tier! 1.75x NTA rewards",
+    description: "Platinum tier! 1.75x BNT rewards",
     threshold: parseEther("25000000"),
     thresholdDisplay: 25_000_000,
     rewardMultiplier: 1.75,
@@ -69,7 +69,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.DIAMOND]: {
     name: "Diamond",
-    description: "Diamond tier! 2x NTA rewards",
+    description: "Diamond tier! 2x BNT rewards",
     threshold: parseEther("75000000"),
     thresholdDisplay: 75_000_000,
     rewardMultiplier: 2.0,
@@ -77,7 +77,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.COSMIC]: {
     name: "Cosmic",
-    description: "Final milestone achieved! 2x NTA rewards",
+    description: "Final milestone achieved! 2x BNT rewards",
     threshold: parseEther("150000000"),
     thresholdDisplay: 150_000_000,
     rewardMultiplier: 2.0,

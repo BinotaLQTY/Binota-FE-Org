@@ -38,10 +38,10 @@ export const claimAirdrop: FlowDeclaration<ClaimAirdropRequest> = {
         }}
       >
         <div style={{ fontSize: 14, color: "var(--colors-content-alt)" }}>
-          Claiming NTA Rewards
+          Claiming BNT Rewards
         </div>
         <div style={{ fontSize: 24, fontWeight: 600 }}>
-          <Amount value={request.pendingRewards} suffix=" NTA" />
+          <Amount value={request.pendingRewards} suffix=" BNT" />
         </div>
         {rewardsInUsd && (
           <div style={{ fontSize: 14, color: "var(--colors-content-alt)" }}>
@@ -62,12 +62,12 @@ export const claimAirdrop: FlowDeclaration<ClaimAirdropRequest> = {
     return (
       <>
         <TransactionDetailsRow
-          label="Claiming NTA rewards"
+          label="Claiming BNT rewards"
           value={[
             <Amount
               key="start"
               value={request.pendingRewards}
-              suffix=" NTA"
+              suffix=" BNT"
             />,
             <Amount
               key="end"
@@ -93,7 +93,7 @@ export const claimAirdrop: FlowDeclaration<ClaimAirdropRequest> = {
 
   steps: {
     claimRewards: {
-      name: () => "Claim NTA rewards",
+      name: () => "Claim BNT rewards",
       Status: TransactionStatus,
 
       async commit(ctx) {

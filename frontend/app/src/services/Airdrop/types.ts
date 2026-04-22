@@ -8,11 +8,11 @@ import type { EMilestone } from "@/src/config/milestones";
 export type AdapterShare = {
   /** The adapter type */
   adapter: EAdapters;
-  /** User's deposited amount in the adapter (B1 for SP, LP tokens for LP, NTA for vault) */
+  /** User's deposited amount in the adapter (B1 for SP, LP tokens for LP, BNT for vault) */
   userDeposit: Dnum;
   /** User's share of the adapter's total deposits (0-1) */
   sharePercent: Dnum;
-  /** User's pending NTA rewards from this adapter */
+  /** User's pending BNT rewards from this adapter */
   pendingRewards: Dnum;
 };
 
@@ -52,7 +52,7 @@ export type MilestoneData = {
  * User's airdrop allocation data
  */
 export type UserAllocation = {
-  /** Total pending NTA rewards across all adapters */
+  /** Total pending BNT rewards across all adapters */
   totalPendingRewards: Dnum;
   /** User's share of total airdrop (0-1) */
   globalSharePercent: Dnum;
@@ -76,7 +76,7 @@ export type B1VaultData = {
   totalStakedB1: Dnum;
   /** User's share of vault (0-1) */
   vaultSharePercent: Dnum;
-  /** Pending NTA rewards from vault staking */
+  /** Pending BNT rewards from vault staking */
   pendingVaultRewards: Dnum;
 };
 

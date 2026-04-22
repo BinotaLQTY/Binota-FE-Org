@@ -164,10 +164,10 @@ export function AirdropViewer() {
             })}
           >
             <div className={css({ fontSize: 13, color: "contentAlt", marginBottom: 8 })}>
-              Total Pending NTA Rewards
+              Total Pending BNT Rewards
             </div>
             <div className={css({ fontSize: 32, fontWeight: 600, color: "accent" })}>
-              <Amount value={userAllocation.totalPendingRewards} format="compact" suffix=" NTA" />
+              <Amount value={userAllocation.totalPendingRewards} format="compact" suffix=" BNT" />
             </div>
             <div className={css({ fontSize: 13, color: "contentAlt", marginTop: 8 })}>
               Global Share:{" "}
@@ -192,7 +192,7 @@ export function AirdropViewer() {
               })}
             >
               <div>Pool Name</div>
-              <div className={css({ textAlign: "right" })}>NTA</div>
+              <div className={css({ textAlign: "right" })}>BNT</div>
               <div className={css({ textAlign: "right" })}>Deposited</div>
             </div>
             {/* Data rows */}
@@ -218,7 +218,7 @@ export function AirdropViewer() {
                       {config.name}
                     </div>
                     <div className={css({ fontSize: 14, fontWeight: 600, color: "accent", textAlign: "right" })}>
-                      <Amount value={share.pendingRewards} format="compact" suffix=" NTA" />
+                      <Amount value={share.pendingRewards} format="compact" suffix=" BNT" />
                     </div>
                     <div className={css({ fontSize: 13, color: "contentAlt", textAlign: "right" })}>
                       <Amount value={share.userDeposit} format="compact" />

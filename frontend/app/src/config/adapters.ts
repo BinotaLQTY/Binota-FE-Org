@@ -5,7 +5,7 @@ import type { BranchId, CollateralSymbol } from "@/src/types";
  * These are keccak256 hashes of the source names used to identify each adapter
  */
 export const SOURCE_IDS = {
-  SOURCE_NTA: "0x0000000000000000000000000000000000000000000000000000000000000001",
+  SOURCE_BNT: "0x0000000000000000000000000000000000000000000000000000000000000001",
   SOURCE_LP_DEX_A: "0x0000000000000000000000000000000000000000000000000000000000000002",
   SOURCE_LP_DEX_B: "0x0000000000000000000000000000000000000000000000000000000000000003",
   SOURCE_SP_BNB: "0x0000000000000000000000000000000000000000000000000000000000000004",
@@ -46,7 +46,7 @@ export type TAdapterConfig = {
   /** Branch ID for stability pool adapters */
   branchId?: BranchId;
   /** The token users deposit into the adapter */
-  depositToken: "B1" | "NTA" | "LP";
+  depositToken: "B1" | "BNT" | "LP";
   /** Source ID for NtaRewardsController (bytes32 identifier) */
   sourceId: `0x${string}`;
   /** Description for UI */
@@ -65,7 +65,7 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
     branchId: 0,
     depositToken: "B1",
     sourceId: SOURCE_IDS.SOURCE_SP_BNB,
-    description: "Deposit B1 in the BNB stability pool to earn NTA rewards",
+    description: "Deposit B1 in the BNB stability pool to earn BNT rewards",
   },
   // Liquidity Pool Adapters - wrap LP gauge/staking contracts
   [EAdapters.DEX_A_LP]: {
@@ -73,21 +73,21 @@ export const ADAPTER_CONFIGS: { [key in EAdapters]: TAdapterConfig } = {
     type: EAdapterType.LIQUIDITY_POOL,
     depositToken: "LP",
     sourceId: SOURCE_IDS.SOURCE_LP_DEX_A,
-    description: "Stake B1-USDC LP tokens to earn NTA rewards",
+    description: "Stake B1-USDC LP tokens to earn BNT rewards",
   },
   [EAdapters.DEX_B_LP]: {
     name: "DEX B B1-BNB LP",
     type: EAdapterType.LIQUIDITY_POOL,
     depositToken: "LP",
     sourceId: SOURCE_IDS.SOURCE_LP_DEX_B,
-    description: "Stake B1-BNB LP tokens to earn NTA rewards",
+    description: "Stake B1-BNB LP tokens to earn BNT rewards",
   },
   // B1 Vault Adapter - for staking B1 tokens
   [EAdapters.B1_VAULT]: {
     name: "B1 Staking Vault",
     type: EAdapterType.B1_VAULT,
     depositToken: "B1",
-    sourceId: SOURCE_IDS.SOURCE_NTA,
+    sourceId: SOURCE_IDS.SOURCE_BNT,
     description: "Stake B1 tokens to boost your airdrop allocation",
   },
 };

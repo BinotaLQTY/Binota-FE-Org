@@ -47,7 +47,7 @@ export const stakeDeposit: FlowDeclaration<StakeDepositRequest> = {
         value={[
           <Amount
             key="start"
-            suffix=" NTA"
+            suffix=" BNT"
             value={request.lqtyAmount}
           />,
           <Amount
@@ -76,7 +76,7 @@ export const stakeDeposit: FlowDeclaration<StakeDepositRequest> = {
     },
 
     approve: {
-      name: () => "Approve NTA",
+      name: () => "Approve BNT",
       Status: (props) => {
         const account = useAccount();
         return (

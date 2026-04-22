@@ -10,14 +10,9 @@ const ELIGIBILITY_CRITERIA = [
     description: "Reach community B1 deposit milestones to unlock higher reward multipliers",
   },
   {
-    id: "sp",
-    title: "Stability Pools",
-    description: "Deposit B1 in stability pools (MON, shMON, sMON, gMON) to earn NTA",
-  },
-  {
     id: "lp",
     title: "Liquidity Pools",
-    description: "Provide liquidity in partner DEX pools to earn additional NTA",
+    description: "Provide liquidity in partner DEX pools to earn additional BNT",
   },
   {
     id: "b1",
@@ -35,7 +30,7 @@ export function EligibilityRules() {
           fontWeight: 600,
         })}
       >
-        How to Earn NTA
+        How to Earn BNT
       </div>
 
       <div

@@ -68,7 +68,7 @@ export const allocateVotingPower: FlowDeclaration<AllocateVotingPowerRequest> =
             })}
           >
             <h1
-              title="NTA Stake"
+              title="BNT Stake"
               className={css({
                 display: "flex",
                 alignItems: "center",
@@ -94,7 +94,7 @@ export const allocateVotingPower: FlowDeclaration<AllocateVotingPowerRequest> =
                 >
                   <IconStake size={16} />
                 </div>
-                NTA Stake
+                BNT Stake
               </div>
             </h1>
             <div

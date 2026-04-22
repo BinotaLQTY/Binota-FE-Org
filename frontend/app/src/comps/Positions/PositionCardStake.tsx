@@ -49,7 +49,7 @@ export function PositionCardStake({
             color: "positionContent",
           })}
         >
-          NTA stake
+          BNT stake
         </div>,
       ]}
       contextual={
@@ -70,7 +70,7 @@ export function PositionCardStake({
         ),
         label: (
           <HFlex gap={4} justifyContent="flex-start">
-            Staked NTA
+            Staked BNT
           </HFlex>
         ),
       }}
