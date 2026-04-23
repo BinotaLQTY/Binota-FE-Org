@@ -36,15 +36,15 @@ export const legacyRedeemCollateral: FlowDeclaration<LegacyRedeemCollateralReque
           value={[<Amount key="start" value={ctx.request.maxFee} percentage format="pctfull" />]}
         />
         <TransactionDetailsRow
-          label="Reedeming UNO"
+          label="Reedeming B1"
           value={[
             <Amount
               key="start"
               value={boldChange}
               fallback={estimatedGains.isError ? "loading error." : "fetching…"}
-              suffix=" UNO"
+              suffix=" B1"
             />,
-            <Fragment key="end">Estimated UNO that will be redeemed.</Fragment>,
+            <Fragment key="end">Estimated B1 that will be redeemed.</Fragment>,
           ]}
         />
         {LEGACY_CHECK?.BRANCHES.map(({ symbol }) => {
@@ -71,7 +71,7 @@ export const legacyRedeemCollateral: FlowDeclaration<LegacyRedeemCollateralReque
   },
   steps: {
     approve: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: TransactionStatus,
       async commit({ request, writeContract }) {
         if (!LEGACY_CHECK) {
@@ -89,7 +89,7 @@ export const legacyRedeemCollateral: FlowDeclaration<LegacyRedeemCollateralReque
       },
     },
     redeemCollateral: {
-      name: () => "Redeem UNO",
+      name: () => "Redeem B1",
       Status: TransactionStatus,
       async commit({ request, writeContract }) {
         if (!LEGACY_CHECK) {
@@ -215,7 +215,7 @@ export function useSimulatedBalancesChange({
           if (!LEGACY_CHECK) {
             throw new Error("LEGACY_CHECK is not defined");
           }
-          const symbol = index === 0 ? "UNO" : LEGACY_CHECK.BRANCHES[index - 1]?.symbol;
+          const symbol = index === 0 ? "B1" : LEGACY_CHECK.BRANCHES[index - 1]?.symbol;
           return {
             symbol,
             balance: dnum18(result.data ?? 0n),

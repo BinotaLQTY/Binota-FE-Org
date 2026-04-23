@@ -89,7 +89,7 @@ export function PanelUpdateLeveragePosition({ loan }: { loan: PositionLoanCommit
       : collBalance.data &&
         dn.sub(
           collBalance.data,
-          collToken?.symbol === "MON" ? ETH_MAX_RESERVE : 0, // Only keep a reserve for ETH, not LSTs
+          collToken?.symbol === "BNB" ? ETH_MAX_RESERVE : 0, // Only keep a reserve for BNB, not LSTs
         );
 
   const [agreeToLiquidationRisk, setAgreeToLiquidationRisk] = useState(false);
@@ -209,14 +209,14 @@ export function PanelUpdateLeveragePosition({ loan }: { loan: PositionLoanCommit
                   <Field.FooterInfoPriceImpactNone />
                 ) : leverageField.leverageFactorChange > 0 ? (
                   <Field.FooterInfoPriceImpact
-                    inputTokenName="UNO"
+                    inputTokenName="B1"
                     outputTokenName={collToken.name}
                     priceImpact={leverageField.priceImpact}
                   />
                 ) : (
                   <Field.FooterInfoPriceImpact
                     inputTokenName={collToken.name}
-                    outputTokenName="UNO"
+                    outputTokenName="B1"
                     priceImpact={leverageField.priceImpact}
                   />
                 ),
@@ -295,9 +295,9 @@ export function PanelUpdateLeveragePosition({ loan }: { loan: PositionLoanCommit
               {
                 label: "Debt",
                 before: (
-                  <Amount title={`${fmtnum(initialLoanDetails.debt, "full")} UNO`} value={initialLoanDetails.debt} />
+                  <Amount title={`${fmtnum(initialLoanDetails.debt, "full")} B1`} value={initialLoanDetails.debt} />
                 ),
-                after: <Amount value={newLoanDetails.debt} suffix=" UNO" />,
+                after: <Amount value={newLoanDetails.debt} suffix=" B1" />,
               },
             ]}
           />

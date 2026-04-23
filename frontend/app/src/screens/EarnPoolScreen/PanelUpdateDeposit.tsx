@@ -49,7 +49,7 @@ export function PanelUpdateDeposit({
   const updatedPoolShare =
     depositDifference && dn.gt(updatedBoldQty, 0) ? dn.div(updatedDeposit, updatedBoldQty) : DNUM_0;
 
-  const boldBalance = useBalance(account.address, "UNO");
+  const boldBalance = useBalance(account.address, "B1");
 
   const insufficientBalance = mode === "add" && parsedValue && boldBalance.data && dn.lt(boldBalance.data, parsedValue);
 
@@ -75,16 +75,16 @@ export function PanelUpdateDeposit({
               insufficientBalance
                 ? {
                     mode: "error",
-                    message: `Insufficient balance. You have ${fmtnum(boldBalance.data ?? 0)} UNO.`,
+                    message: `Insufficient balance. You have ${fmtnum(boldBalance.data ?? 0)} B1.`,
                   }
                 : withdrawAboveDeposit
                   ? {
                       mode: "error",
-                      message: hasDeposit ? `You can’t withdraw more than you have deposited.` : `No UNO deposited.`,
+                      message: hasDeposit ? `You can’t withdraw more than you have deposited.` : `No B1 deposited.`,
                     }
                   : null
             }
-            contextual={<InputTokenBadge background={false} icon={<TokenIcon symbol="UNO" />} label="UNO" />}
+            contextual={<InputTokenBadge background={false} icon={<TokenIcon symbol="B1" />} label="B1" />}
             id="input-deposit-change"
             label={{
               start: mode === "remove" ? content.earnScreen.withdrawPanel.label : content.earnScreen.depositPanel.label,
@@ -127,7 +127,7 @@ export function PanelUpdateDeposit({
                 mode === "add"
                   ? boldBalance.data && (
                       <TextButton
-                        label={dn.gt(boldBalance.data, 0) ? `Max ${fmtnum(boldBalance.data, 2)} UNO` : null}
+                        label={dn.gt(boldBalance.data, 0) ? `Max ${fmtnum(boldBalance.data, 2)} B1` : null}
                         onClick={() => {
                           if (boldBalance.data) {
                             setValue(dn.toString(boldBalance.data));
@@ -138,7 +138,7 @@ export function PanelUpdateDeposit({
                   : position?.deposit &&
                     dn.gt(position.deposit, 0) && (
                       <TextButton
-                        label={`Max ${fmtnum(position.deposit, 2)} UNO`}
+                        label={`Max ${fmtnum(position.deposit, 2)} B1`}
                         onClick={() => {
                           setValue(dn.toString(position.deposit));
                           setClaimRewards(true);
@@ -203,7 +203,7 @@ export function PanelUpdateDeposit({
                       color: "contentAlt",
                     })}
                   >
-                    UNO
+                    B1
                   </span>
                 </div>
                 <div>

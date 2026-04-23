@@ -1,17 +1,16 @@
 import type { ReactNode } from "react";
 import type { MenuItem } from "./Menu";
 
-import { Logo } from "@/src/comps/Logo/Logo";
 import content from "@/src/content";
 import { css } from "@/styled-system/css";
 import { token } from "@/styled-system/tokens";
-import { Root } from "@binota/uikit";
+import { Root, TokenIcon } from "@binota/uikit";
 import { a, useTransition } from "@react-spring/web";
 import FocusTrap from "focus-trap-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { AboutButton } from "./AboutButton";
+// import { AboutButton } from "./AboutButton";
 
 const DRAWER_WIDTH = 180;
 const DRAWER_SAFE_SPACING = 20; // prevent a gap to appear during the transition
@@ -132,7 +131,7 @@ function MenuDrawer({
                           flexShrink: 0,
                         })}
                       >
-                        <Logo size={20} />
+                        <TokenIcon symbol="BINOTA" size={20} />
                       </div>
                       <div
                         className={css({
@@ -146,13 +145,13 @@ function MenuDrawer({
                     </a.div>
                     <NavItems menuItems={menuItems} onClose={onClose} />
                   </a.div>
-                  <div
+  {/* <div
                     className={css({
                       padding: 24,
                     })}
                   >
                     <AboutButton onClick={onClose} />
-                  </div>
+                  </div> */}
                 </a.div>
               </a.div>
             </FocusTrap>

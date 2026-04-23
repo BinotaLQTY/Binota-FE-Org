@@ -37,9 +37,9 @@ export function AirdropProvider({ children }: { children: ReactNode }) {
     adapterTotals: adapterTotalsQuery.data ?? [],
     isLoadingAdapterTotals: adapterTotalsQuery.isLoading,
 
-    // UNO Vault data (loaded separately via UnoVaultProvider)
-    unoVaultData: null,
-    isLoadingUnoVaultData: false,
+    // B1 Vault data (loaded separately via B1VaultProvider)
+    b1VaultData: null,
+    isLoadingB1VaultData: false,
 
     // Status
     isConnected: !!address,

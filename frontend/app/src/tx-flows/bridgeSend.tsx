@@ -9,7 +9,7 @@ import {
   FEE_ASSET,
   HUB_CHAIN_NAMES,
   type HubChainId,
-  UNO_TOKEN_ADDRESSES,
+  B1_TOKEN_ADDRESSES,
 } from "@/src/hub-utils";
 import { TransactionDetailsRow } from "@/src/screens/TransactionsScreen/TransactionsScreen";
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
@@ -54,7 +54,7 @@ export const bridgeSend: FlowDeclaration<BridgeSendRequest> = {
         <TransactionDetailsRow
           label="You bridge"
           value={[
-            <Amount key="amount" suffix=" UNO" value={request.amount} />,
+            <Amount key="amount" suffix=" B1" value={request.amount} />,
           ]}
         />
         <TransactionDetailsRow
@@ -81,10 +81,10 @@ export const bridgeSend: FlowDeclaration<BridgeSendRequest> = {
 
   steps: {
     approve: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: TransactionStatus,
       async commit(ctx) {
-        const tokenAddress = UNO_TOKEN_ADDRESSES[ctx.request.sourceChainId];
+        const tokenAddress = B1_TOKEN_ADDRESSES[ctx.request.sourceChainId];
 
         return ctx.writeContract({
           address: tokenAddress,
@@ -110,7 +110,7 @@ export const bridgeSend: FlowDeclaration<BridgeSendRequest> = {
     },
 
     send: {
-      name: () => "Bridge UNO",
+      name: () => "Bridge B1",
       Status: TransactionStatus,
       async commit(ctx) {
         const sendParams = buildSendParams({
@@ -144,7 +144,7 @@ export const bridgeSend: FlowDeclaration<BridgeSendRequest> = {
     const steps: string[] = [];
 
     // Check allowance
-    const tokenAddress = UNO_TOKEN_ADDRESSES[ctx.request.sourceChainId];
+    const tokenAddress = B1_TOKEN_ADDRESSES[ctx.request.sourceChainId];
     const allowance = await ctx.readContract({
       address: tokenAddress,
       abi: [

@@ -8,7 +8,7 @@ import { memo, useCallback, useEffect, useId, useMemo, useRef, useState } from "
 import { match } from "ts-pattern";
 import { useAppear } from "@/src/anim-utils";
 import { useBreakpointName } from "@/src/breakpoints";
-import { INTEREST_RATE_MAX, INTEREST_RATE_START, REDEMPTION_RISK } from "@/src/constants";
+import { INTEREST_RATE_END, INTEREST_RATE_MAX, INTEREST_RATE_START, REDEMPTION_RISK } from "@/src/constants";
 import content from "@/src/content";
 import { DNUM_0, jsonStringifyWithDnum } from "@/src/dnum-utils";
 import { useInputFieldValue } from "@/src/form-utils";
@@ -291,7 +291,7 @@ export const InterestRateField = memo(
                   {boldInterestPerYear && (mode === "manual" || delegate !== null)
                     ? fmtnum(boldInterestPerYear, breakpoint === "small" ? "compact" : "2z")
                     : "−"}{" "}
-                  UNO / year
+                  B1 / year
                 </div>
                 <InfoTooltip {...infoTooltipProps(content.generalInfotooltips.interestRateBoldPerYear)} />
               </div>
@@ -302,7 +302,7 @@ export const InterestRateField = memo(
                   <a.div
                     title={`Redeemable before you: ${
                       mode === "manual" || delegate !== null ? fmtnum(debtInFront?.debtInFront, "compact") : "−"
-                    } UNO`}
+                    } B1`}
                     className={css({
                       overflow: "hidden",
                       whiteSpace: "nowrap",
@@ -320,7 +320,7 @@ export const InterestRateField = memo(
                       >
                         {mode === "manual" || delegate !== null ? fmtnum(debtInFront?.debtInFront, "compact") : "−"}
                       </span>
-                      {breakpoint === "large" && <span>{" UNO"}</span>}
+                      {breakpoint === "large" && <span>{" B1"}</span>}
                     </span>
                   </a.div>
                 ),
@@ -380,6 +380,21 @@ export const InterestRateField = memo(
   (prev, next) => jsonStringifyWithDnum(prev) === jsonStringifyWithDnum(next),
 );
 
+// Generate synthetic interest rate data when no protocol data exists
+// Creates rates from 0.5% to 25% in 0.5% increments for the slider
+function generateSyntheticRates() {
+  const rates = [];
+  for (let rate = INTEREST_RATE_START; rate <= INTEREST_RATE_END; rate += 0.005) {
+    rates.push({
+      rate: dn.from(rate, 18),
+      size: 1,
+      debt: DNUM_0,
+      debtInFront: DNUM_0,
+    });
+  }
+  return rates;
+}
+
 function ManualInterestRateSlider({
   fieldValue,
   handleColor,
@@ -390,6 +405,11 @@ function ManualInterestRateSlider({
   interestChartData: ReturnType<typeof useInterestRateChartData>;
   interestRate: Dnum | null;
 }) {
+  // Use synthetic data when real data is unavailable (fresh protocol)
+  const chartData = useMemo(() => {
+    return interestChartData.data ?? generateSyntheticRates();
+  }, [interestChartData.data]);
+
   const rateToSliderPosition = useCallback((rate: bigint, chartRates: bigint[]) => {
     if (!rate || !chartRates || chartRates.length === 0) return 0;
 
@@ -404,20 +424,20 @@ function ManualInterestRateSlider({
 
   const value = useMemo(() => {
     const rate = interestRate?.[0] ?? 0n;
-    // ! We need to make sure this interest chart data is not null so that the slider works
-    const chartRates = interestChartData.data?.map(({ rate }) => rate[0]);
-    if (!chartRates) return 0;
+    const chartRates = chartData.map(({ rate }) => rate[0]);
+    if (chartRates.length === 0) return 0;
 
     return rateToSliderPosition(rate, chartRates);
-  }, [jsonStringifyWithDnum(interestChartData.data), jsonStringifyWithDnum(interestRate), rateToSliderPosition]);
+  }, [jsonStringifyWithDnum(chartData), jsonStringifyWithDnum(interestRate), rateToSliderPosition]);
 
   const gradientStops = useMemo((): [medium: number, low: number] => {
-    if (!interestChartData.data || interestChartData.data.length === 0) {
+    if (chartData.length === 0) {
       return [0, 0];
     }
 
-    const totalDebt = interestChartData.data.reduce((sum, item) => dn.add(sum, item.debt), DNUM_0);
+    const totalDebt = chartData.reduce((sum, item) => dn.add(sum, item.debt), DNUM_0);
 
+    // For fresh protocol (no debt), return default stops to allow slider usage
     if (dn.eq(totalDebt, 0)) {
       return [0, 0];
     }
@@ -426,8 +446,8 @@ function ManualInterestRateSlider({
     let mediumThresholdRate = null;
     let lowThresholdRate = null;
 
-    for (const [index, item] of interestChartData.data.entries()) {
-      const prevItem = index > 0 ? interestChartData.data[index - 1] : null;
+    for (const [index, item] of chartData.entries()) {
+      const prevItem = index > 0 ? chartData[index - 1] : null;
       const prevRate = prevItem?.rate[0] ?? null;
 
       const debtInFrontRatio = dn.div(item.debtInFront, totalDebt);
@@ -444,12 +464,12 @@ function ManualInterestRateSlider({
       }
     }
 
-    const chartRates = interestChartData.data.map(({ rate }) => rate[0]);
+    const chartRates = chartData.map(({ rate }) => rate[0]);
     return [
       mediumThresholdRate ? rateToSliderPosition(mediumThresholdRate, chartRates) : 0,
       lowThresholdRate ? rateToSliderPosition(lowThresholdRate, chartRates) : 0,
     ];
-  }, [interestChartData.data, rateToSliderPosition]);
+  }, [chartData, rateToSliderPosition]);
 
   const transition = useAppear(value !== -1);
 
@@ -472,11 +492,11 @@ function ManualInterestRateSlider({
             gradient={gradientStops}
             gradientMode="high-to-low"
             handleColor={handleColor}
-            chart={interestChartData.data?.map(({ size }) => size) ?? []}
+            chart={chartData.map(({ size }) => size)}
             onChange={(value) => {
-              if (interestChartData.data) {
-                const index = Math.round(value * (interestChartData.data.length - 1));
-                fieldValue.setValue(dn.toString(dn.mul(interestChartData.data[index]?.rate ?? DNUM_0, 100)));
+              if (chartData.length > 0) {
+                const index = Math.round(value * (chartData.length - 1));
+                fieldValue.setValue(dn.toString(dn.mul(chartData[index]?.rate ?? DNUM_0, 100)));
               }
             }}
             value={value}

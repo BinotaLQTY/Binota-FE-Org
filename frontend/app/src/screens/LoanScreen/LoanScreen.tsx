@@ -265,7 +265,7 @@ export function LoanScreen() {
                                   </time>
                                   .
                                   <br />
-                                  <InlineTokenAmount symbol="UNO" value={loan.data.redeemedDebt} suffix=" UNO" /> repaid
+                                  <InlineTokenAmount symbol="B1" value={loan.data.redeemedDebt} suffix=" B1" /> repaid
                                   in exchange for{" "}
                                   <InlineTokenAmount
                                     symbol={collToken?.symbol}

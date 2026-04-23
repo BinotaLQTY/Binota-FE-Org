@@ -62,7 +62,7 @@ export const earnClaimRewards: FlowDeclaration<EarnClaimRewardsRequest> = {
     const collateral = getCollToken(request.earnPosition.branchId);
     const { compound = false } = request;
 
-    const boldPrice = usePrice("UNO");
+    const boldPrice = usePrice("B1");
     const collPrice = usePrice(collateral.symbol);
 
     const rewardsBold = request.earnPosition.rewards.bold;
@@ -73,9 +73,9 @@ export const earnClaimRewards: FlowDeclaration<EarnClaimRewardsRequest> = {
     return (
       <>
         <TransactionDetailsRow
-          label={compound ? "Compound UNO rewards" : "Claim UNO rewards"}
+          label={compound ? "Compound B1 rewards" : "Claim B1 rewards"}
           value={[
-            <Amount key="start" value={rewardsBold} suffix=" UNO" />,
+            <Amount key="start" value={rewardsBold} suffix=" B1" />,
             <Amount key="end" value={rewardsBoldUsd} prefix="$" />,
           ]}
         />

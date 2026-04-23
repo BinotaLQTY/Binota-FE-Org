@@ -7,22 +7,22 @@ const ELIGIBILITY_CRITERIA = [
   {
     id: "milestone",
     title: "Global Milestones",
-    description: "Reach community UNO deposit milestones to unlock higher reward multipliers",
+    description: "Reach community B1 deposit milestones to unlock higher reward multipliers",
   },
   {
     id: "sp",
-    title: "Stability Pools",
-    description: "Deposit UNO in stability pools (MON, shMON, sMON, gMON) to earn NTA",
+    title: "Stability Pool",
+    description: "Deposit B1 in the BNB stability pool to earn BNT",
   },
   {
     id: "lp",
     title: "Liquidity Pools",
-    description: "Provide liquidity in partner DEX pools to earn additional NTA",
+    description: "Provide liquidity in partner DEX pools to earn additional BNT",
   },
   {
-    id: "uno",
-    title: "UNO Vault",
-    description: "Stake UNO tokens to boost your airdrop allocation",
+    id: "b1",
+    title: "B1 Vault",
+    description: "Stake B1 tokens to boost your airdrop allocation",
   },
 ];
 
@@ -35,7 +35,7 @@ export function EligibilityRules() {
           fontWeight: 600,
         })}
       >
-        How to Earn NTA
+        How to Earn BNT
       </div>
 
       <div
@@ -65,7 +65,7 @@ function CriteriaCard({
       className={css({
         padding: "20px",
         background: "fieldSurface",
-        borderRadius: 8,
+        borderRadius: 0,
         border: "1px solid token(colors.fieldBorder)",
         transition: "border-color 0.2s",
         _hover: {

@@ -395,12 +395,12 @@ export function InputFieldBadge({
         background: "controlSurface",
         borderRadius: 0,
         userSelect: "none",
-        border: "1px solid #dbc2ff",
+        border: "1px solid #664F05",
         boxShadow: `
-          0 24px 10px rgba(138, 0, 196, 0.01),
-          0 14px 8px rgba(138, 0, 196, 0.05),
-          0 6px 6px rgba(138, 0, 196, 0.08),
-          0 2px 3px rgba(138, 0, 196, 0.1)
+          0 24px 10px rgba(240, 185, 11, 0.01),
+          0 14px 8px rgba(240, 185, 11, 0.05),
+          0 6px 6px rgba(240, 185, 11, 0.08),
+          0 2px 3px rgba(240, 185, 11, 0.1)
         `,
       }}
     >

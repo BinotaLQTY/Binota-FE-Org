@@ -9,7 +9,7 @@ export default {
   appName: "Binota",
   appDescription: `
     Binota is a new borrowing protocol that lets users
-    deposit MON or LSTs as collateral and mint the stablecoin UNO.
+    deposit BNB or LSTs as collateral and mint the stablecoin B1.
   `,
   appUrl:
     typeof window === "undefined"
@@ -47,21 +47,21 @@ export default {
       "Redemption risk",
       <>
         Users paying the lowest interest rate can get redeemed, if the price of
-        UNO falls below $1. By raising your interest rate, you reduce this
+        B1 falls below $1. By raising your interest rate, you reduce this
         risk.
       </>,
     ],
     loanLtv: [
       "Loan-to-value ratio",
       <>
-        The ratio between the amount of UNO borrowed and the deposited
+        The ratio between the amount of B1 borrowed and the deposited
         collateral (in USD).
       </>,
     ],
     loanMaxLtv: [
       "Maximum Loan-To-Value (LTV) Ratio",
       <>
-        The maximum ratio between the USD value of a loan (in UNO) and the
+        The maximum ratio between the USD value of a loan (in B1) and the
         collateral backing it. The LTV will fluctuate as the price of the
         collateral changes. To decrease the LTV add more colateral or reduce
         debt.
@@ -72,16 +72,16 @@ export default {
       <>The collateral price at which a loan can be liquidated.</>,
     ],
     ethPrice: [
-      "MON Price",
+      "BNB Price",
       <>
-        The current price of MON, as reported by the oracle. The MON price is
+        The current price of BNB, as reported by the oracle. The BNB price is
         used to calculate the Loan-To-Value (LTV) ratio of a loan.
       </>,
     ],
     interestRateBoldPerYear: [
       "Interest rate",
       <>
-        The annualized interest amount in UNO for the selected interest rate.
+        The annualized interest amount in B1 for the selected interest rate.
         The accumulated interest is added to the loan.
       </>,
     ],
@@ -96,7 +96,7 @@ export default {
       heading: "Your collateral and debt are reduced by the same value.",
       body: (
         <>
-          When UNO trades for under $1, anyone can redeem positions to get UNO
+          When B1 trades for under $1, anyone can redeem positions to get B1
           back at $1. Positions with the lowest interest rate get redeemed
           first.
         </>
@@ -113,15 +113,15 @@ export default {
     title: "Redemptions in a nutshell",
     subtitle: (
       <>
-        Redemptions help maintain UNO's peg in a decentralized way. If a user
+        Redemptions help maintain B1's peg in a decentralized way. If a user
         is redeemed, their collateral and debt are reduced equally, resulting in
         no net loss.
       </>
     ),
     infoItems: [
       {
-        icon: "UNO",
-        text: "Redemptions occur when UNO drops below $1.",
+        icon: "B1",
+        text: "Redemptions occur when B1 drops below $1.",
       },
       {
         icon: "redemption",
@@ -199,28 +199,28 @@ export default {
       borrow: {
         title: "Borrow",
         description:
-          "Mint UNO against your collateral at whatever interest rate you want",
+          "Mint B1 against your collateral at whatever interest rate you want",
       },
       multiply: {
         title: "Multiply",
         description:
-          "Increase your exposure to MON and its staking yield with a single click",
+          "Increase your exposure to BNB and its staking yield with a single click",
       },
       earn: {
-        title: "Earn with UNO",
+        title: "Earn with B1",
         description:
-          "Deposit UNO to earn protocol revenues and liquidation proceeds",
+          "Deposit B1 to earn protocol revenues and liquidation proceeds",
       },
       stake: {
-        title: "Stake NTA",
+        title: "Stake BNT",
         description:
-          "Direct protocol incentives with NTA while earning from Liquity V1",
+          "Direct protocol incentives with BNT while earning from Liquity V1",
       },
     },
     earnTable: {
-      title: "Earn rewards with UNO",
+      title: "Earn rewards with B1",
       subtitle:
-        "Earn UNO & (staked) MON rewards by depositing your UNO in a stability pool",
+        "Earn B1 & (staked) BNB rewards by depositing your B1 in a stability pool",
       forksInfo: {
         text: (
           <>
@@ -250,7 +250,7 @@ export default {
     },
     infoTooltips: {
       avgInterestRate: [
-        "The current average interest rate being paid by MON-backed positions.",
+        "The current average interest rate being paid by BNB-backed positions.",
       ],
       spApr: [
         "Annual Percentage Rate",
@@ -258,7 +258,7 @@ export default {
       ],
       spTvl: [
         "Total Value Locked",
-        "The total amount of UNO deposited in each stability pool.",
+        "The total amount of B1 deposited in each stability pool.",
       ],
       borrowTvl: [
         "Total Value Locked",
@@ -269,9 +269,9 @@ export default {
 
   // Borrow screen
   borrowScreen: {
-    headline: (MON: N, UNO: N) => (
+    headline: (MON: N, B1: N) => (
       <>
-        Borrow {UNO} with {MON}
+        Borrow {B1} with {MON}
       </>
     ),
     depositField: {
@@ -286,7 +286,7 @@ export default {
     action: "Next: Summary",
     infoTooltips: {
       interestRateSuggestions: [
-        "Positions with lower interest rates are the first to be redeemed by UNO holders.",
+        "Positions with lower interest rates are the first to be redeemed by B1 holders.",
       ],
     },
   },
@@ -316,7 +316,7 @@ export default {
       interestRateSuggestions: [
         <>
           Positions with lower interest rates are the first to be redeemed by
-          UNO holders.
+          B1 holders.
         </>,
       ],
       exposure: [
@@ -328,21 +328,21 @@ export default {
 
   // Earn home screen
   earnHome: {
-    headline: (rewards: N, UNO: N) => (
+    headline: (rewards: N, B1: N) => (
       <>
         Deposit
-        <NoWrap>{UNO} UNO</NoWrap>
+        <NoWrap>{B1} B1</NoWrap>
         to earn <NoWrap>rewards {rewards}</NoWrap>
       </>
     ),
     subheading: (
       <>
-        A UNO deposit in a stability pool earns rewards from the fees that
-        users pay on their loans. Also, the UNO may be swapped to collateral in
+        A B1 deposit in a stability pool earns rewards from the fees that
+        users pay on their loans. Also, the B1 may be swapped to collateral in
         case the system needs to liquidate positions.
       </>
     ),
-    learnMore: ["https://docs.liquity.org/v2-faq/UNO-and-earn", "Learn more"],
+    learnMore: ["https://docs.liquity.org/v2-faq/B1-and-earn", "Learn more"],
     poolsColumns: {
       pool: "Pool",
       apr: "APR",
@@ -350,7 +350,7 @@ export default {
     },
     infoTooltips: {
       tvl: (collateral: N) => [
-        <>Total UNO covering {collateral}-backed position liquidations</>,
+        <>Total B1 covering {collateral}-backed position liquidations</>,
       ],
     },
   },
@@ -400,10 +400,10 @@ export default {
     },
     infoTooltips: {
       tvl: (collateral: N) => [
-        <>Total UNO covering {collateral}-backed position liquidations.</>,
+        <>Total B1 covering {collateral}-backed position liquidations.</>,
       ],
       depositPoolShare: [
-        "Percentage of your UNO deposit compared to the total deposited in this stability pool.",
+        "Percentage of your B1 deposit compared to the total deposited in this stability pool.",
       ],
       alsoClaimRewardsDeposit: [
         <>
@@ -420,14 +420,14 @@ export default {
         </>,
       ],
       currentApr: [
-        "Average annualized return for UNO deposits over the past 7 days.",
+        "Average annualized return for B1 deposits over the past 7 days.",
       ],
       rewardsEth: [
-        "MON rewards",
+        "BNB rewards",
         "Your proceeds from liquidations conducted by this stability pool.",
       ],
       rewardsBold: [
-        "UNO rewards",
+        "B1 rewards",
         "Your earnings from protocol revenue distributions to this stability pool.",
       ],
     },
@@ -435,29 +435,29 @@ export default {
 
   // Airdrop screen
   airdropScreen: {
-    headline: "Earn NTA Rewards",
+    headline: "Earn BNT Rewards",
     subheading: (
       <>
-        Participate in stability pools, provide liquidity, and stake NTA to earn
+        Participate in stability pools, provide liquidity, and stake BNT to earn
         airdrop rewards. Global milestones unlock higher multipliers for everyone.
       </>
     ),
     eligibility: {
       milestone: {
         title: "Global Milestones",
-        description: "Reach community UNO deposit milestones to unlock higher reward multipliers",
+        description: "Reach community B1 deposit milestones to unlock higher reward multipliers",
       },
       stabilityPool: {
         title: "Stability Pools",
-        description: "Deposit UNO in stability pools (MON, shMON, sMON, gMON) to earn NTA",
+        description: "Deposit B1 in the BNB stability pool to earn BNT",
       },
       liquidityPool: {
         title: "Liquidity Pools",
-        description: "Provide liquidity in partner DEX pools to earn additional NTA",
+        description: "Provide liquidity in partner DEX pools to earn additional BNT",
       },
       unoVault: {
-        title: "UNO Vault",
-        description: "Stake UNO tokens to boost your airdrop allocation",
+        title: "B1 Vault",
+        description: "Stake B1 tokens to boost your airdrop allocation",
       },
     },
     milestones: {
@@ -469,16 +469,16 @@ export default {
       cosmic: "Cosmic",
     },
     vault: {
-      title: "UNO Staking Vault",
-      availableLabel: "Available UNO",
-      stakedLabel: "Staked UNO",
-      stakeButton: "Stake UNO",
-      unstakeButton: "Unstake UNO",
-      stakeInfo: "Staking UNO boosts your airdrop allocation. Your staked tokens remain locked until you unstake.",
-      unstakeInfo: "Unstaking UNO will reduce your airdrop allocation boost.",
+      title: "B1 Staking Vault",
+      availableLabel: "Available B1",
+      stakedLabel: "Staked B1",
+      stakeButton: "Stake B1",
+      unstakeButton: "Unstake B1",
+      stakeInfo: "Staking B1 boosts your airdrop allocation. Your staked tokens remain locked until you unstake.",
+      unstakeInfo: "Unstaking B1 will reduce your airdrop allocation boost.",
     },
     claim: {
-      title: "Claim NTA Rewards",
+      title: "Claim BNT Rewards",
       pendingLabel: "Pending Rewards",
       claimButton: "Claim All",
     },
@@ -489,14 +489,13 @@ export default {
     headline: (
       <>
         <span>Stake</span>
-        <span>NTA & Get</span>
+        <span>BNT & Get</span>
         <span>Voting Power</span>
       </>
     ),
     subheading: (
       <>
-        By staking NTA you can vote on incentives for Binota, while still
-        earning Liquity V1 fees.
+        By staking BNT you can vote on incentives for Binota.
       </>
     ),
     learnMore: ["https://docs.liquity.org/v2-faq/BINOTA-staking", "Learn more"],
@@ -505,7 +504,7 @@ export default {
       votingPower: "Voting power",
       votingPowerHelp: (
         <>
-          Voting power is the percentage of the total staked NTA that you own.
+          Voting power is the percentage of the total staked BNT that you own.
         </>
       ),
       unclaimed: "Unclaimed rewards",
@@ -535,7 +534,7 @@ export default {
       intro: (
         <>
           Direct incentives from Binota protocol revenues towards liquidity
-          providers for UNO. Upvote from Thursday to Tuesday. Downvote all
+          providers for B1. Upvote from Thursday to Tuesday. Downvote all
           week.{" "}
           <Link href="https://docs.liquity.org/v2-faq/BINOTA-staking">
             Learn more
@@ -549,15 +548,15 @@ export default {
       ],
       votingShare: (
         <>
-          Your voting share is the amount of NTA you have staked and that is
-          available to vote, divided by the total amount of NTA staked via the
+          Your voting share is the amount of BNT you have staked and that is
+          available to vote, divided by the total amount of BNT staked via the
           governance contract.
         </>
       ),
       votingPower: (
         <>
           Your relative voting power changes over time, depending on your and
-          others allocations of NTA.
+          others allocations of BNT.
         </>
       ),
     },

@@ -42,12 +42,12 @@ export const stakeClaimRewards: FlowDeclaration<StakeClaimRewardsRequest> = {
     return (
       <>
         <TransactionDetailsRow
-          label="Claiming NTA rewards"
+          label="Claiming BNT rewards"
           value={[
             <Amount
               key="start"
               value={rewards}
-              suffix=" NTA"
+              suffix=" BNT"
             />,
             <Amount
               key="end"

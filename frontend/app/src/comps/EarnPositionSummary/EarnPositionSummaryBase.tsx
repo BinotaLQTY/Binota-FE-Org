@@ -47,20 +47,20 @@ export function EarnPositionSummaryBase({
         borderStyle: "solid",
         width: "100%",
         userSelect: "none",
-        borderColor: active ? "transparent" : "token(colors.controlBorder)",
+        borderColor: active ? "transparent" : "token(colors.separator)",
 
-        "--fg-primary-active": "token(colors.brandDarkPurpleContent)",
-        "--fg-primary-inactive": "token(colors.gray:500)",
+        "--fg-primary-active": "token(colors.content)",
+        "--fg-primary-inactive": "token(colors.content)",
 
-        "--fg-secondary-active": "token(colors.brandDarkPurpleContentAlt)",
-        "--fg-secondary-inactive": "token(colors.gray:500)",
+        "--fg-secondary-active": "token(colors.contentAlt)",
+        "--fg-secondary-inactive": "token(colors.contentAlt)",
 
         "--border-active":
           "color-mix(in srgb, token(colors.secondary) 15%, transparent)",
         "--border-inactive": "token(colors.infoSurfaceBorder)",
 
-        "--bg-active": "token(colors.brandDarkPurple)",
-        "--bg-inactive": "token(colors.purple:50)",
+        "--bg-active": "token(colors.surface)",
+        "--bg-inactive": "token(colors.surface)",
       })}
       style={{
         color: `var(--fg-primary-${active ? "active" : "inactive"})`,
@@ -76,7 +76,7 @@ export function EarnPositionSummaryBase({
           paddingBottom: 12,
         })}
         style={{
-          borderBottom: `1px solid #dbc2ff`,
+          borderBottom: "1px solid token(colors.separator)",
         }}
       >
         <div

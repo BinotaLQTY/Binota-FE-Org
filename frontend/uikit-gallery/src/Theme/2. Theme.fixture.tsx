@@ -1,6 +1,6 @@
 "use client";
 
-import { colors, lightTheme } from "@binota/uikit";
+import { colors, darkTheme } from "@binota/uikit";
 import { ColorGroup } from "./shared";
 
 export default function ThemeFixture() {
@@ -10,6 +10,7 @@ export default function ThemeFixture() {
         display: "grid",
         placeItems: "center",
         padding: 64,
+        background: "#14151A",
       }}
     >
       <div
@@ -23,33 +24,25 @@ export default function ThemeFixture() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: "1fr",
             width: "100%",
             gap: 80,
           }}
         >
           <ColorGroup
-            name="Light Theme"
+            name="Dark Theme (Binance)"
             mode="vertical"
             colors={Object.fromEntries(
               Object
-                .entries(lightTheme.colors)
+                .entries(darkTheme.colors)
                 .map(([key, value]) => [
                   key,
-                  colors[value as keyof typeof colors],
+                  typeof value === "string" && value.startsWith("#")
+                    ? value
+                    : colors[value as keyof typeof colors],
                 ]),
             )}
-            secondary={(name) => lightTheme.colors[name as keyof typeof lightTheme.colors]}
-          />
-          <ColorGroup
-            name="Dark Theme"
-            mode="vertical"
-            colors={Object.fromEntries(
-              Object
-                .entries(lightTheme.colors)
-                .map(([key]) => [key, "white"]),
-            )}
-            secondary={() => "tbd"}
+            secondary={(name) => darkTheme.colors[name as keyof typeof darkTheme.colors]}
           />
         </div>
       </div>

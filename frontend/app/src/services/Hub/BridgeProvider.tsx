@@ -11,8 +11,8 @@ import {
   type HubChainId,
   isHubChainId,
   useBridgeFeeQuote,
-  useUnoAllowance,
-  useUnoBalance,
+  useB1Allowance,
+  useB1Balance,
 } from "@/src/hub-utils";
 import { dnum18, DNUM_0 } from "@/src/dnum-utils";
 import { useAccount } from "@/src/wagmi-utils";
@@ -27,7 +27,7 @@ export type BridgeContextValue = {
   destinationChainId: HubChainId | null;
 
   // Derived state
-  unoBalance: Dnum | null;
+  b1Balance: Dnum | null;
   isLoadingBalance: boolean;
   fee: Dnum | null;
   isLoadingFee: boolean;
@@ -66,7 +66,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
   // Source chain state - initialized from wallet's current chain
   const [sourceChainId, setSourceChainIdState] = useState<HubChainId>(() => {
-    return isHubChainId(currentChainId) ? currentChainId : 143;
+    return isHubChainId(currentChainId) ? currentChainId : 56;
   });
 
   // Sync sourceChainId with wallet chain changes
@@ -97,12 +97,12 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
     }
   }, [destinationChainId, availableDestinations]);
 
-  // Fetch UNO balance
-  const balanceQuery = useUnoBalance(sourceChainId, address ?? null);
-  const unoBalance = balanceQuery.data !== undefined ? dnum18(balanceQuery.data) : null;
+  // Fetch B1 balance
+  const balanceQuery = useB1Balance(sourceChainId, address ?? null);
+  const b1Balance = balanceQuery.data !== undefined ? dnum18(balanceQuery.data) : null;
 
   // Fetch allowance
-  const allowanceQuery = useUnoAllowance(
+  const allowanceQuery = useB1Allowance(
     sourceChainId,
     address ?? null,
     BRIDGE_ADDRESS,
@@ -127,17 +127,17 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
   const isValidAmount = useMemo(() => {
     if (dn.eq(amount, DNUM_0)) return false;
-    if (!unoBalance) return false;
-    return dn.lte(amount, unoBalance);
-  }, [amount, unoBalance]);
+    if (!b1Balance) return false;
+    return dn.lte(amount, b1Balance);
+  }, [amount, b1Balance]);
 
   const errorMessage = useMemo(() => {
     if (!address) return "Connect wallet to bridge";
     if (dn.eq(amount, DNUM_0)) return null;
     if (!destinationChainId) return "Select destination chain";
-    if (unoBalance && dn.gt(amount, unoBalance)) return "Insufficient UNO balance";
+    if (b1Balance && dn.gt(amount, b1Balance)) return "Insufficient B1 balance";
     return null;
-  }, [address, amount, destinationChainId, unoBalance]);
+  }, [address, amount, destinationChainId, b1Balance]);
 
   // Actions
   const setAmount = useCallback((newAmount: Dnum) => {
@@ -171,10 +171,10 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
   }, [destinationChainId, sourceChainId, switchChain]);
 
   const setMaxAmount = useCallback(() => {
-    if (unoBalance) {
-      setAmountState(unoBalance);
+    if (b1Balance) {
+      setAmountState(b1Balance);
     }
-  }, [unoBalance]);
+  }, [b1Balance]);
 
   const value: BridgeContextValue = {
     // Current state
@@ -183,7 +183,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
     destinationChainId,
 
     // Derived state
-    unoBalance,
+    b1Balance,
     isLoadingBalance: balanceQuery.isLoading,
     fee,
     isLoadingFee: feeQuery.isLoading,

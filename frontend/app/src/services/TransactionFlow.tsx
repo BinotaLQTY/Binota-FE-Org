@@ -18,9 +18,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import * as v from "valibot";
-import { encodeFunctionData } from "viem";
+import { BaseError, ContractFunctionRevertedError, encodeFunctionData } from "viem";
 import { useConfig as useWagmiConfig } from "wagmi";
-import { estimateGas, readContract, writeContract } from "wagmi/actions";
+import { estimateGas, readContract, simulateContract, writeContract } from "wagmi/actions";
 
 /* flows registration */
 
@@ -35,7 +35,7 @@ import { legacyCloseLoanPosition, type LegacyCloseLoanPositionRequest } from "@/
 import { legacyEarnWithdrawAll, type LegacyEarnWithdrawAllRequest } from "@/src/tx-flows/legacyEarnWithdrawAll";
 import { legacyRedeemCollateral, type LegacyRedeemCollateralRequest } from "@/src/tx-flows/legacyRedeemCollateral";
 import { legacyUnstakeAll, type LegacyUnstakeAllRequest } from "@/src/tx-flows/legacyUnstakeAll";
-import { unoVaultDeposit, type UnoVaultDepositRequest } from "@/src/tx-flows/unoVaultDeposit";
+import { b1VaultDeposit, type B1VaultDepositRequest } from "@/src/tx-flows/b1VaultDeposit";
 import { openBorrowPosition, type OpenBorrowPositionRequest } from "@/src/tx-flows/openBorrowPosition";
 import { openLeveragePosition, type OpenLeveragePositionRequest } from "@/src/tx-flows/openLeveragePosition";
 import { redeemCollateral, type RedeemCollateralRequest } from "@/src/tx-flows/redeemCollateral";
@@ -46,6 +46,7 @@ import { updateBorrowPosition, type UpdateBorrowPositionRequest } from "@/src/tx
 import { updateLeveragePosition, type UpdateLeveragePositionRequest } from "@/src/tx-flows/updateLeveragePosition";
 import { updateLoanInterestRate, type UpdateLoanInterestRateRequest } from "@/src/tx-flows/updateLoanInterestRate";
 import { bridgeSend, type BridgeSendRequest } from "@/src/tx-flows/bridgeSend";
+import { redeemLzBnt, type RedeemLzBntRequest } from "@/src/tx-flows/redeemLzBnt";
 
 export type FlowRequestMap = {
   "allocateVotingPower": AllocateVotingPowerRequest;
@@ -60,10 +61,11 @@ export type FlowRequestMap = {
   "legacyEarnWithdrawAll": LegacyEarnWithdrawAllRequest;
   "legacyRedeemCollateral": LegacyRedeemCollateralRequest;
   "legacyUnstakeAll": LegacyUnstakeAllRequest;
-  "unoVaultDeposit": UnoVaultDepositRequest;
+  "b1VaultDeposit": B1VaultDepositRequest;
   "openBorrowPosition": OpenBorrowPositionRequest;
   "openLeveragePosition": OpenLeveragePositionRequest;
   "redeemCollateral": RedeemCollateralRequest;
+  "redeemLzBnt": RedeemLzBntRequest;
   "stakeClaimRewards": StakeClaimRewardsRequest;
   "stakeDeposit": StakeDepositRequest;
   "unstakeDeposit": UnstakeDepositRequest;
@@ -85,10 +87,11 @@ const FlowIdSchema = v.union([
   v.literal("legacyEarnWithdrawAll"),
   v.literal("legacyRedeemCollateral"),
   v.literal("legacyUnstakeAll"),
-  v.literal("unoVaultDeposit"),
+  v.literal("b1VaultDeposit"),
   v.literal("openBorrowPosition"),
   v.literal("openLeveragePosition"),
   v.literal("redeemCollateral"),
+  v.literal("redeemLzBnt"),
   v.literal("stakeClaimRewards"),
   v.literal("stakeDeposit"),
   v.literal("unstakeDeposit"),
@@ -110,10 +113,11 @@ export const flows: FlowsMap = {
   legacyEarnWithdrawAll,
   legacyRedeemCollateral,
   legacyUnstakeAll,
-  unoVaultDeposit,
+  b1VaultDeposit,
   openBorrowPosition,
   openLeveragePosition,
   redeemCollateral,
+  redeemLzBnt,
   stakeClaimRewards,
   stakeDeposit,
   unstakeDeposit,
@@ -230,6 +234,28 @@ function getWriteContract(config: WagmiConfig, account: Address) {
     },
     gasMinHeadroom: number = GAS_MIN_HEADROOM,
   ) => {
+    // Simulate the contract call first to decode potential errors
+    try {
+      await simulateContract(config, {
+        account,
+        abi: params.abi,
+        functionName: params.functionName,
+        args: params.args,
+        address: params.address,
+        value: params.value,
+      } as any);
+    } catch (error) {
+      // Extract decoded error name from contract revert
+      if (error instanceof BaseError) {
+        const revertError = error.walk((err) => err instanceof ContractFunctionRevertedError);
+        if (revertError instanceof ContractFunctionRevertedError) {
+          const errorName = revertError.data?.errorName ?? "Unknown contract error";
+          throw new Error(`Contract error: ${errorName}`);
+        }
+      }
+      throw error;
+    }
+
     const gasEstimate = Number(
       await estimateGas(config, {
         account,

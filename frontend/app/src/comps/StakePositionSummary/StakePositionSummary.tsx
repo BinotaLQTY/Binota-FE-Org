@@ -100,7 +100,7 @@ export function StakePositionSummary({
         })}
       >
         <h1
-          title="NTA Stake"
+          title="BNT Stake"
           className={css({
             display: "flex",
             alignItems: "center",
@@ -126,7 +126,7 @@ export function StakePositionSummary({
             >
               <IconStake size={16} />
             </div>
-            NTA Stake
+            BNT Stake
           </div>
         </h1>
         <div
@@ -198,7 +198,7 @@ export function StakePositionSummary({
                 stakePosition &&
                 !dn.eq(prevStakePosition.deposit, stakePosition.deposit) && (
                   <div
-                    title={`${fmtnum(prevStakePosition.deposit, "full")} NTA`}
+                    title={`${fmtnum(prevStakePosition.deposit, "full")} BNT`}
                     className={css({
                       color: "contentAlt",
                       textDecoration: "line-through",
@@ -336,10 +336,10 @@ export function StakePositionSummary({
                                           fixed
                                           value={stakedLqty}
                                           fallback="−"
-                                          suffix=" NTA"
+                                          suffix=" BNT"
                                           title={fmtnum(stakedLqty, {
                                             preset: "full",
-                                            suffix: " NTA",
+                                            suffix: " BNT",
                                           })}
                                         />
                                       }
@@ -351,10 +351,10 @@ export function StakePositionSummary({
                                           fallback="−"
                                           fixed
                                           format="2z"
-                                          suffix=" NTA"
+                                          suffix=" BNT"
                                           title={fmtnum(totalStakedLqty, {
                                             preset: "full",
-                                            suffix: " NTA",
+                                            suffix: " BNT",
                                           })}
                                           value={totalStakedLqty}
                                         />
@@ -465,7 +465,7 @@ export function StakePositionSummary({
                 Allocated
               </div>
               <div
-                title={`${fmtnum(allocatedLqty ?? 0, "full")} NTA allocated`}
+                title={`${fmtnum(allocatedLqty ?? 0, "full")} BNT allocated`}
                 className={css({
                   display: "flex",
                   alignItems: "center",
@@ -482,7 +482,7 @@ export function StakePositionSummary({
                   dn.gt(allocatedLqty, 0) &&
                   dn.lt(allocatedLqty, stakedLqty) && (
                     <Tag
-                      title="Partial allocation: some of your staked NTA is not allocated"
+                      title="Partial allocation: some of your staked BNT is not allocated"
                       size="mini"
                       css={{
                         color: "warningAltContent",

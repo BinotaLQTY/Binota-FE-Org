@@ -176,7 +176,7 @@ export const unstakeDeposit: FlowDeclaration<UnstakeDepositRequest> = {
         value={[
           <Amount
             key="start"
-            suffix=" NTA"
+            suffix=" BNT"
             value={request.lqtyAmount}
           />,
           <Amount

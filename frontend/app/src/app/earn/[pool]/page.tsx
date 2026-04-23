@@ -1,5 +1,6 @@
 export function generateStaticParams() {
   return [
+    { pool: "bnb" },
     { pool: "mon" },
     { pool: "shmon" },
     { pool: "smon" },

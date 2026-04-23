@@ -98,7 +98,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
           <TransactionDetailsRow
             label={isBorrowing ? "Loan increase" : "Loan decrease"}
             value={[
-              <Amount key="start" fallback="…" value={debtChangeWithFee && dn.abs(debtChangeWithFee)} suffix=" UNO" />,
+              <Amount key="start" fallback="…" value={debtChangeWithFee && dn.abs(debtChangeWithFee)} suffix=" B1" />,
               upfrontFeeData.data?.upfrontFee && dn.gt(upfrontFeeData.data.upfrontFee, 0n) && (
                 <div
                   key="end"
@@ -129,7 +129,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
   steps: {
     approveBold: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: (props) => <TransactionStatus {...props} approval="approve-only" />,
       async commit(ctx) {
         const debtChange = getDebtChange(ctx.request.loan, ctx.request.prevLoan);
@@ -137,7 +137,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
         const branch = getBranch(ctx.request.loan.branchId);
 
         const Controller =
-          branch.symbol === "MON" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
+          branch.symbol === "BNB" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
 
         return ctx.writeContract({
           ...ctx.contracts.BoldToken,
@@ -196,7 +196,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
         const branch = getBranch(loan.branchId);
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "adjustTroveWithRawETH",
@@ -240,8 +240,8 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
         if (!dn.eq(collChange, 0) && !dn.eq(debtChange, 0)) return "Update Position";
         if (dn.gt(collChange, 0)) return "Deposit Collateral";
         if (dn.lt(collChange, 0)) return "Withdraw Collateral";
-        if (dn.gt(debtChange, 0)) return "Borrow UNO";
-        if (dn.lt(debtChange, 0)) return "Repay UNO";
+        if (dn.gt(debtChange, 0)) return "Borrow B1";
+        if (dn.lt(debtChange, 0)) return "Repay B1";
 
         throw new Error("Invalid request");
       },
@@ -262,7 +262,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
           interestRate: loan.interestRate[0],
         });
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "adjustZombieTroveWithRawETH",
@@ -302,7 +302,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
     },
 
     depositBold: {
-      name: () => "Repay UNO",
+      name: () => "Repay B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
@@ -311,7 +311,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
         const branch = getBranch(loan.branchId);
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "repayBold",
@@ -341,7 +341,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
         const branch = getBranch(loan.branchId);
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "addCollWithRawETH",
@@ -363,7 +363,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
     },
 
     withdrawBold: {
-      name: () => "Borrow UNO",
+      name: () => "Borrow B1",
       Status: TransactionStatus,
 
       async commit(ctx) {
@@ -371,7 +371,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
         const debtChange = getDebtChange(loan, ctx.request.prevLoan);
         const branch = getBranch(loan.branchId);
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "withdrawBold",
@@ -400,7 +400,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
         const collChange = getCollChange(loan, ctx.request.prevLoan);
         const branch = getBranch(loan.branchId);
 
-        if (branch.symbol === "MON") {
+        if (branch.symbol === "BNB") {
           return ctx.writeContract({
             ...branch.contracts.LeverageWETHZapper,
             functionName: "withdrawCollToRawETH",
@@ -428,7 +428,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
     const branch = getBranch(ctx.request.loan.branchId);
 
     const Controller =
-      branch.symbol === "MON" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
+      branch.symbol === "BNB" ? branch.contracts.LeverageWETHZapper : branch.contracts.LeverageLSTZapper;
 
     const isBoldApproved =
       !dn.lt(debtChange, 0) ||
@@ -443,7 +443,7 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
 
     // Collateral token needs to be approved if collChange > 0 and collToken != "ETH" (no LeverageWETHZapper)
     const isCollApproved =
-      branch.symbol === "MON" ||
+      branch.symbol === "BNB" ||
       !dn.gt(collChange, 0) ||
       !dn.gt(collChange, [
         (await ctx.readContract({

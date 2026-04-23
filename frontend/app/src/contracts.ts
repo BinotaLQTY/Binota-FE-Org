@@ -159,11 +159,11 @@ export const CONTRACTS: Contracts = {
       CollToken: { address: contracts.COLL_TOKEN, abi: abis.CollToken },
       DefaultPool: { address: contracts.DEFAULT_POOL, abi: abis.DefaultPool },
       LeverageLSTZapper: {
-        address: symbol === "MON" ? zeroAddress : contracts.LEVERAGE_ZAPPER,
+        address: symbol === "BNB" ? zeroAddress : contracts.LEVERAGE_ZAPPER,
         abi: abis.LeverageLSTZapper,
       },
       LeverageWETHZapper: {
-        address: symbol === "MON" ? contracts.LEVERAGE_ZAPPER : zeroAddress,
+        address: symbol === "BNB" ? contracts.LEVERAGE_ZAPPER : zeroAddress,
         abi: abis.LeverageWETHZapper,
       },
       PriceFeed: { address: contracts.PRICE_FEED, abi: abis.PriceFeed },

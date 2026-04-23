@@ -94,7 +94,7 @@ export function PanelStaking() {
             drawer={insufficientBalance
               ? {
                 mode: "error",
-                message: `Insufficient balance. You have ${fmtnum(lqtyBalance.data ?? 0, 2)} NTA.`,
+                message: `Insufficient balance. You have ${fmtnum(lqtyBalance.data ?? 0, 2)} BNT.`,
               }
               : withdrawOutOfRange
               ? {
@@ -106,7 +106,7 @@ export function PanelStaking() {
               <InputTokenBadge
                 background={false}
                 icon={<TokenIcon symbol="BINOTA" />}
-                label="NTA"
+                label="BNT"
               />
             }
             label={{
@@ -151,7 +151,7 @@ export function PanelStaking() {
                   lqtyBalance.data && dn.gt(lqtyBalance.data, 0) && (
                     <TextButton
                       className="button-max"
-                      label={`Max. ${(fmtnum(lqtyBalance.data, 2))} NTA`}
+                      label={`Max. ${(fmtnum(lqtyBalance.data, 2))} BNT`}
                       onClick={() => {
                         if (lqtyBalance.data) {
                           setValue(dn.toString(lqtyBalance.data));
@@ -164,7 +164,7 @@ export function PanelStaking() {
                   stakePosition.data?.deposit && dn.gt(stakePosition.data?.deposit, 0) && (
                     <TextButton
                       className="button-max"
-                      label={`Max. ${fmtnum(stakePosition.data.deposit, 2)} NTA`}
+                      label={`Max. ${fmtnum(stakePosition.data.deposit, 2)} BNT`}
                       onClick={() => {
                         if (stakePosition.data) {
                           setValue(dn.toString(stakePosition.data.deposit));
@@ -243,7 +243,7 @@ export function PanelStaking() {
                     color: "contentAlt",
                   })}
                 >
-                  NTA
+                  BNT
                 </span>
               </div>
             </div>

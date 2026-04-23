@@ -38,10 +38,7 @@ function isIcStrategyList(value: unknown): value is IcStrategy[] {
 }
 
 export const CollateralSymbolSchema = v.union([
-  v.literal("MON"),
-  v.literal("shMON"),
-  v.literal("sMON"),
-  v.literal("gMON"),
+  v.literal("BNB"),
 ]);
 
 function isCollateralSymbol(value: unknown) {
@@ -137,8 +134,8 @@ export const EnvSchema = v.pipe(
         if (!apiKey) {
           throw new Error(
             `Invalid BLOCKING_VPNAPI value: ${value}. ` +
-              `Expected format: API_KEY or API_KEY|COUNTRY,COUNTRY,… ` +
-              `(e.g. 123456|US,CA)`
+            `Expected format: API_KEY or API_KEY|COUNTRY,COUNTRY,… ` +
+            `(e.g. 123456|US,CA)`
           );
         }
         return {
@@ -227,10 +224,10 @@ export const EnvSchema = v.pipe(
     CONTRACT_UNO_VAULT_ADAPTER: v.optional(vAddress()),
     CONTRACT_LP_ADAPTER_DEX_A: v.optional(vAddress()),
     CONTRACT_LP_ADAPTER_DEX_B: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_MON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_SHMON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_SMON: v.optional(vAddress()),
-    CONTRACT_SP_ADAPTER_GMON: v.optional(vAddress()),
+    CONTRACT_SP_ADAPTER_BNB: v.optional(vAddress()),
+
+    // lzBNT redemption contract (optional - when not set, redeem feature is disabled)
+    CONTRACT_LZBNT_TOKEN: v.optional(vAddress()),
 
     ...vBranchEnvVars(0).entries,
     ...vBranchEnvVars(1).entries,
@@ -377,7 +374,7 @@ const parsedEnv = v.safeParse(EnvSchema, {
   TROVE_EXPLORER_0: process.env.NEXT_PUBLIC_TROVE_EXPLORER_0,
   TROVE_EXPLORER_1: process.env.NEXT_PUBLIC_TROVE_EXPLORER_1,
 
-  CONTRACT_BOLD_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_BOLD_TOKEN,
+  CONTRACT_BOLD_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_B1_TOKEN,
   CONTRACT_COLLATERAL_REGISTRY:
     process.env.NEXT_PUBLIC_CONTRACT_COLLATERAL_REGISTRY,
   CONTRACT_DEBT_IN_FRONT_HELPER:
@@ -387,24 +384,24 @@ const parsedEnv = v.safeParse(EnvSchema, {
     process.env.NEXT_PUBLIC_CONTRACT_EXCHANGE_HELPERS_V2,
   CONTRACT_GOVERNANCE: process.env.NEXT_PUBLIC_CONTRACT_GOVERNANCE,
   CONTRACT_HINT_HELPERS: process.env.NEXT_PUBLIC_CONTRACT_HINT_HELPERS,
-  CONTRACT_LQTY_STAKING: process.env.NEXT_PUBLIC_CONTRACT_LQTY_STAKING,
-  CONTRACT_LQTY_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_LQTY_TOKEN,
+  CONTRACT_LQTY_STAKING: process.env.NEXT_PUBLIC_CONTRACT_BNT_STAKING,
+  CONTRACT_LQTY_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_BNT_TOKEN,
   CONTRACT_LUSD_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_LUSD_TOKEN,
   CONTRACT_MULTI_TROVE_GETTER:
     process.env.NEXT_PUBLIC_CONTRACT_MULTI_TROVE_GETTER,
   CONTRACT_WETH: process.env.NEXT_PUBLIC_CONTRACT_WETH,
 
   // Airdrop contracts
-  CONTRACT_NTA_REWARDS_CONTROLLER: process.env.NEXT_PUBLIC_CONTRACT_NTA_REWARDS_CONTROLLER,
-  CONTRACT_NTA_MILESTONE_CONTROLLER: process.env.NEXT_PUBLIC_CONTRACT_NTA_MILESTONE_CONTROLLER,
+  CONTRACT_NTA_REWARDS_CONTROLLER: process.env.NEXT_PUBLIC_CONTRACT_BNT_REWARDS_CONTROLLER,
+  CONTRACT_NTA_MILESTONE_CONTROLLER: process.env.NEXT_PUBLIC_CONTRACT_BNT_MILESTONE_CONTROLLER,
   CONTRACT_NTA_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_NTA_TOKEN,
-  CONTRACT_UNO_VAULT_ADAPTER: process.env.NEXT_PUBLIC_CONTRACT_UNO_VAULT_ADAPTER,
+  CONTRACT_UNO_VAULT_ADAPTER: process.env.NEXT_PUBLIC_CONTRACT_B1_VAULT_ADAPTER,
   CONTRACT_LP_ADAPTER_DEX_A: process.env.NEXT_PUBLIC_CONTRACT_LP_ADAPTER_DEX_A,
   CONTRACT_LP_ADAPTER_DEX_B: process.env.NEXT_PUBLIC_CONTRACT_LP_ADAPTER_DEX_B,
-  CONTRACT_SP_ADAPTER_MON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_MON,
-  CONTRACT_SP_ADAPTER_SHMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_SHMON,
-  CONTRACT_SP_ADAPTER_SMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_SMON,
-  CONTRACT_SP_ADAPTER_GMON: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_GMON,
+  CONTRACT_SP_ADAPTER_BNB: process.env.NEXT_PUBLIC_CONTRACT_SP_ADAPTER_BNB,
+
+  // lzBNT redemption
+  CONTRACT_LZBNT_TOKEN: process.env.NEXT_PUBLIC_CONTRACT_LZBNT_TOKEN,
 
   COLL_0_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_0_TOKEN_ID,
   COLL_1_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_1_TOKEN_ID,
@@ -566,10 +563,9 @@ export const {
   CONTRACT_UNO_VAULT_ADAPTER,
   CONTRACT_LP_ADAPTER_DEX_A,
   CONTRACT_LP_ADAPTER_DEX_B,
-  CONTRACT_SP_ADAPTER_MON,
-  CONTRACT_SP_ADAPTER_SHMON,
-  CONTRACT_SP_ADAPTER_SMON,
-  CONTRACT_SP_ADAPTER_GMON,
+  CONTRACT_SP_ADAPTER_BNB,
+  // lzBNT redemption
+  CONTRACT_LZBNT_TOKEN,
 } = parsedEnv.output;
 
 // Explicit export to satisfy Next.js static analysis

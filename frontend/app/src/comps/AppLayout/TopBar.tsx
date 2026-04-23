@@ -91,7 +91,7 @@ export function TopBar() {
                 flexShrink: 0,
               })}
             >
-              <Image src="/assets/Hand.svg" alt="Logo" width={16} height={16} />
+              <Image src="/assets/BinotaIcon.svg" alt="Logo" width={16} height={16} />
             </div>
             <div
               className={css({

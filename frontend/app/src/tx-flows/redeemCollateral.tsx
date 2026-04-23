@@ -29,8 +29,8 @@ export const redeemCollateral: FlowDeclaration<RedeemCollateralRequest> = {
   Details(ctx) {
     const estimatedGains = useSimulatedBalancesChange(ctx);
     const branches = getBranches();
-    const boldChange = estimatedGains.data?.find(({ symbol }) => symbol === "UNO")?.change;
-    const collChanges = estimatedGains.data?.filter(({ symbol }) => symbol !== "UNO");
+    const boldChange = estimatedGains.data?.find(({ symbol }) => symbol === "B1")?.change;
+    const collChanges = estimatedGains.data?.filter(({ symbol }) => symbol !== "B1");
     return (
       <>
         <TransactionDetailsRow
@@ -38,15 +38,15 @@ export const redeemCollateral: FlowDeclaration<RedeemCollateralRequest> = {
           value={[<Amount key="start" value={ctx.request.maxFee} percentage format="pctfull" />]}
         />
         <TransactionDetailsRow
-          label="Reedeming UNO"
+          label="Reedeming B1"
           value={[
-            <Amount key="start" value={boldChange} fallback="fetching…" suffix=" UNO" />,
-            <Fragment key="end">Estimated UNO that will be redeemed.</Fragment>,
+            <Amount key="start" value={boldChange} fallback="fetching…" suffix=" B1" />,
+            <Fragment key="end">Estimated B1 that will be redeemed.</Fragment>,
           ]}
         />
         {branches.map(({ symbol }) => {
           const collChange = collChanges?.find((change) => symbol === change.symbol)?.change;
-          const symbol_ = symbol === "MON" ? "MON" : symbol;
+          const symbol_ = symbol === "BNB" ? "BNB" : symbol;
           return (
             <TransactionDetailsRow
               key={symbol}
@@ -63,7 +63,7 @@ export const redeemCollateral: FlowDeclaration<RedeemCollateralRequest> = {
   },
   steps: {
     approve: {
-      name: () => "Approve UNO",
+      name: () => "Approve B1",
       Status: TransactionStatus,
       async commit({ request, writeContract }) {
         const CollateralRegistry = getProtocolContract("CollateralRegistry");
@@ -80,7 +80,7 @@ export const redeemCollateral: FlowDeclaration<RedeemCollateralRequest> = {
       },
     },
     redeemCollateral: {
-      name: () => "Redeem UNO",
+      name: () => "Redeem B1",
       Status: TransactionStatus,
       async commit({ request, writeContract }) {
         const CollateralRegistry = getProtocolContract("CollateralRegistry");
@@ -205,7 +205,7 @@ export function useSimulatedBalancesChange({
 
       const getBalancesFromSimulated = (position: number) => {
         return simulation.results.slice(position, position + branches.length + 1).map((result, index) => {
-          const symbol = index === 0 ? "UNO" : branches[index - 1]?.symbol;
+          const symbol = index === 0 ? "B1" : branches[index - 1]?.symbol;
           return {
             symbol,
             balance: dnum18(result.data ?? 0n),

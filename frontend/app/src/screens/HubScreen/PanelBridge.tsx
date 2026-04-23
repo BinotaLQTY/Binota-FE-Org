@@ -47,7 +47,7 @@ function BridgeContent() {
                   backLink: ["/hub/bridge", "Back to Bridge"],
                   successLink: ["/hub", "Go to Hub"],
                   successMessage:
-                    "Your UNO has been bridged successfully. It may take a few minutes to arrive on the destination chain.",
+                    "Your B1 has been bridged successfully. It may take a few minutes to arrive on the destination chain.",
                   amount,
                   sourceChainId,
                   destinationChainId,
@@ -63,7 +63,7 @@ function BridgeContent() {
         className={css({
           padding: "16px",
           background: "surfaceAlt",
-          borderRadius: 8,
+          borderRadius: 0,
           fontSize: 14,
           color: "contentAlt",
         })}
@@ -73,7 +73,7 @@ function BridgeContent() {
             About Bridge
           </div>
           <p>
-            Bridge your UNO tokens between supported chains using LayerZero's
+            Bridge your B1 tokens between supported chains using LayerZero's
             cross-chain messaging protocol. The bridge is trustless and
             decentralized.
           </p>

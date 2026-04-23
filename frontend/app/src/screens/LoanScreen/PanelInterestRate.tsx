@@ -208,12 +208,12 @@ export function PanelInterestRate({
             {
               label: (
                 <>
-                  <div>UNO interest per year</div>
+                  <div>B1 interest per year</div>
                   <InfoTooltip {...infoTooltipProps(content.generalInfotooltips.interestRateBoldPerYear)} />
                 </>
               ),
-              before: <Amount value={boldInterestPerYearPrev} suffix=" UNO" />,
-              after: <Amount value={boldInterestPerYear} suffix=" UNO" />,
+              before: <Amount value={boldInterestPerYearPrev} suffix=" B1" />,
+              after: <Amount value={boldInterestPerYear} suffix=" B1" />,
             },
           ]}
         />

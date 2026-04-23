@@ -173,7 +173,7 @@ function ButtonConnected({
           userSelect: "none",
           overflow: "hidden",
           textOverflow: "ellipsis",
-          color: "interactive",
+          color: "selected",
         })}
       >
         <div

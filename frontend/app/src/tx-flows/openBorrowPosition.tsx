@@ -108,7 +108,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           <TransactionDetailsRow
             label="Loan"
             value={[
-              <Amount key="start" fallback="…" value={boldAmountWithFee} suffix=" UNO" />,
+              <Amount key="start" fallback="…" value={boldAmountWithFee} suffix=" B1" />,
               <div
                 key="end"
                 className={css({
@@ -168,7 +168,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           <TransactionDetailsRow
             label="Refundable gas deposit"
             value={[
-              <div key="start" title={`${fmtnum(ETH_GAS_COMPENSATION, "full")} MON`}>
+              <div key="start" title={`${fmtnum(ETH_GAS_COMPENSATION, "full")} BNB`}>
                 {fmtnum(ETH_GAS_COMPENSATION, 4)} MON
               </div>,
               "Only used in case of liquidation",
@@ -318,7 +318,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
     const branch = getBranch(ctx.request.branchId);
 
     // ETH doesn't need approval
-    if (branch.symbol === "MON") {
+    if (branch.symbol === "BNB") {
       return ["openTroveEth"];
     }
 

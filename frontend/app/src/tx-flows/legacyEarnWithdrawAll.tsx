@@ -40,11 +40,11 @@ export const legacyEarnWithdrawAll: FlowDeclaration<LegacyEarnWithdrawAllRequest
                 pool.rewards.coll[0] > 0n || pool.rewards.bold[0] > 0n ? "And claim rewards" : null,
               ]}
               value={[
-                <Amount key="start" suffix=" UNO" value={pool.deposit} />,
+                <Amount key="start" suffix=" B1" value={pool.deposit} />,
                 pool.rewards.coll[0] > 0n ? (
                   <Amount key="middle" value={pool.rewards.coll} suffix={` ${branch.symbol}`} />
                 ) : null,
-                pool.rewards.bold[0] > 0n ? <Amount key="end" value={pool.rewards.bold} suffix=" UNO" /> : null,
+                pool.rewards.bold[0] > 0n ? <Amount key="end" value={pool.rewards.bold} suffix=" B1" /> : null,
               ]}
             />
           </Fragment>

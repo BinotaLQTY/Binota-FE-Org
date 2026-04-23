@@ -33,23 +33,25 @@ export function useBalances(
   const tokenConfigs = tokens.map((token) => {
     const tokenAddress = match(token)
       .when(
-        (symbol) => Boolean(symbol && isCollateralSymbol(symbol) && symbol !== "MON"),
+        // For LST collaterals (non-native tokens), get the CollToken address from the branch
+        // BNB is a native token so it doesn't have an ERC20 address
+        (symbol) => Boolean(symbol && isCollateralSymbol(symbol) && symbol !== "BNB"),
         (symbol) => {
-          if (!symbol || !isCollateralSymbol(symbol) || symbol === "MON") {
-            return null;
-          }
-          return getBranch(symbol).contracts.CollToken.address;
+          // This path only handles LST tokens (non-native collaterals)
+          // Since BNB is the only collateral on BSC and it's native, this returns null
+          const branch = symbol ? getBranch(symbol as "BNB") : null;
+          return branch?.contracts.CollToken.address ?? null;
         },
       )
       .with("LUSD", () => CONTRACT_LUSD_TOKEN)
-      .with("UNO", () => CONTRACT_BOLD_TOKEN)
+      .with("B1", () => CONTRACT_BOLD_TOKEN)
       .with("BINOTA", () => CONTRACT_LQTY_TOKEN)
       .otherwise(() => null);
 
     return {
       token,
       tokenAddress,
-      isEth: token === "MON",
+      isEth: token === "BNB",
     };
   });
 
@@ -77,7 +79,7 @@ export function useBalances(
 
   // combine results
   return tokens.reduce((result, token) => {
-    if (token === "MON") {
+    if (token === "BNB") {
       result[token] = {
         data: ethBalance.data ? dnum18(ethBalance.data.value) : undefined,
         isLoading: ethBalance.isLoading,

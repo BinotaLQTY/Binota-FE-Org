@@ -191,7 +191,7 @@ export const updateLoanInterestRate: FlowDeclaration<UpdateLoanInterestRateReque
                 />
               </div>
             }
-            value={[<Amount key="start" fallback="…" value={upfrontFee.data} suffix=" UNO" />]}
+            value={[<Amount key="start" fallback="…" value={upfrontFee.data} suffix=" B1" />]}
           />
         )}
       </>

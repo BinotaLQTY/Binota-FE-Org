@@ -20,11 +20,11 @@ export type TMilestoneConfig = {
   name: string;
   /** Description of the milestone reward/benefit */
   description: string;
-  /** UNO token threshold required to reach this milestone (in wei) */
+  /** B1 token threshold required to reach this milestone (in wei) */
   threshold: bigint;
-  /** Display threshold for UI (in UNO tokens) */
+  /** Display threshold for UI (in B1 tokens) */
   thresholdDisplay: number;
-  /** NTA reward multiplier for this tier */
+  /** BNT reward multiplier for this tier */
   rewardMultiplier: number;
   /** Color for UI display */
   color: string;
@@ -32,12 +32,12 @@ export type TMilestoneConfig = {
 
 /**
  * Milestone configurations
- * Thresholds represent total UNO deposited across all adapters
+ * Thresholds represent total B1 deposited across all adapters
  */
 export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   [EMilestone.BRONZE]: {
     name: "Bronze",
-    description: "First milestone achieved! 1x NTA rewards",
+    description: "First milestone achieved! 1x BNT rewards",
     threshold: parseEther("1000000"),
     thresholdDisplay: 1_000_000,
     rewardMultiplier: 1.0,
@@ -45,7 +45,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.SILVER]: {
     name: "Silver",
-    description: "Silver tier! 1.25x NTA rewards",
+    description: "Silver tier! 1.25x BNT rewards",
     threshold: parseEther("5000000"),
     thresholdDisplay: 5_000_000,
     rewardMultiplier: 1.25,
@@ -53,7 +53,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.GOLD]: {
     name: "Gold",
-    description: "Gold tier! 1.5x NTA rewards",
+    description: "Gold tier! 1.5x BNT rewards",
     threshold: parseEther("10000000"),
     thresholdDisplay: 10_000_000,
     rewardMultiplier: 1.5,
@@ -61,7 +61,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.PLATINUM]: {
     name: "Platinum",
-    description: "Platinum tier! 1.75x NTA rewards",
+    description: "Platinum tier! 1.75x BNT rewards",
     threshold: parseEther("25000000"),
     thresholdDisplay: 25_000_000,
     rewardMultiplier: 1.75,
@@ -69,7 +69,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.DIAMOND]: {
     name: "Diamond",
-    description: "Diamond tier! 2x NTA rewards",
+    description: "Diamond tier! 2x BNT rewards",
     threshold: parseEther("75000000"),
     thresholdDisplay: 75_000_000,
     rewardMultiplier: 2.0,
@@ -77,7 +77,7 @@ export const MILESTONE_CONFIGS: { [key in EMilestone]: TMilestoneConfig } = {
   },
   [EMilestone.COSMIC]: {
     name: "Cosmic",
-    description: "Final milestone achieved! 2x NTA rewards",
+    description: "Final milestone achieved! 2x BNT rewards",
     threshold: parseEther("150000000"),
     thresholdDisplay: 150_000_000,
     rewardMultiplier: 2.0,
@@ -108,18 +108,18 @@ export function getMilestoneConfig(milestone: EMilestone): TMilestoneConfig {
 
 /**
  * Get the current milestone tier based on total UNO deposited
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns The current milestone tier, or undefined if no milestone reached
  */
 export function getCurrentMilestone(
-  totalUnoDeposited: bigint
+  totalB1Deposited: bigint
 ): EMilestone | undefined {
   // Iterate from highest to lowest to find the highest achieved milestone
   for (let i = MILESTONES_ORDERED.length - 1; i >= 0; i--) {
     const milestone = MILESTONES_ORDERED[i];
     if (
       milestone !== undefined &&
-      totalUnoDeposited >= MILESTONE_CONFIGS[milestone].threshold
+      totalB1Deposited >= MILESTONE_CONFIGS[milestone].threshold
     ) {
       return milestone;
     }
@@ -129,14 +129,14 @@ export function getCurrentMilestone(
 
 /**
  * Get the next milestone tier to achieve
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns The next milestone tier to achieve, or undefined if all milestones reached
  */
 export function getNextMilestone(
-  totalUnoDeposited: bigint
+  totalB1Deposited: bigint
 ): EMilestone | undefined {
   for (const milestone of MILESTONES_ORDERED) {
-    if (totalUnoDeposited < MILESTONE_CONFIGS[milestone].threshold) {
+    if (totalB1Deposited < MILESTONE_CONFIGS[milestone].threshold) {
       return milestone;
     }
   }
@@ -145,12 +145,12 @@ export function getNextMilestone(
 
 /**
  * Calculate progress towards the next milestone
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns Progress percentage (0-100) towards the next milestone, or 100 if all reached
  */
-export function getMilestoneProgress(totalUnoDeposited: bigint): number {
-  const currentMilestone = getCurrentMilestone(totalUnoDeposited);
-  const nextMilestone = getNextMilestone(totalUnoDeposited);
+export function getMilestoneProgress(totalB1Deposited: bigint): number {
+  const currentMilestone = getCurrentMilestone(totalB1Deposited);
+  const nextMilestone = getNextMilestone(totalB1Deposited);
 
   if (!nextMilestone) {
     return 100; // All milestones reached
@@ -162,7 +162,7 @@ export function getMilestoneProgress(totalUnoDeposited: bigint): number {
     : BigInt(0);
 
   const progressRange = nextThreshold - currentThreshold;
-  const currentProgress = totalUnoDeposited - currentThreshold;
+  const currentProgress = totalB1Deposited - currentThreshold;
 
   if (progressRange === BigInt(0)) {
     return 0;
@@ -175,38 +175,38 @@ export function getMilestoneProgress(totalUnoDeposited: bigint): number {
 
 /**
  * Get amount needed to reach the next milestone
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns Amount needed in wei, or 0 if all milestones reached
  */
-export function getAmountToNextMilestone(totalUnoDeposited: bigint): bigint {
-  const nextMilestone = getNextMilestone(totalUnoDeposited);
+export function getAmountToNextMilestone(totalB1Deposited: bigint): bigint {
+  const nextMilestone = getNextMilestone(totalB1Deposited);
 
   if (!nextMilestone) {
     return BigInt(0);
   }
 
   const nextThreshold = MILESTONE_CONFIGS[nextMilestone].threshold;
-  return nextThreshold - totalUnoDeposited;
+  return nextThreshold - totalB1Deposited;
 }
 
 /**
  * Get all achieved milestones
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns Array of achieved milestone enums
  */
-export function getAchievedMilestones(totalUnoDeposited: bigint): EMilestone[] {
+export function getAchievedMilestones(totalB1Deposited: bigint): EMilestone[] {
   return MILESTONES_ORDERED.filter(
-    (milestone) => totalUnoDeposited >= MILESTONE_CONFIGS[milestone].threshold
+    (milestone) => totalB1Deposited >= MILESTONE_CONFIGS[milestone].threshold
   );
 }
 
 /**
  * Get the current reward multiplier based on achieved milestone
- * @param totalUnoDeposited Total UNO tokens deposited across all adapters (in wei)
+ * @param totalB1Deposited Total B1 tokens deposited across all adapters (in wei)
  * @returns The reward multiplier (1.0 if no milestone reached)
  */
-export function getCurrentRewardMultiplier(totalUnoDeposited: bigint): number {
-  const currentMilestone = getCurrentMilestone(totalUnoDeposited);
+export function getCurrentRewardMultiplier(totalB1Deposited: bigint): number {
+  const currentMilestone = getCurrentMilestone(totalB1Deposited);
   if (!currentMilestone) {
     return 1.0;
   }

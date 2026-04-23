@@ -55,7 +55,7 @@ export const CastVotes: FC = () => {
   const footnote = useMemo(() => {
     if (!allowSubmit) {
       if (!stakedLQTY) {
-        return "You have no voting power to allocate. Please stake NTA before voting.";
+        return "You have no voting power to allocate. Please stake BNT before voting.";
       }
 
       if (hasAnyAllocations) {
