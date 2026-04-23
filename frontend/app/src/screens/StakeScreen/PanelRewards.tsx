@@ -35,24 +35,21 @@ export function PanelRewards() {
 
   const gasPrice = useGasPrice();
 
-  if (!ethPrice.data) {
-    return null;
-  }
-
   const txGasPriceEth = gasEstimate.data && gasPrice.data
     ? dnum18(gasEstimate.data * gasPrice.data)
     : null;
 
-  const txGasPriceUsd = txGasPriceEth && dn.mul(txGasPriceEth, ethPrice.data);
+  const txGasPriceUsd = txGasPriceEth && ethPrice.data
+    ? dn.mul(txGasPriceEth, ethPrice.data)
+    : null;
 
   const rewardsBinota = stakePosition.data?.rewards ?? dn.from(0, 18);
 
-  const totalRewardsUsd = dn.add(
-    rewardsBinota,
-    dn.mul(rewardsBinota, ethPrice.data),
-  );
+  const totalRewardsUsd = ethPrice.data
+    ? dn.add(rewardsBinota, dn.mul(rewardsBinota, ethPrice.data))
+    : null;
 
-  const allowSubmit = account.isConnected && dn.gt(totalRewardsUsd, 0);
+  const allowSubmit = account.isConnected && totalRewardsUsd && dn.gt(totalRewardsUsd, 0);
 
   return (
     <VFlex gap={48}>
@@ -77,7 +74,7 @@ export function PanelRewards() {
             <Amount
               format="2z"
               prefix="$"
-              value={totalRewardsUsd}
+              value={totalRewardsUsd ?? 0}
             />
           </HFlex>
           <HFlex justifyContent="space-between" gap={24}>
