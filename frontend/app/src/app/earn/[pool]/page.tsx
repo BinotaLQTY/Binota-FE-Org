@@ -1,11 +1,5 @@
 export function generateStaticParams() {
-  return [
-    { pool: "bnb" },
-    { pool: "mon" },
-    { pool: "shmon" },
-    { pool: "smon" },
-    { pool: "gmon" },
-  ];
+  return [{ pool: "bnb" }];
 }
 
 export default function EarnPoolPage() {

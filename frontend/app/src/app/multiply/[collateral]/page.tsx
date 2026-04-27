@@ -1,10 +1,5 @@
 export function generateStaticParams() {
-  return [
-    { collateral: "mon" },
-    { collateral: "shmon" },
-    { collateral: "smon" },
-    { collateral: "gmon" },
-  ];
+  return [{ collateral: "bnb" }];
 }
 
 export default function LeverageCollateralPage() {

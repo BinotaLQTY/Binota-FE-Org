@@ -1,10 +1,8 @@
 export function generateStaticParams() {
-  const pools = ["bnb", "mon", "shmon", "smon", "gmon"];
-  const actions = ["deposit", "claim"];
-
-  return pools.flatMap((pool) =>
-    actions.map((action) => ({ pool, action }))
-  );
+  return [
+    { pool: "bnb", action: "deposit" },
+    { pool: "bnb", action: "claim" },
+  ];
 }
 
 export default function EarnPoolActionPage() {
