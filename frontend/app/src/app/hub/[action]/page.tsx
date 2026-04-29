@@ -1,8 +1,8 @@
 export function generateStaticParams() {
   return [
     { action: "bridge" },
-    { action: "points" },
     { action: "airdrop" },
+    { action: "redeem" },
   ];
 }
 

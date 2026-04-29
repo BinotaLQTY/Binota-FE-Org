@@ -4,7 +4,6 @@ import { useBreakpointName } from "@/src/breakpoints";
 import { Screen } from "@/src/comps/Screen/Screen";
 import { PanelAirdrop } from "@/src/screens/HubScreen/PanelAirdrop";
 import { PanelBridge } from "@/src/screens/HubScreen/PanelBridge";
-import { PanelPoints } from "@/src/screens/HubScreen/PanelPoints";
 import { PanelRedeem } from "@/src/screens/HubScreen/PanelRedeem";
 import { css } from "@/styled-system/css";
 import { Dropdown, IconChevronDown, Tabs, VFlex } from "@binota/uikit";
@@ -12,7 +11,6 @@ import { useParams, useRouter } from "next/navigation";
 
 const TABS = [
   { label: "Bridge", id: "bridge" },
-  { label: "Points", id: "points" },
   { label: "Airdrop", id: "airdrop" },
   { label: "lzBNT", id: "redeem" },
 ];
@@ -74,7 +72,7 @@ export function HubScreen() {
               },
             })}
           >
-            Bridge B1 across chains, track your points, check your airdrop and redeem lzBNT.
+            Bridge B1 across chains, check your airdrop and redeem lzBNT.
           </div>
         ),
       }}
@@ -166,7 +164,6 @@ export function HubScreen() {
         )}
 
         {activeTab === "bridge" && <PanelBridge />}
-        {activeTab === "points" && <PanelPoints />}
         {activeTab === "airdrop" && <PanelAirdrop />}
         {activeTab === "redeem" && <PanelRedeem />}
       </VFlex>
