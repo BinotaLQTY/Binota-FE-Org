@@ -161,6 +161,8 @@ export function useInputFieldValue(
 
   const setValue = useCallback((value: string) => {
     const newData = { ...dataRef.current, ...validate(parse(value), value) };
+    // Debug logging for ICRBelowMCR investigation
+    console.log("[useInputFieldValue] setValue - input:", value, "parsed:", newData.parsed, "bigint:", newData.parsed?.[0]?.toString());
     setDataAndRef(newData);
     onChange?.(newData);
   }, [parse, validate, setDataAndRef, onChange]);
