@@ -53,7 +53,7 @@ export const NetValue: FC<NetValueProps> = ({ loanDetails, loan, prevLoanDetails
           {prevLoanDetails?.depositPreLeverage &&
             loanDetails.depositPreLeverage &&
             !dn.eq(prevLoanDetails.depositPreLeverage, loanDetails.depositPreLeverage) && (
-              <CrossedText title={`${fmtnum(prevLoanDetails.depositPreLeverage, "full")} UNO`}>
+              <CrossedText title={`${fmtnum(prevLoanDetails.depositPreLeverage, "full")} B1`}>
                 {fmtnum(prevLoanDetails.depositPreLeverage)}
               </CrossedText>
             )}

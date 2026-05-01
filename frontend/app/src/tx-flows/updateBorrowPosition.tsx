@@ -112,9 +112,9 @@ export const updateBorrowPosition: FlowDeclaration<UpdateBorrowPositionRequest> 
                     fallback="…"
                     prefix="Incl. "
                     value={upfrontFeeData.data.upfrontFee}
-                    suffix=" UNO creation fee"
+                    suffix=" B1 creation fee"
                   />
-                  <InfoTooltip heading="UNO creation fee">
+                  <InfoTooltip heading="B1 creation fee">
                     This fee is charged when you open a new loan or increase your debt. It corresponds to 7 days of
                     average interest for the respective collateral asset.
                   </InfoTooltip>

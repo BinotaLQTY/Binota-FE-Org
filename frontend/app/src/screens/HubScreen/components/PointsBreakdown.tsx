@@ -48,7 +48,7 @@ export function PointsBreakdown() {
     {
       label: "Debt Points",
       value: userPoints.debtPoints,
-      tooltip: `${POINTS_PER_DEBT_UNIT} point per 1 UNO of debt`,
+      tooltip: `${POINTS_PER_DEBT_UNIT} point per 1 B1 of debt`,
     },
     {
       label: `${HERO_ID_NFT.name} Bonus`,

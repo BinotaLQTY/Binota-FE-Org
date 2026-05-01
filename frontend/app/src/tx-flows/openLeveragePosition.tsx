@@ -70,7 +70,7 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
         <TransactionDetailsRow
           label="Debt"
           value={[
-            `${fmtnum(borrowedWithFee)} UNO`,
+            `${fmtnum(borrowedWithFee)} B1`,
             <div
               key="end"
               className={css({
@@ -79,8 +79,8 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
                 gap: 4,
               })}
             >
-              <Amount key="end" fallback="…" prefix="Incl. " value={upfrontFee.data} suffix=" UNO creation fee" />
-              <InfoTooltip heading="UNO creation fee">
+              <Amount key="end" fallback="…" prefix="Incl. " value={upfrontFee.data} suffix=" B1 creation fee" />
+              <InfoTooltip heading="B1 creation fee">
                 This fee is charged when you open a new loan or increase your debt. It corresponds to 7 days of average
                 interest for the respective collateral asset.
               </InfoTooltip>
@@ -99,7 +99,7 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
                   dust: false,
                   prefix: "~",
                 })}{" "}
-                UNO per year)
+                B1 per year)
               </div>,
             ]}
           />
@@ -108,7 +108,7 @@ export const openLeveragePosition: FlowDeclaration<OpenLeveragePositionRequest> 
             label="Interest rate"
             value={[
               `${fmtnum(loan.interestRate, "pct2")}%`,
-              `${fmtnum(dn.mul(loan.borrowed, loan.interestRate))} UNO per year`,
+              `${fmtnum(dn.mul(loan.borrowed, loan.interestRate))} B1 per year`,
             ]}
           />
         )}

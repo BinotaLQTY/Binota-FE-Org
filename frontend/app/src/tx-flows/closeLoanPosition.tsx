@@ -67,8 +67,8 @@ export const closeLoanPosition: FlowDeclaration<CloseLoanPositionRequest> = {
         <TransactionDetailsRow
           label="You reclaim the gas compensation deposit"
           value={[
-            <div key="start" title={`${fmtnum(ETH_GAS_COMPENSATION, "full")} MON`}>
-              {fmtnum(ETH_GAS_COMPENSATION, 4)} MON
+            <div key="start" title={`${fmtnum(ETH_GAS_COMPENSATION, "full")} BNB`}>
+              {fmtnum(ETH_GAS_COMPENSATION, 4)} BNB
             </div>,
           ]}
         />
