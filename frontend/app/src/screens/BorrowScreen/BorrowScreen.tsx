@@ -622,26 +622,36 @@ export function BorrowScreen() {
       <FlowButton
         disabled={!allowSubmit}
         label={content.borrowScreen.action}
-        request={
-          interestRate && deposit.parsed && debt.parsed && account.address
-            ? {
-                flowId: "openBorrowPosition",
-                backLink: [`/borrow/${collSymbol.toLowerCase()}`, "Back to editing"],
-                successLink: ["/", "Go to the Dashboard"],
-                successMessage: "The position has been created successfully.",
+        request={(() => {
+          if (interestRate && deposit.parsed && debt.parsed && account.address) {
+            // Debug logging for ICRBelowMCR investigation
+            console.log("[BorrowScreen] Creating request - debt.parsed:", debt.parsed);
+            console.log("[BorrowScreen] debt.parsed[0].toString():", debt.parsed?.[0]?.toString());
+            console.log("[BorrowScreen] debt.value (raw input):", debt.value);
+            console.log("[BorrowScreen] deposit.parsed:", deposit.parsed);
+            console.log("[BorrowScreen] deposit.parsed[0].toString():", deposit.parsed?.[0]?.toString());
+            console.log("[BorrowScreen] interestRate:", interestRate);
+            console.log("[BorrowScreen] interestRate[0].toString():", interestRate?.[0]?.toString());
 
-                branchId: branch.id,
-                owner: account.address,
-                ownerIndex: nextOwnerIndex.data ?? 0,
-                collAmount: deposit.parsed,
-                boldAmount: debt.parsed,
-                annualInterestRate: interestRate,
-                maxUpfrontFee: dnum18(maxUint256),
-                interestRateDelegate:
-                  interestRateMode === "manual" || !interestRateDelegate ? null : interestRateDelegate,
-              }
-            : undefined
-        }
+            return {
+              flowId: "openBorrowPosition",
+              backLink: [`/borrow/${collSymbol.toLowerCase()}`, "Back to editing"],
+              successLink: ["/", "Go to the Dashboard"],
+              successMessage: "The position has been created successfully.",
+
+              branchId: branch.id,
+              owner: account.address,
+              ownerIndex: nextOwnerIndex.data ?? 0,
+              collAmount: deposit.parsed,
+              boldAmount: debt.parsed,
+              annualInterestRate: interestRate,
+              maxUpfrontFee: dnum18(maxUint256),
+              interestRateDelegate:
+                interestRateMode === "manual" || !interestRateDelegate ? null : interestRateDelegate,
+            };
+          }
+          return undefined;
+        })()}
       />
     </Screen>
   );
