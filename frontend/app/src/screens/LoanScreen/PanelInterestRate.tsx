@@ -40,7 +40,7 @@ export function PanelInterestRate({
   const deposit = useInputFieldValue((value) => `${fmtnum(value, "full")} ${collToken.symbol}`, {
     defaultValue: dn.toString(loan.deposit),
   });
-  const debt = useInputFieldValue((value) => `${fmtnum(value, "full")} UNO`, {
+  const debt = useInputFieldValue((value) => `${fmtnum(value, "full")} B1`, {
     defaultValue: dn.toString(loan.borrowed),
   });
 

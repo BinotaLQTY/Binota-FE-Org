@@ -35,10 +35,10 @@ export const bridgeSend: FlowDeclaration<BridgeSendRequest> = {
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ fontSize: 14, color: "var(--color-content-alt)" }}>
-          Bridge UNO
+          Bridge B1
         </div>
         <div style={{ fontSize: 24, fontWeight: 600, marginTop: 8 }}>
-          <Amount value={request.amount} /> UNO
+          <Amount value={request.amount} /> B1
         </div>
         <div style={{ marginTop: 8, fontSize: 14 }}>
           {HUB_CHAIN_NAMES[request.sourceChainId]} →{" "}

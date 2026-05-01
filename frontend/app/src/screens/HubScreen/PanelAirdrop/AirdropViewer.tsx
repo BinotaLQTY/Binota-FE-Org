@@ -135,7 +135,7 @@ export function AirdropViewer() {
                   value={milestoneData.amountToNext}
                   format="compact"
                 />{" "}
-                UNO to {MILESTONE_CONFIGS[milestoneData.nextMilestone].name}
+                B1 to {MILESTONE_CONFIGS[milestoneData.nextMilestone].name}
               </div>
             )}
           </VFlex>

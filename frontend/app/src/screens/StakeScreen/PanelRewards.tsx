@@ -18,7 +18,7 @@ import { useEstimateGas, useGasPrice } from "wagmi";
 export function PanelRewards() {
   const account = useAccount();
 
-  const ethPrice = usePrice("MON");
+  const ethPrice = usePrice("BNB");
 
   const stakePosition = useStakePosition(account.address ?? null);
   const Governance = getProtocolContract("Governance");

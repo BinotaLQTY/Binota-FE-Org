@@ -109,7 +109,7 @@ export const updateLoanInterestRate: FlowDeclaration<UpdateLoanInterestRateReque
                   value={delegate.data?.fee}
                 />
                 <br />
-                <Amount format="2z" prefix="~" suffix=" UNO per year" value={yearlyBoldInterest} />
+                <Amount format="2z" prefix="~" suffix=" B1 per year" value={yearlyBoldInterest} />
               </>
             )}
           </div>,
@@ -121,13 +121,13 @@ export const updateLoanInterestRate: FlowDeclaration<UpdateLoanInterestRateReque
           label="New interest rate"
           value={[
             <div key="start">{fmtnum(loan.interestRate, "pctfull")}%</div>,
-            <div key="end" title={`${fmtnum(yearlyBoldInterest, "full")} UNO per year`}>
+            <div key="end" title={`${fmtnum(yearlyBoldInterest, "full")} B1 per year`}>
               {fmtnum(yearlyBoldInterest, {
                 digits: 4,
                 dust: false,
                 prefix: "~",
               })}{" "}
-              UNO per year
+              B1 per year
             </div>,
           ]}
         />
@@ -159,7 +159,7 @@ export const updateLoanInterestRate: FlowDeclaration<UpdateLoanInterestRateReque
                   value={prevDelegate.data?.fee}
                 />
                 <br />
-                <Amount format="2z" prefix="~" suffix=" UNO per year" value={prevYearlyBoldInterest} />
+                <Amount format="2z" prefix="~" suffix=" B1 per year" value={prevYearlyBoldInterest} />
               </div>,
             ]}
           />

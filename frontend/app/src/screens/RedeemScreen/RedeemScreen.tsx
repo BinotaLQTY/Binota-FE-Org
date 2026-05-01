@@ -75,7 +75,7 @@ export function RedeemScreen() {
                   <TokenIcon key={symbol} symbol={symbol} />
                 ))}
             </TokenIcon.Group>{" "}
-            MON
+            BNB
           </HFlex>
         ),
       }}

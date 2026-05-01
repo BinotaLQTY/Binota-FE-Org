@@ -23,7 +23,7 @@ export function PanelClaimRewards({ branchId, position }: { branchId: null | Bra
     throw new Error(`Invalid branch: ${branchId}`);
   }
 
-  const ethPrice = usePrice("MON");
+  const ethPrice = usePrice("BNB");
   const boldPriceUsd = usePrice("B1");
   const collPriceUsd = usePrice(collateral.symbol);
 

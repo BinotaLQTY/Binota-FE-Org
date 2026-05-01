@@ -117,8 +117,8 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                   gap: 4,
                 })}
               >
-                <Amount fallback="…" prefix="Incl. " value={upfrontFee.data} suffix=" UNO creation fee" />
-                <InfoTooltip heading="UNO creation fee">
+                <Amount fallback="…" prefix="Incl. " value={upfrontFee.data} suffix=" B1 creation fee" />
+                <InfoTooltip heading="B1 creation fee">
                   This fee is charged when you open a new loan or increase your debt. It corresponds to 7 days of
                   average interest for the respective collateral asset.
                 </InfoTooltip>
@@ -145,7 +145,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                         value={delegate.data?.fee}
                       />
                       <br />
-                      <Amount format="2z" prefix="~" suffix=" UNO per year" value={yearlyBoldInterest} />
+                      <Amount format="2z" prefix="~" suffix=" B1 per year" value={yearlyBoldInterest} />
                     </>
                   )}
                 </div>,
@@ -160,7 +160,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                   key="end"
                   fallback="…"
                   value={boldAmountWithFee && dn.mul(boldAmountWithFee, request.annualInterestRate)}
-                  suffix=" UNO per year"
+                  suffix=" B1 per year"
                 />,
               ]}
             />
