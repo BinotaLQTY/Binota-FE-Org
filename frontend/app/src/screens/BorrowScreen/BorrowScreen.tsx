@@ -48,6 +48,7 @@ import type { Address, Dnum } from "@/src/types";
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { useAccount, useBalances } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
+import { useReadContract } from "wagmi";
 
 const KNOWN_COLLATERAL_SYMBOLS = KNOWN_COLLATERALS.map(({ symbol }) => symbol);
 
@@ -66,6 +67,26 @@ export function BorrowScreen() {
   const branch = getBranch(collSymbol);
   const collateral = getCollToken(branch.id);
   const collaterals = branches.map((b) => getCollToken(b.branchId));
+
+  // Debug: Query on-chain MCR and Price for ICRBelowMCR investigation
+  const { data: onChainMcr } = useReadContract({
+    ...branch.contracts.BorrowerOperations,
+    functionName: "MCR",
+  });
+  const { data: onChainPrice } = useReadContract({
+    ...branch.contracts.PriceFeed,
+    functionName: "fetchPrice",
+  });
+
+  // Log on-chain values for debugging
+  if (onChainMcr !== undefined) {
+    console.log("[BorrowScreen Debug] On-chain MCR:", onChainMcr.toString(), `(${Number(onChainMcr) / 1e18})`);
+  }
+  if (onChainPrice !== undefined) {
+    // fetchPrice returns [price, fetchResult] - extracting price
+    const price = Array.isArray(onChainPrice) ? onChainPrice[0] : onChainPrice;
+    console.log("[BorrowScreen Debug] On-chain Price:", price.toString(), `($${Number(price) / 1e18})`);
+  }
 
   const maxCollDeposit = MAX_COLLATERAL_DEPOSITS[collSymbol];
 

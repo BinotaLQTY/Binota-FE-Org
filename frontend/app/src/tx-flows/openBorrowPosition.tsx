@@ -169,7 +169,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
             label="Refundable gas deposit"
             value={[
               <div key="start" title={`${fmtnum(ETH_GAS_COMPENSATION, "full")} BNB`}>
-                {fmtnum(ETH_GAS_COMPENSATION, 4)} MON
+                {fmtnum(ETH_GAS_COMPENSATION, 4)} BNB
               </div>,
               "Only used in case of liquidation",
             ]}
@@ -218,6 +218,20 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           contracts: ctx.contracts,
           branchId: ctx.request.branchId,
           interestRate: ctx.request.annualInterestRate[0],
+        });
+
+        // Debug logging for ICRBelowMCR investigation
+        console.log("[openBorrowPosition LST] Transaction params:", {
+          owner: ctx.request.owner,
+          ownerIndex: ctx.request.ownerIndex,
+          collAmount: ctx.request.collAmount[0].toString(),
+          boldAmount: ctx.request.boldAmount[0].toString(),
+          annualInterestRate: ctx.request.annualInterestRate[0].toString(),
+          upperHint: upperHint.toString(),
+          lowerHint: lowerHint.toString(),
+          maxUpfrontFee: ctx.request.maxUpfrontFee[0].toString(),
+          interestRateDelegate: ctx.request.interestRateDelegate,
+          value: ETH_GAS_COMPENSATION[0].toString(),
         });
 
         const branch = getBranch(ctx.request.branchId);
@@ -281,6 +295,20 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           contracts: ctx.contracts,
           branchId: ctx.request.branchId,
           interestRate: ctx.request.annualInterestRate[0],
+        });
+
+        // Debug logging for ICRBelowMCR investigation
+        console.log("[openBorrowPosition ETH] Transaction params:", {
+          owner: ctx.request.owner,
+          ownerIndex: ctx.request.ownerIndex,
+          collAmount: ctx.request.collAmount[0].toString(),
+          boldAmount: ctx.request.boldAmount[0].toString(),
+          annualInterestRate: ctx.request.annualInterestRate[0].toString(),
+          upperHint: upperHint.toString(),
+          lowerHint: lowerHint.toString(),
+          maxUpfrontFee: ctx.request.maxUpfrontFee[0].toString(),
+          interestRateDelegate: ctx.request.interestRateDelegate,
+          value: (ctx.request.collAmount[0] + ETH_GAS_COMPENSATION[0]).toString(),
         });
 
         const branch = getBranch(ctx.request.branchId);
