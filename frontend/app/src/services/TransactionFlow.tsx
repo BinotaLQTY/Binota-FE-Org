@@ -574,15 +574,6 @@ function useFlowManager(account: Address | null, isSafe: boolean = false) {
     request: FlowRequestMap[keyof FlowRequestMap],
     account: Address,
   ) => {
-    // Debug logging for ICRBelowMCR investigation
-    console.log("[TransactionFlow] startFlow called with request:", request);
-    console.log("[TransactionFlow] startFlow request JSON:", jsonStringifyWithDnum(request));
-    if ("boldAmount" in request && request.boldAmount) {
-      const boldAmount = request.boldAmount as [bigint, number];
-      console.log("[TransactionFlow] startFlow boldAmount[0]:", boldAmount[0]?.toString());
-      console.log("[TransactionFlow] startFlow boldAmount[1] (decimals):", boldAmount[1]);
-    }
-
     discardFlow(); // discard any current flow before starting a new one
     const newFlow = { account, request, steps: null };
     setFlow(newFlow);
@@ -690,14 +681,7 @@ function useFlowManager(account: Address | null, isSafe: boolean = false) {
 
 const FlowContextStorage = {
   set(flow: Flowstate<FlowRequestMap[keyof FlowRequestMap]>) {
-    const serialized = jsonStringifyWithDnum(flow);
-    // Debug logging for ICRBelowMCR investigation
-    console.log("[FlowContextStorage] Setting flow - serialized:", serialized);
-    if ("boldAmount" in flow.request && flow.request.boldAmount) {
-      const boldAmount = flow.request.boldAmount as [bigint, number];
-      console.log("[FlowContextStorage] set - boldAmount[0]:", boldAmount[0]?.toString());
-    }
-    localStorage.setItem(TRANSACTION_FLOW_KEY, serialized);
+    localStorage.setItem(TRANSACTION_FLOW_KEY, jsonStringifyWithDnum(flow));
   },
   get(): Flowstate<FlowRequestMap[keyof FlowRequestMap]> | null {
     try {
@@ -706,19 +690,8 @@ const FlowContextStorage = {
         return null;
       }
 
-      // Debug logging for ICRBelowMCR investigation
-      console.log("[FlowContextStorage] get - raw localStorage:", storedFlowState);
-
       // parse the base flow structure
       const flow = v.parse(FlowStateSchema, jsonParseWithDnum(storedFlowState));
-
-      // Debug logging for ICRBelowMCR investigation
-      console.log("[FlowContextStorage] get - parsed flow:", jsonStringifyWithDnum(flow));
-      if ("boldAmount" in flow.request && flow.request.boldAmount) {
-        const boldAmount = flow.request.boldAmount as [bigint, number];
-        console.log("[FlowContextStorage] get - boldAmount after parse:", boldAmount);
-        console.log("[FlowContextStorage] get - boldAmount[0]:", boldAmount[0]?.toString());
-      }
 
       const flowDeclaration = getFlowDeclaration(flow.request.flowId);
       if (!flowDeclaration) {
@@ -729,13 +702,6 @@ const FlowContextStorage = {
       const request = flowDeclaration.parseRequest(flow.request);
       if (!request) {
         throw new Error(`Invalid request for flow ${flow.request.flowId}`);
-      }
-
-      // Debug logging for ICRBelowMCR investigation
-      console.log("[FlowContextStorage] get - final request:", jsonStringifyWithDnum(request));
-      if ("boldAmount" in request && request.boldAmount) {
-        const boldAmount = request.boldAmount as [bigint, number];
-        console.log("[FlowContextStorage] get - final boldAmount[0]:", boldAmount[0]?.toString());
       }
 
       return { ...flow, request };

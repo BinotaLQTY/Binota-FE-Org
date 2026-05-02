@@ -47,12 +47,7 @@ export const jsonStringifyWithDnum: typeof JSON.stringify = (data, replacer, spa
     data,
     (key, value) => {
       if (dn.isDnum(value)) {
-        const serialized = `dn${dn.toJSON(value)}`;
-        // Debug logging for ICRBelowMCR investigation
-        if (key === "boldAmount" || key === "collAmount") {
-          console.log(`[dnum-utils] jsonStringifyWithDnum - key: ${key}, value:`, value, "serialized:", serialized);
-        }
-        const value_ = serialized;
+        const value_ = `dn${dn.toJSON(value)}`;
         return typeof replacer === "function" ? replacer(key, value_) : value_;
       }
       return typeof replacer === "function" ? replacer(key, value) : value;
@@ -66,12 +61,8 @@ export const jsonParseWithDnum: typeof JSON.parse = (data, reviver) => {
     data,
     (key, value) => {
       if (typeof value === "string" && value.startsWith("dn[\"")) {
-        const parsed = dn.fromJSON(value.slice(2));
-        // Debug logging for ICRBelowMCR investigation
-        if (key === "boldAmount" || key === "collAmount") {
-          console.log(`[dnum-utils] jsonParseWithDnum - key: ${key}, serialized value:`, value, "parsed:", parsed);
-        }
-        return typeof reviver === "function" ? reviver(key, parsed) : parsed;
+        const value_ = dn.fromJSON(value.slice(2));
+        return typeof reviver === "function" ? reviver(key, value_) : value_;
       }
       return typeof reviver === "function" ? reviver(key, value) : value;
     },
