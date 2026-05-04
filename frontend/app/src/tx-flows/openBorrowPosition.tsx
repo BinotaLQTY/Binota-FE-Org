@@ -8,6 +8,7 @@ import { ETH_GAS_COMPENSATION } from "@/src/constants";
 import { dnum18 } from "@/src/dnum-utils";
 import { fmtnum } from "@/src/formatting";
 import { useDelegateDisplayName } from "@/src/liquity-delegate";
+import { getBranchContract } from "@/src/contracts";
 import {
   getBranch,
   getCollToken,
@@ -343,6 +344,56 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
           console.error("[Diagnostic] Failed to query on-chain values:", diagError);
         }
         // ============================================
+
+        // === Zapper Configuration Diagnostics ===
+        try {
+          // Query zapper's configured contracts
+          const zapperBorrowerOps = await readContract(ctx.wagmiConfig, {
+            ...branch.contracts.LeverageWETHZapper,
+            functionName: "borrowerOperations",
+          });
+
+          const zapperWETH = await readContract(ctx.wagmiConfig, {
+            ...branch.contracts.LeverageWETHZapper,
+            functionName: "WETH",
+          });
+
+          console.log("[Diagnostic] === Zapper Configuration ===");
+          console.log("[Diagnostic] Zapper address:", branch.contracts.LeverageWETHZapper.address);
+          console.log("[Diagnostic] Zapper's BorrowerOperations:", zapperBorrowerOps);
+          console.log("[Diagnostic] Expected BorrowerOperations:", branch.contracts.BorrowerOperations.address);
+          console.log(
+            "[Diagnostic] Match?",
+            (zapperBorrowerOps as string).toLowerCase() === branch.contracts.BorrowerOperations.address.toLowerCase(),
+          );
+          console.log("[Diagnostic] Zapper's WETH:", zapperWETH);
+        } catch (zapperError) {
+          console.error("[Diagnostic] Failed to query zapper config:", zapperError);
+        }
+        // ============================================
+
+        // === System State Diagnostics ===
+        try {
+          // Query average interest rate for upfront fee calculation
+          const activePool = getBranchContract(ctx.request.branchId, "ActivePool");
+          const aggWeightedDebtSum = await readContract(ctx.wagmiConfig, {
+            ...activePool,
+            functionName: "aggWeightedDebtSum",
+          });
+          const totalBoldDeposits = await readContract(ctx.wagmiConfig, {
+            ...activePool,
+            functionName: "getBoldDebt",
+          });
+
+          console.log("[Diagnostic] === System State ===");
+          console.log("[Diagnostic] aggWeightedDebtSum:", aggWeightedDebtSum.toString());
+          console.log("[Diagnostic] totalBoldDeposits:", totalBoldDeposits.toString());
+          console.log("[Diagnostic] Is first position?", totalBoldDeposits === 0n);
+        } catch (sysError) {
+          console.error("[Diagnostic] Failed to query system state:", sysError);
+        }
+        // ============================================
+
         return ctx.writeContract({
           ...branch.contracts.LeverageWETHZapper,
           functionName: "openTroveWithRawETH",
