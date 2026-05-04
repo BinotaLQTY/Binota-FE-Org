@@ -53,7 +53,7 @@ export const FEE_ASSET: Record<HubChainId, string> = {
 
 // RPC URLs for cross-chain reads (for NFT balance checks)
 export const CHAIN_RPC_URLS: Record<HubChainId, string> = {
-  1: "https://eth.llamarpc.com",
+  1: "https://cloudflare-eth.com",
   42161: "https://arb1.arbitrum.io/rpc",
   8453: "https://mainnet.base.org",
   56: "https://bsc-dataseed.binance.org",
@@ -224,13 +224,13 @@ export function useBridgeFeeQuote(params: {
     functionName: "quoteSend",
     args: shouldFetch
       ? [
-          buildSendParams({
-            destinationChainId: destinationChainId!,
-            recipientAddress: recipientAddress!,
-            amount: amount![0],
-          }),
-          false, // payInLzToken
-        ]
+        buildSendParams({
+          destinationChainId: destinationChainId!,
+          recipientAddress: recipientAddress!,
+          amount: amount![0],
+        }),
+        false, // payInLzToken
+      ]
       : undefined,
     query: {
       enabled: shouldFetch,
@@ -418,8 +418,8 @@ export function usePointsLeaderboard(userAddress: Address | null) {
       // Find user's entry
       const userEntry = userAddress
         ? entries.find(
-            (e) => e.address.toLowerCase() === userAddress.toLowerCase()
-          ) ?? null
+          (e) => e.address.toLowerCase() === userAddress.toLowerCase()
+        ) ?? null
         : null;
 
       return {
