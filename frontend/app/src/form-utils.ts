@@ -27,10 +27,7 @@ export function parseInputFloat(value: string) {
     .replace(/\.$/, "")
     .replace(/^\./, "0.");
 
-  const result = dn.from(value === "" ? 0 : value, 18);
-  // Debug logging for ICRBelowMCR investigation
-  console.log(`[form-utils] parseInputFloat - input: "${value}", result:`, result, "bigint:", result[0].toString());
-  return result;
+  return dn.from(value === "" ? 0 : value, 18);
 }
 
 export function parseInputPercentage(value: string) {

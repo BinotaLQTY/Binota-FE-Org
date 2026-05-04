@@ -312,6 +312,37 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
         });
 
         const branch = getBranch(ctx.request.branchId);
+
+        // === Diagnostic queries for ICRBelowMCR investigation ===
+        try {
+          // Query on-chain price from PriceFeed
+          const [onChainPrice] = await readContract(ctx.wagmiConfig, {
+            ...branch.contracts.PriceFeed,
+            functionName: "fetchPrice",
+          });
+
+          // Query on-chain MCR from BorrowerOperations
+          const onChainMCR = await readContract(ctx.wagmiConfig, {
+            ...branch.contracts.BorrowerOperations,
+            functionName: "MCR",
+          });
+
+          // Calculate expected ICR as contract would
+          // msg.value = collAmount + ETH_GAS_COMPENSATION
+          const collValue = ctx.request.collAmount[0] + ETH_GAS_COMPENSATION[0];
+          const expectedICR = (collValue * onChainPrice) / ctx.request.boldAmount[0];
+
+          console.log("[Diagnostic] === ICR Investigation ===");
+          console.log("[Diagnostic] On-chain price:", onChainPrice.toString(), "=", Number(onChainPrice) / 1e18, "USD");
+          console.log("[Diagnostic] On-chain MCR:", onChainMCR.toString(), "=", (Number(onChainMCR) / 1e18) * 100, "%");
+          console.log("[Diagnostic] Collateral value (wei):", collValue.toString());
+          console.log("[Diagnostic] Bold amount (wei):", ctx.request.boldAmount[0].toString());
+          console.log("[Diagnostic] Expected ICR:", expectedICR.toString(), "=", (Number(expectedICR) / 1e18) * 100, "%");
+          console.log("[Diagnostic] ICR > MCR?", expectedICR > onChainMCR);
+        } catch (diagError) {
+          console.error("[Diagnostic] Failed to query on-chain values:", diagError);
+        }
+        // ============================================
         return ctx.writeContract({
           ...branch.contracts.LeverageWETHZapper,
           functionName: "openTroveWithRawETH",
