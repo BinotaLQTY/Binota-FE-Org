@@ -249,9 +249,9 @@ export const darkTheme = {
     riskGradient4: "#FF8C1A",
     riskGradient5: "#F6465D", // red
 
-    riskGradientDimmed1: "red:900",
-    riskGradientDimmed2: "orange:900",
-    riskGradientDimmed3: "green:900",
+    riskGradientDimmed1: "red:100",
+    riskGradientDimmed2: "yellow:100",
+    riskGradientDimmed3: "green:100",
 
     // Loading gradient
     loadingGradient1: "yellow:300",
