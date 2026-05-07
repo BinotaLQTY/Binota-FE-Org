@@ -62,6 +62,12 @@ export function Positions({
         ...(stakePosition.data && hasStakePosition ? [stakePosition.data] : []),
       ];
 
+  console.log("[DEBUG] Positions - Address:", address);
+  console.log("[DEBUG] Positions - Loans:", loans.data, "isPending:", loans.isPending);
+  console.log("[DEBUG] Positions - Earn:", earnPositions.data, "isPending:", earnPositions.isPending);
+  console.log("[DEBUG] Positions - Stake:", stakePosition.data, "isPending:", stakePosition.isPending);
+  console.log("[DEBUG] Positions - Count:", positions.length);
+
   let mode: Mode =
     address && positions && positions.length > 0
       ? "positions"

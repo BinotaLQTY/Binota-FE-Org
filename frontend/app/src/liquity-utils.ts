@@ -320,7 +320,9 @@ export function useEarnPositionsByAccount(account: null | Address) {
             contracts: setup.contracts,
             allowFailure: false,
           });
-          return setup.select(deposits);
+          const position = setup.select(deposits);
+          console.log("[DEBUG] useEarnPositionsByAccount - Branch:", branch.id, "Position:", position);
+          return position;
         }),
       );
 
@@ -1022,6 +1024,8 @@ export async function fetchLoansByAccount(
   if (!account) return null;
 
   const troves = await getIndexedTrovesByAccount(account);
+  console.log("[DEBUG] fetchLoansByAccount - Account:", account);
+  console.log("[DEBUG] fetchLoansByAccount - Troves returned:", troves.length, troves);
 
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
