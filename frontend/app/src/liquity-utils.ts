@@ -1023,9 +1023,16 @@ export async function fetchLoansByAccount(
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
 
-  const troves = await getIndexedTrovesByAccount(account);
-  console.log("[DEBUG] fetchLoansByAccount - Account:", account);
-  console.log("[DEBUG] fetchLoansByAccount - Troves returned:", troves.length, troves);
+  console.log("[DEBUG] fetchLoansByAccount - Starting, Account:", account);
+
+  let troves;
+  try {
+    troves = await getIndexedTrovesByAccount(account);
+    console.log("[DEBUG] fetchLoansByAccount - Troves returned:", troves.length, troves);
+  } catch (error) {
+    console.error("[DEBUG] fetchLoansByAccount - ERROR:", error);
+    throw error; // Re-throw so React Query handles it
+  }
 
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
