@@ -321,7 +321,6 @@ export function useEarnPositionsByAccount(account: null | Address) {
             allowFailure: false,
           });
           const position = setup.select(deposits);
-          console.log("[DEBUG] useEarnPositionsByAccount - Branch:", branch.id, "Position:", position);
           return position;
         }),
       );
@@ -1023,16 +1022,7 @@ export async function fetchLoansByAccount(
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
 
-  console.log("[DEBUG] fetchLoansByAccount - Starting, Account:", account);
-
-  let troves;
-  try {
-    troves = await getIndexedTrovesByAccount(account);
-    console.log("[DEBUG] fetchLoansByAccount - Troves returned:", troves.length, troves);
-  } catch (error) {
-    console.error("[DEBUG] fetchLoansByAccount - ERROR:", error);
-    throw error; // Re-throw so React Query handles it
-  }
+  const troves = await getIndexedTrovesByAccount(account);
 
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
