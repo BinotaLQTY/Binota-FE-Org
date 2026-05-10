@@ -44,6 +44,29 @@ export function Positions({
   const earnPositions = useEarnPositionsByAccount(address);
   const stakePosition = useStakePosition(address);
 
+  // DEBUG: Log position data to diagnose missing positions
+  console.log("[Positions Debug]", {
+    address,
+    loans: {
+      data: loans.data,
+      isPending: loans.isPending,
+      isError: loans.isError,
+      error: loans.error,
+    },
+    earnPositions: {
+      data: earnPositions.data,
+      isPending: earnPositions.isPending,
+      isError: earnPositions.isError,
+      error: earnPositions.error,
+    },
+    stakePosition: {
+      data: stakePosition.data,
+      isPending: stakePosition.isPending,
+      isError: stakePosition.isError,
+      error: stakePosition.error,
+    },
+  });
+
   const isPositionsPending = Boolean(
     address &&
       (loans.isPending ||

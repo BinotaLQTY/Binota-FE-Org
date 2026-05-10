@@ -1024,12 +1024,25 @@ export async function fetchLoansByAccount(
 
   const troves = await getIndexedTrovesByAccount(account);
 
+  // DEBUG: Log troves fetched from subgraph
+  console.log("[liquity-utils Debug] fetchLoansByAccount", {
+    account,
+    trovesFromSubgraph: troves.length,
+    troveIds: troves.map((t) => t.id),
+  });
+
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
       throw new Error(`Invalid prefixed trove ID: ${trove.id}`);
     }
     return fetchLoanById(wagmiConfig, trove.id, trove);
   }));
+
+  // DEBUG: Log final results after on-chain fetch
+  console.log("[liquity-utils Debug] fetchLoansByAccount results", {
+    account,
+    resultsCount: results.filter((r) => r !== null).length,
+  });
 
   return results.filter((result) => result !== null);
 }

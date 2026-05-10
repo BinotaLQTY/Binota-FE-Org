@@ -150,6 +150,14 @@ export async function getIndexedTrovesByAccount(
     account: account.toLowerCase(),
   });
 
+  // DEBUG: Log subgraph query result
+  console.log("[Subgraph Debug] getIndexedTrovesByAccount", {
+    account: account.toLowerCase(),
+    trovesCount: query.troves.length,
+    troves: query.troves,
+    subgraphUrl: SUBGRAPH_URL,
+  });
+
   return query.troves.map((trove) => ({
     id: trove.id,
     borrower: account,
