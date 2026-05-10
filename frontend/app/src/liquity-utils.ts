@@ -972,6 +972,15 @@ export async function fetchLoanById(
   const BorrowerOperations = getBranchContract(branchId, "BorrowerOperations");
   const TroveManager = getBranchContract(branchId, "TroveManager");
 
+  console.log("[DEBUG] fetchLoanById - contracts", {
+    branchId,
+    troveId,
+    BorrowerOperations: BorrowerOperations?.address,
+    TroveManager: TroveManager?.address,
+  });
+
+  console.log("[DEBUG] fetchLoanById - calling readContracts...");
+
   const [
     indexedTrove,
     [batchManager, troveData, troveStatus],
@@ -994,6 +1003,8 @@ export async function fetchLoanById(
       }],
     }),
   ]);
+
+  console.log("[DEBUG] fetchLoanById - readContracts COMPLETED");
 
   return !indexedTrove ? null : {
     type: indexedTrove.mightBeLeveraged ? "multiply" : "borrow",
