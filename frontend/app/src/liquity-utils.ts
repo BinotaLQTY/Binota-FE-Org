@@ -28,7 +28,7 @@ import {
 } from "@/src/constants";
 import { CONTRACTS, getBranchContract, getProtocolContract } from "@/src/contracts";
 import { dnum18, DNUM_0, dnumOrNull, jsonStringifyWithDnum } from "@/src/dnum-utils";
-import { CHAIN_BLOCK_EXPLORER, ENV_BRANCHES, LIQUITY_STATS_URL } from "@/src/env";
+import { CHAIN_BLOCK_EXPLORER, CHAIN_ID, ENV_BRANCHES, LIQUITY_STATS_URL } from "@/src/env";
 import { getRedemptionRisk } from "@/src/liquity-math";
 import { usePrice } from "@/src/services/Prices";
 import {
@@ -980,6 +980,7 @@ export async function fetchLoanById(
   });
 
   console.log("[DEBUG] fetchLoanById - calling readContracts...");
+  console.log("[DEBUG] wagmiConfig state:", wagmiConfig.state);
 
   const [
     indexedTrove,
@@ -990,14 +991,17 @@ export async function fetchLoanById(
       allowFailure: false,
       contracts: [{
         ...BorrowerOperations,
+        chainId: CHAIN_ID,
         functionName: "interestBatchManagerOf",
         args: [BigInt(troveId)],
       }, {
         ...TroveManager,
+        chainId: CHAIN_ID,
         functionName: "getLatestTroveData",
         args: [BigInt(troveId)],
       }, {
         ...TroveManager,
+        chainId: CHAIN_ID,
         functionName: "getTroveStatus",
         args: [BigInt(troveId)],
       }],
