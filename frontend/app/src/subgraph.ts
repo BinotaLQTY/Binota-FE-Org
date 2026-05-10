@@ -163,6 +163,8 @@ const TrovesByAccountQuery = graphql(`
 export async function getIndexedTrovesByAccount(
   account: Address
 ): Promise<IndexedTrove[]> {
+  console.log("[DEBUG] getIndexedTrovesByAccount CALLED", { account });
+
   const query = await graphQuery(TrovesByAccountQuery, {
     account: account.toLowerCase(),
   });
