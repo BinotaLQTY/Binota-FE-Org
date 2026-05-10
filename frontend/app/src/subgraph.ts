@@ -34,7 +34,8 @@ export type IndexedTrove = {
 async function tryFetch(...args: Parameters<typeof fetch>) {
   try {
     return await fetch(...args);
-  } catch {
+  } catch (error) {
+    console.error("[Subgraph] Fetch failed:", error);
     return null;
   }
 }
@@ -43,24 +44,40 @@ async function graphQuery<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
-  const response = await tryFetch(SUBGRAPH_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/graphql-response+json",
-    },
-    body: JSON.stringify({ query, variables }, (_, value) =>
-      typeof value === "bigint" ? String(value) : value
-    ),
+  // Debug: Log before fetch to track where queries hang
+  console.log("[DEBUG] graphQuery STARTING", {
+    url: SUBGRAPH_URL,
+    queryType: String(query).slice(0, 50),
   });
 
-  //dogshit logging keep this out of here
-  // fs.writeFile("/tmp/test", await response!.text(), function (err) {
-  //   if (err) {
-  //     return console.log(err);
-  //   }
-  //   console.log("The file was saved!");
-  // });
+  // Add timeout to prevent hanging indefinitely
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    console.error("[Subgraph] Request timed out after 30s");
+    controller.abort();
+  }, 30000);
+
+  let response: Response | null;
+  try {
+    response = await tryFetch(SUBGRAPH_URL, {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ query, variables }, (_, value) =>
+        typeof value === "bigint" ? String(value) : value
+      ),
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+
+  console.log("[DEBUG] graphQuery response received", {
+    status: response?.status,
+    ok: response?.ok,
+  });
 
   if (response === null || !response.ok) {
     subgraphIndicator.setError(

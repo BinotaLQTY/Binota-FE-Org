@@ -1022,6 +1022,12 @@ export async function fetchLoansByAccount(
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
 
+  // Debug: Log entry point to confirm function is being called
+  console.log("[DEBUG] fetchLoansByAccount STARTING", {
+    account,
+    hasWagmiConfig: !!wagmiConfig,
+  });
+
   const troves = await getIndexedTrovesByAccount(account);
 
   // DEBUG: Log troves fetched from subgraph
@@ -1052,6 +1058,7 @@ export function useLoansByAccount(account?: Address | null) {
   return useQuery<PositionLoanCommitted[] | null>({
     queryKey: ["TrovesByAccount", account],
     queryFn: () => fetchLoansByAccount(wagmiConfig, account),
+    enabled: Boolean(account),
   });
 }
 
