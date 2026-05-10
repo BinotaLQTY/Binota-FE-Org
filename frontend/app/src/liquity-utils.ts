@@ -972,6 +972,15 @@ export async function fetchLoanById(
   const BorrowerOperations = getBranchContract(branchId, "BorrowerOperations");
   const TroveManager = getBranchContract(branchId, "TroveManager");
 
+  console.log("[DEBUG] fetchLoanById - contracts", {
+    branchId,
+    troveId,
+    BorrowerOperations: BorrowerOperations?.address,
+    TroveManager: TroveManager?.address,
+  });
+
+  console.log("[DEBUG] fetchLoanById - calling readContracts...");
+
   const [
     indexedTrove,
     [batchManager, troveData, troveStatus],
@@ -994,6 +1003,8 @@ export async function fetchLoanById(
       }],
     }),
   ]);
+
+  console.log("[DEBUG] fetchLoanById - readContracts COMPLETED");
 
   return !indexedTrove ? null : {
     type: indexedTrove.mightBeLeveraged ? "multiply" : "borrow",
@@ -1021,6 +1032,12 @@ export async function fetchLoansByAccount(
   account?: Address | null,
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
+
+  // Debug: Log entry point to confirm function is being called
+  console.log("[DEBUG] fetchLoansByAccount STARTING", {
+    account,
+    hasWagmiConfig: !!wagmiConfig,
+  });
 
   const troves = await getIndexedTrovesByAccount(account);
 
@@ -1052,6 +1069,7 @@ export function useLoansByAccount(account?: Address | null) {
   return useQuery<PositionLoanCommitted[] | null>({
     queryKey: ["TrovesByAccount", account],
     queryFn: () => fetchLoansByAccount(wagmiConfig, account),
+    enabled: Boolean(account),
   });
 }
 
