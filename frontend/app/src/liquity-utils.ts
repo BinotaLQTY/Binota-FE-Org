@@ -982,8 +982,6 @@ export async function fetchLoanById(
   const BorrowerOperations = getBranchContract(branchId, "BorrowerOperations");
   const TroveManager = getBranchContract(branchId, "TroveManager");
 
-  console.log("[fetchLoanById] Calling readContracts for:", fullId, "chainId:", CHAIN_ID);
-
   const [
     indexedTrove,
     [batchManager, troveData, troveStatus],
@@ -1009,8 +1007,6 @@ export async function fetchLoanById(
       }],
     }),
   ]);
-
-  console.log("[fetchLoanById] readContracts completed for:", fullId, { batchManager, troveStatus });
 
   return !indexedTrove ? null : {
     type: indexedTrove.mightBeLeveraged ? "multiply" : "borrow",
@@ -1039,20 +1035,15 @@ export async function fetchLoansByAccount(
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
 
-  console.log("[fetchLoansByAccount] Starting for:", account);
-
   const troves = await getIndexedTrovesByAccount(account);
-  console.log("[fetchLoansByAccount] Subgraph returned:", troves.length, "troves");
 
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
       throw new Error(`Invalid prefixed trove ID: ${trove.id}`);
     }
-    console.log("[fetchLoansByAccount] Fetching loan:", trove.id);
     return fetchLoanById(wagmiConfig, trove.id, trove);
   }));
 
-  console.log("[fetchLoansByAccount] All loans fetched:", results.length);
   return results.filter((result) => result !== null);
 }
 
