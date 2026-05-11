@@ -2,7 +2,7 @@ import type { Dnum, Token } from "@/src/types";
 import type { Address } from "@binota/uikit";
 
 import { dnum18 } from "@/src/dnum-utils";
-import { CONTRACT_BOLD_TOKEN, CONTRACT_LQTY_TOKEN, CONTRACT_LUSD_TOKEN } from "@/src/env";
+import { CHAIN_ID, CONTRACT_BOLD_TOKEN, CONTRACT_LQTY_TOKEN, CONTRACT_LUSD_TOKEN } from "@/src/env";
 import { getBranch } from "@/src/liquity-utils";
 import { getSafeStatus } from "@/src/safe-utils";
 import { isCollateralSymbol } from "@binota/uikit";
@@ -62,6 +62,7 @@ export function useBalances(
     contracts: erc20Tokens.map((config) => ({
       address: config.tokenAddress! as Address,
       abi: erc20Abi,
+      chainId: CHAIN_ID,
       functionName: "balanceOf" as const,
       args: address ? [address] : undefined,
     })),
@@ -72,6 +73,7 @@ export function useBalances(
 
   const ethBalance = useWagmiBalance({
     address,
+    chainId: CHAIN_ID,
     query: {
       enabled: Boolean(address && ethTokens.length > 0),
     },

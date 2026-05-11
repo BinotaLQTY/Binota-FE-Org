@@ -56,13 +56,14 @@ export const wagmiConfig = createConfig(
     chains: allChains,
     enableFamily: false,
     ssr: true,
-    transports: {
-      [CHAIN_ID]: http(CHAIN_RPC_URL),
-      [mainnet.id]: http(CHAIN_RPC_URLS[1]),
-      [arbitrum.id]: http(CHAIN_RPC_URLS[42161]),
-      [base.id]: http(CHAIN_RPC_URLS[8453]),
-      [bsc.id]: http(CHAIN_RPC_URLS[56]),
-    },
+    transports: Object.fromEntries([
+      // Primary chain transport
+      [CHAIN_ID, http(CHAIN_RPC_URL)],
+      // Hub chains (only include if different from primary chain)
+      ...hubChains
+        .filter((c) => c.id !== CHAIN_ID)
+        .map((c) => [c.id, http(CHAIN_RPC_URLS[c.id as keyof typeof CHAIN_RPC_URLS])]),
+    ]) as Record<number, ReturnType<typeof http>>,
     walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
   }),
 );
