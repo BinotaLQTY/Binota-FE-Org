@@ -44,6 +44,16 @@ export function Positions({
   const earnPositions = useEarnPositionsByAccount(address);
   const stakePosition = useStakePosition(address);
 
+  // Diagnostic logging - remove after debugging
+  if (typeof window !== "undefined") {
+    console.log("[Positions]", {
+      address,
+      loans: { status: loans.status, data: loans.data?.length, error: loans.error?.message },
+      earnPositions: { status: earnPositions.status, data: earnPositions.data?.length },
+      stakePosition: { status: stakePosition.status },
+    });
+  }
+
   const isPositionsPending = Boolean(
     address &&
       (loans.isPending ||
