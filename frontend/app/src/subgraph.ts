@@ -5,6 +5,7 @@ import type {
   Address,
   BranchId,
   Dnum,
+  PrefixedTroveId,
   TroveId,
   TroveStatus,
 } from "@/src/types";
@@ -14,7 +15,11 @@ import { dnum18, dnum36 } from "@/src/dnum-utils";
 import { SUBGRAPH_URL } from "@/src/env";
 import { graphql } from "@/src/graphql";
 import { subgraphIndicator } from "@/src/indicators/subgraph-indicator";
-import { getPrefixedTroveId } from "@/src/liquity-utils";
+
+// Inlined to avoid circular dependency with liquity-utils.ts
+function getPrefixedTroveId(branchId: BranchId, troveId: TroveId): PrefixedTroveId {
+  return `${branchId}:${troveId}`;
+}
 
 export type IndexedTrove = {
   id: string;
