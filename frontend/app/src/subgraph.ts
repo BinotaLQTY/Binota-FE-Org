@@ -31,46 +31,24 @@ export type IndexedTrove = {
   redeemedDebt: Dnum;
 };
 
-async function tryFetch(...args: Parameters<typeof fetch>) {
-  try {
-    return await fetch(...args);
-  } catch (error) {
-    console.error("[Subgraph] Fetch failed:", error);
-    return null;
-  }
-}
-
 async function graphQuery<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
-  // Add timeout to prevent hanging indefinitely
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => {
-    console.error("[Subgraph] Request timed out after 30s");
-    controller.abort();
-  }, 30000);
+  const response = await fetch(SUBGRAPH_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/graphql-response+json",
+    },
+    body: JSON.stringify({ query, variables }, (_, value) =>
+      typeof value === "bigint" ? String(value) : value
+    ),
+  });
 
-  let response: Response | null;
-  try {
-    response = await tryFetch(SUBGRAPH_URL, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/graphql-response+json",
-      },
-      body: JSON.stringify({ query, variables }, (_, value) =>
-        typeof value === "bigint" ? String(value) : value
-      ),
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
-
-  if (response === null || !response.ok) {
+  if (!response.ok) {
     subgraphIndicator.setError(
-      `Subgraph error: unable to fetch data. ${response ?? "no response"}`
+      `Subgraph error: unable to fetch data. ${response}`
     );
     throw new Error("Error while fetching data from the subgraph");
   }
@@ -78,7 +56,6 @@ async function graphQuery<TResult, TVariables>(
   const result = await response.json();
 
   if (!result.data) {
-    console.error(result);
     subgraphIndicator.setError("Subgraph error: invalid response.");
     throw new Error("Invalid response from the subgraph");
   }
@@ -276,10 +253,9 @@ const AllInterestRateBracketsQuery = graphql(`
 `);
 
 export async function getAllInterestRateBrackets() {
-  try{
-    const result = await graphQuery(AllInterestRateBracketsQuery);
+  const result = await graphQuery(AllInterestRateBracketsQuery);
 
-    const brackets = result.interestRateBrackets
+  const brackets = result.interestRateBrackets
     .map((bracket) => ({
       branchId: bracket.collateral.collIndex,
       rate: dnum18(bracket.rate),
@@ -290,7 +266,7 @@ export async function getAllInterestRateBrackets() {
     }))
     .sort((a, b) => dn.cmp(a.rate, b.rate));
 
-  if(brackets.length === 0) {
+  if (brackets.length === 0) {
     return {
       lastUpdatedAt: BigInt(0),
       brackets: [],
@@ -321,9 +297,6 @@ export async function getAllInterestRateBrackets() {
       },
     })),
   };
-  }catch(e){
-    console.error('AllInterestRateBracketsQuery error',e)
-  }
 }
 
 const GovernanceGlobalDataQuery = graphql(`
