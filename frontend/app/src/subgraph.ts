@@ -44,12 +44,6 @@ async function graphQuery<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
-  // Debug: Log before fetch to track where queries hang
-  console.log("[DEBUG] graphQuery STARTING", {
-    url: SUBGRAPH_URL,
-    queryType: String(query).slice(0, 50),
-  });
-
   // Add timeout to prevent hanging indefinitely
   const controller = new AbortController();
   const timeoutId = setTimeout(() => {
@@ -73,11 +67,6 @@ async function graphQuery<TResult, TVariables>(
   } finally {
     clearTimeout(timeoutId);
   }
-
-  console.log("[DEBUG] graphQuery response received", {
-    status: response?.status,
-    ok: response?.ok,
-  });
 
   if (response === null || !response.ok) {
     subgraphIndicator.setError(
@@ -163,18 +152,8 @@ const TrovesByAccountQuery = graphql(`
 export async function getIndexedTrovesByAccount(
   account: Address
 ): Promise<IndexedTrove[]> {
-  console.log("[DEBUG] getIndexedTrovesByAccount CALLED", { account });
-
   const query = await graphQuery(TrovesByAccountQuery, {
     account: account.toLowerCase(),
-  });
-
-  // DEBUG: Log subgraph query result
-  console.log("[Subgraph Debug] getIndexedTrovesByAccount", {
-    account: account.toLowerCase(),
-    trovesCount: query.troves.length,
-    troves: query.troves,
-    subgraphUrl: SUBGRAPH_URL,
   });
 
   return query.troves.map((trove) => ({

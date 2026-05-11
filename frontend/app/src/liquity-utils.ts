@@ -213,6 +213,7 @@ export function useEarnPool(branchId: BranchId | null) {
       }
       const totalBoldDeposits = await readContract(wagmiConfig, {
         ...getBranchContract(branchId, "StabilityPool"),
+        chainId: CHAIN_ID,
         functionName: "getTotalOneDeposits",
       });
       return {
@@ -241,18 +242,22 @@ function earnPositionsContractsReadSetup(branchId: BranchId, account: Address | 
   return {
     contracts: [{
       ...StabilityPool,
+      chainId: CHAIN_ID,
       functionName: "getCompoundedOneDeposit",
       args: [account ?? "0x"],
     }, {
       ...StabilityPool,
+      chainId: CHAIN_ID,
       functionName: "getDepositorCollGain",
       args: [account ?? "0x"],
     }, {
       ...StabilityPool,
+      chainId: CHAIN_ID,
       functionName: "stashedColl",
       args: [account ?? "0x"],
     }, {
       ...StabilityPool,
+      chainId: CHAIN_ID,
       functionName: "getDepositorYieldGainWithPending",
       args: [account ?? "0x"],
     }],
@@ -804,12 +809,15 @@ export function useBranchCollateralRatios(branchId: BranchId) {
       const [totalColl, totalDebt, ccr_] = await readContracts(wagmiConfig, {
         contracts: [{
           ...TroveManager,
+          chainId: CHAIN_ID,
           functionName: "getEntireBranchColl",
         }, {
           ...TroveManager,
+          chainId: CHAIN_ID,
           functionName: "getEntireBranchDebt",
         }, {
           ...TroveManager,
+          chainId: CHAIN_ID,
           functionName: "CCR",
         }],
         allowFailure: false,
@@ -899,6 +907,7 @@ export function useInterestBatchDelegates(
           allowFailure: false,
           contracts: batchAddresses.map((address) => ({
             ...getBranchContract(branchId, "BorrowerOperations"),
+            chainId: CHAIN_ID,
             functionName: "getInterestBatchManager" as const,
             args: [address],
           })),
@@ -950,6 +959,7 @@ export function useTroveRateUpdateCooldown(branchId: BranchId, troveId: TroveId)
     queryFn: async () => {
       const { lastInterestRateAdjTime } = await readContract(wagmiConfig, {
         ...getBranchContract(branchId, "TroveManager"),
+        chainId: CHAIN_ID,
         functionName: "getLatestTroveData",
         args: [BigInt(troveId)],
       });
@@ -971,16 +981,6 @@ export async function fetchLoanById(
   const { branchId, troveId } = parsePrefixedTroveId(fullId);
   const BorrowerOperations = getBranchContract(branchId, "BorrowerOperations");
   const TroveManager = getBranchContract(branchId, "TroveManager");
-
-  console.log("[DEBUG] fetchLoanById - contracts", {
-    branchId,
-    troveId,
-    BorrowerOperations: BorrowerOperations?.address,
-    TroveManager: TroveManager?.address,
-  });
-
-  console.log("[DEBUG] fetchLoanById - calling readContracts...");
-  console.log("[DEBUG] wagmiConfig state:", wagmiConfig.state);
 
   const [
     indexedTrove,
@@ -1007,8 +1007,6 @@ export async function fetchLoanById(
       }],
     }),
   ]);
-
-  console.log("[DEBUG] fetchLoanById - readContracts COMPLETED");
 
   return !indexedTrove ? null : {
     type: indexedTrove.mightBeLeveraged ? "multiply" : "borrow",
@@ -1037,20 +1035,7 @@ export async function fetchLoansByAccount(
 ): Promise<PositionLoanCommitted[] | null> {
   if (!account) return null;
 
-  // Debug: Log entry point to confirm function is being called
-  console.log("[DEBUG] fetchLoansByAccount STARTING", {
-    account,
-    hasWagmiConfig: !!wagmiConfig,
-  });
-
   const troves = await getIndexedTrovesByAccount(account);
-
-  // DEBUG: Log troves fetched from subgraph
-  console.log("[liquity-utils Debug] fetchLoansByAccount", {
-    account,
-    trovesFromSubgraph: troves.length,
-    troveIds: troves.map((t) => t.id),
-  });
 
   const results = await Promise.all(troves.map((trove) => {
     if (!isPrefixedtroveId(trove.id)) {
@@ -1058,12 +1043,6 @@ export async function fetchLoansByAccount(
     }
     return fetchLoanById(wagmiConfig, trove.id, trove);
   }));
-
-  // DEBUG: Log final results after on-chain fetch
-  console.log("[liquity-utils Debug] fetchLoansByAccount results", {
-    account,
-    resultsCount: results.filter((r) => r !== null).length,
-  });
 
   return results.filter((result) => result !== null);
 }
