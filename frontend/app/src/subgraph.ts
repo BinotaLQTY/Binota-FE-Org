@@ -58,7 +58,7 @@ async function graphQuery<TResult, TVariables>(
       signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/graphql-response+json",
       },
       body: JSON.stringify({ query, variables }, (_, value) =>
         typeof value === "bigint" ? String(value) : value
